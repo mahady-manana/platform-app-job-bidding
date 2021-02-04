@@ -1,0 +1,43 @@
+.mmd-slideshow .items-show {
+    padding: 0;
+    list-style: none;
+}
+.mmd-slideshow .items-show .slide-item {
+    display: inline-block;
+    width: 20%;
+    padding: 20px;
+}
+@media screen and (max-width : 767px) {
+    .mmd-slideshow .items-show .slide-item {
+        width: 50%;
+    }
+}
+.mmd-slideshow .items-show .slide-item h3 {
+    font-size: 15px;
+    margin: 10px 0;
+    background: rgb(62 4 12);
+    color: #fff;
+    padding: 5px 0;
+}
+.mmd-slideshow .slide-item .slide-item-inner {
+    background: #fdfdfd;
+    text-align: center;
+    padding: 10px;
+    box-shadow: 0px 0px 20px 0px #828282;
+}
+.mmd-slideshow .items-show .slide-item p {
+    margin-bottom: 0;
+}
+.mmd-slideshow .items-show .slide-content {
+    background: #e4e4e4;
+}
+.mmd-slideshow .items-show .slide-item .job-title {
+    color: #bc1749;
+}
+.mmd-slideshow .slide-item .images-slide {
+    border-radius: 50%;
+    overflow: hidden;
+}
+.mmd-slideshow {
+    margin: 40px 0;
+}

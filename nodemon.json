@@ -1,0 +1,5 @@
+{
+    "verbose" : false,
+    "watch" : ["./server"],
+    "exec" : "webpack --mode=development --config webpack.server.js && node ./build/build.index.js"
+}

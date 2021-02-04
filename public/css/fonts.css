@@ -1,0 +1,77 @@
+/*
+* Now
+*
+*/
+@font-face {
+    font-family: 'Now Regular';
+    font-style: normal;
+    font-weight: normal;
+    src:  url('../fonts/Now-Regular.otf') format('opentype');
+
+}
+@font-face {
+    font-family: 'Now Thin';
+    font-style: normal;
+    font-weight: normal;
+    src:  url('../fonts/Now-Thin.otf') format('opentype');
+
+}
+@font-face {
+    font-family: 'Now Light';
+    font-style: normal;
+    font-weight: normal;
+    src:  url('../fonts/Now-Light.otf') format('opentype');
+
+}
+@font-face {
+    font-family: 'Now Bold';
+    font-style: normal;
+    font-weight: normal;
+    src:  url('../fonts/Now-Bold.otf') format('opentype');
+
+}
+/*
+*  Summit
+*
+*/
+@font-face {
+    font-family: 'Summit LD';
+    font-style: normal;
+    font-weight: normal;
+    src:  url('../fonts/SummitLight-Display.ttf') format('truetype');
+
+}
+@font-face {
+    font-family: 'Summit LS';
+    font-style: normal;
+    font-weight: normal;
+    src:  url('../fonts/SummitLight-Solid.ttf') format('truetype');
+
+}
+@font-face {
+    font-family: 'Summit RegularD';
+    font-style: normal;
+    font-weight: normal;
+    src:  url('../fonts/SummitRegular-Display.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Summit MediumD';
+    font-style: normal;
+    font-weight: normal;
+    src:  url('../fonts/SummitMedium-Display.ttf') format('truetype');
+}
+body {
+    font-family: "Now Regular" !important;
+}
+h1 {
+    font-family: 'Summit RegularD';
+}
+h2 {
+    font-family: 'Summit LD';
+}
+h3 {
+    font-family: 'Now Regular';
+}
+h4, h5 {
+    font-family: "Now Regular";
+}
