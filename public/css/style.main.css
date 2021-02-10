@@ -67,6 +67,15 @@ a:hover {
 *:hover {
     transition: .5s;
 }
+input:focus, textarea:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+.btn.enable {
+    background: #c70d97;
+    color: #fff !important;
+    border-color: #c70d97;
+}
 .image-container {
     margin-bottom: 30px;
 }
@@ -291,7 +300,8 @@ a:hover {
     padding: 15px;
 }
 .main-footer.section {
-    background: #bfbfbf;
+    background: #000000;
+    color: #fff;
 }
 /*
 *
@@ -314,4 +324,198 @@ a:hover {
 }
 .main-footer .col-sm-3 {
     border-right: 1px solid #9c9c9c;
+}
+/*
+*
+* Edit profile
+*/
+.edit-profile input.form-control {
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+.edit-profile label {
+    display: block;
+}
+.edit-profile .job-title input {
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 0;
+    color: #c70d97;
+}
+/***
+**** Popup
+***/
+.popup {
+    position: fixed;
+    top: 0;
+    height: 100%;
+    background: rgb(0 0 0 / 60%);
+    z-index: 999;
+    padding: 40px;
+    box-shadow: 0px 0px 50px;
+    width: 100%;
+    left: 0;
+}
+.popup .popup-content {
+    background: #fff;
+    padding: 27px;
+    width: fit-content;
+    margin: auto;
+}
+.finishandsave {
+    text-align: right;
+}
+.closex_btn {
+    background: #e2e2e2;
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    cursor: pointer;
+    justify-content: center;
+    padding: 0px !important;
+    height: 30px;
+    width: 30px;
+}
+.popup.closex {
+    display: none;
+}
+.add-experience .plusexperience {
+    width: 100%;
+    height: 70px;
+    color: #3b0ad2;
+    background: #ffff;
+    border: 1px solid;
+    font-size: 36px;
+}
+.form_signup_full .right_col_main {
+    box-shadow: 0px 0px 20px -5px rgb(0 0 0 / 30%);
+    padding: 27px;
+    background: #fff;
+}
+.form_signup_full .right_col_main h3 {
+    font-size: 15px;
+    margin: 30px 0px;
+    color: #ffffff;
+    letter-spacing: 5px;
+    padding: 10px;
+    text-transform: uppercase;
+    background: #c70d97;
+    text-align: center;
+}
+.skills-section .item_skill_list {
+    border: 1px solid;
+    padding: 5px 10px;
+    margin-right: 10px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+.skills-section .listofskill {
+    margin-bottom: 15px;
+}
+.edit-profile {
+    background: repeating-linear-gradient(
+30deg
+, #ffffff, #bce2c0 2px);
+}
+.right_col_main .experience_posted .experience_tab {
+    margin-bottom: 15px;
+    padding: 15px;
+    border: 1px solid #ccc;
+}
+.experience_posted .experience_tab h4.title {
+    font-size: 15px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #f3f3f3;
+    padding-bottom: 10px;
+}
+.experience_posted .experience_tab .company {
+    text-transform: uppercase;
+    color: #c70d97;
+    font-size: 14px;
+    text-decoration: underline;
+}
+.experience_posted .experience_tab .date_experience {
+    background: #b3b3b3;
+    padding: 5px;
+    color: #fff;
+    font-size: 13px;
+}
+.experience_posted .experience_tab .description_experience {
+    box-shadow: inset 0px 0px 5px 0px #ccc;
+    padding: 27px 15px;
+    background: #fdfdfd;
+    border-radius: 5px;
+}
+.left_main_col .inner-col {
+    background: #fff;
+    box-shadow: 0px 0px 18px 0px rgb(0 0 0 / 30%);
+    padding: 15px;
+}
+.left_main_col .profile_image .image-container {
+    height: 200px;
+    width: 200px;
+    margin: auto;
+    margin-bottom: 15px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 18px 0px #ccc;
+    border: 1px solid #ccc;
+}
+.left_main_col .input-profile {
+    display: none;
+}
+.left_main_col .profile_upload label {
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid #888;
+    color: #888;
+    border-radius: 50px;
+    padding: 10px 5px;
+}
+.left_main_col .profile_upload label:hover {
+    background: #c70d97;
+    color: #fff;
+    border-color: #fff;
+}
+.left_main_col .profile_image img {
+    height: 100%;
+    width: 100%;
+    clip-path: circle(50% at 50% 50%);
+    object-fit: cover;
+}
+button.pluseducation {
+    background: transparent;
+    border: 1px solid #000;
+    width: 100%;
+    height: 70px;
+    font-size: 35px;
+}
+.add-education .education_tab h4.title {
+    font-size: 16px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 15px;
+}
+.add-education .education_tab .school {
+    color: #c70d97;
+}
+.add-education .education_tab .date_educ {
+    background: #ccc;
+    color: #fff;
+    padding: 2px;
+    font-size: 13px;
+}
+.add-education .education_tab .degree_educ {
+    background: #ccc;
+    display: inline-block;
+    padding: 5px;
+    color: #c70d97;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+.add-education .education_tab .description {
+    background: #f5f5f5;
+    padding: 20px;
+    margin: 15px 0px;
+    border: 1px solid #ccc;
 }

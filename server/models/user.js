@@ -17,7 +17,6 @@ const Users = new Schema({
     phone : {type : Number},
     city : {type : String},
     country : {type : String},
-    timezone : {type : String},
     star : {type : Number},
     job_title : {type : String},
     hourly_rate : {type : String},

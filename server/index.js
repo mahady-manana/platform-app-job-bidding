@@ -12,7 +12,7 @@ import theme from "../client/theme";
 import SharedRouter from "../client/SharedRouter";
 import AuthRouter from "./routers/user.authentication";
 import UserRouters from "./routers/user.router";
-
+import SinglePhotoRouter from './routers/single.photo';
 
 const CURRENT_WD = process.cwd();
 const app = express();
@@ -26,7 +26,7 @@ app.use("*", express.static(path.join(CURRENT_WD, '/build/')))
 
 app.use("/", AuthRouter);
 app.use("/", UserRouters);
-
+app.use('/', SinglePhotoRouter)
 app.get("*", (req, res) => {
     const sheets = new ServerStyleSheets();
     const context = {};
@@ -76,16 +76,15 @@ app.get("*", (req, res) => {
     `)
 })
 
-// mongoose.Promise = global.Promise
-// mongoose.connect(config.mongoURI, { 
-//     useNewUrlParser: true, 
-//     useCreateIndex: true, 
-//     useUnifiedTopology: true, 
-//     useFindAndModify: false })
-// mongoose.connection.on('error', () => {
-//   throw new Error(`unable to connect to database: ${config.mongoURI}`)
-// })
-
+mongoose.Promise = global.Promise
+mongoose.connect(config.mongoURI, { 
+    useNewUrlParser: true, 
+    useCreateIndex: true, 
+    useUnifiedTopology: true, 
+    useFindAndModify: false })
+mongoose.connection.on('error', () => {
+  throw new Error(`unable to connect to database: ${config.mongoURI}`)
+})
 app.listen(config.port, error => {
     if (error) {
         console.log(error)
