@@ -1,38 +1,47 @@
 import React, {useState, useEffect} from 'react';
 import { Redirect } from 'react-router-dom';
-
+import axios from 'axios';
 const FreelancerPreSignup = props => {
 
 const [infos, setInfos] = useState({
     email : '',
     password : '',
     isFilled : false,
+    error : '',
+    linking : 'http://localhost:5555/fill/3/profile/',
+    loading : false,
+    code : Math.floor(100000 + Math.random() * 999999)
 })
-const [btndisabled, setDisabled] = useState(false)
-const checkIfCompleted = () => {
-    if (infos.email !== '' && infos.password.length > 8) {
-        setDisabled(true)
-    } else {
-        setDisabled(false)
-    }
-}
+
 const handleChange = event => {
     event.preventDefault();
     const name = event.target.name;
     const values = event.target.value;
-    setInfos({...infos, [name] : values})
-    checkIfCompleted()
+    setInfos({...infos, [name] : values, error : ''})
 }
  
 const saveAndNext = event => {
     event.preventDefault();
-    setInfos({...infos, isFilled : true})
+    if (infos.password.length < 8) {
+       setInfos({...infos, error : 'Password must be at last 8 caracters'})
+    } else {
+        setInfos({...infos, loading : true})
+        const data = {
+            email : infos.email,
+            code : infos.code,
+            linking : infos.linking
+        }
+        axios.post('/user/post/email/verify/', data).then(res => {
+            setInfos({...infos, loading : false, isFilled : true})
+            console.log(res.data)
+        }).catch(err => console.log(err))
+    }
 }
 const {isFilled} = infos
 if (isFilled) {
     return (
         <Redirect to={{
-            pathname :'/fill/3/profile/',
+            pathname :'/user/signup/verification/',
             state : {infos}
             }}/>
     )
@@ -54,14 +63,18 @@ return (
                         <div className="form-group">
                             <label htmlFor="password">Password: * (<em>Password must be at last 8 caracters</em>)</label>
                             <input type="password" className="form-control" name='password' value={infos.password} onChange={handleChange}/><br/>
+                            <p className='text-danger'>{infos.error}</p>
                         </div>
-                        <button type="submit" className={`btn default-1 ${btndisabled ? 'enable' : 'disabled'}`} disabled={btndisabled ? false : true}>Save & Next</button>
+                        <button type="submit" className='btn default-1 enable'>Save & Next</button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
     </div>
+</div>
+<div className={`loading-popup ${infos.loading ? '' : 'closex'}`}>
+        <span className='loading-icon'>Processing...</span>
 </div>
 </>
 )

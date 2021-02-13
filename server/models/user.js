@@ -20,7 +20,7 @@ const Users = new Schema({
     star : {type : Number},
     job_title : {type : String},
     hourly_rate : {type : String},
-    skill : {type : String},
+    skill : [],
     description : {type : String},
     languages : {type : String},
     joining_date : {type : Date},
@@ -54,4 +54,4 @@ const Users = new Schema({
     github : {type : String},
 })
 
-export default mongoose.model("User_type_workers", Users)
+export default mongoose.model("User_type_workers_123", Users)

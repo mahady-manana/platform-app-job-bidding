@@ -6,10 +6,11 @@ import Single from "../models/photo.single";
 const CURRENT_WORKING_DIR = process.cwd()
 const uploadFile = async (req, res, next) => {
 	try {
-		const files = req.files;
+		const file = req.file;
 		const fileInfo = await new Single({
-				filename : files.filename,
-				uploadDate : Date.now()
+				filename : file.filename,
+				uploadDate : Date.now(),
+				photo_sign : req.body.photo_sign
 			})
 			fileInfo.save()
                     .then(file => {
@@ -36,43 +37,41 @@ const getMedia = async (req, res, next) => {
 	}
 }
 
-const getOneFile = async (req, res, next) => {
-	try {
-		await Single.find(req.params.filename, (error, file) => {
-			if (error) {
-				res.status(404).json(error)
-			}
-			res.send(file)
-		})
-	} catch(error) {
-		next(error)
-	}
-}
+// const getOneFile = async (req, res, next) => {
+// 	try {
+// 		await Single.find(req.params.filename, (error, file) => {
+// 			if (error) {
+// 				res.status(404).json(error)
+// 			}
+// 			res.send(file)
+// 		})
+// 	} catch(error) {
+// 		next(error)
+// 	}
+// }
 
-const removeFile = async (req, res, next) => {
-	try {
-		await Single.findByIdAndDelete(req.params.id, (error, file) => {
+// const removeFile = async (req, res, next) => {
+// 	try {
+// 		await Single.findByIdAndDelete(req.params.id, (error, file) => {
 
-			if (error || !file) {
-				throw new TypeError("Delete error : ", error)
-			} else {
-				fs.unlink(path.join(CURRENT_WORKING_DIR, "./public/uploads/profile/" + file.filename), error => {
-					if (error) {
-						throw new TypeError("File dir error : ", error)
-					} else {
-						res.send("File deleted successfully")
-					}
-				})
-			}
-		})
-	} catch(error) {
-		next(error)
-	}
-}
+// 			if (error || !file) {
+// 				throw new TypeError("Delete error : ", error)
+// 			} else {
+// 				fs.unlink(path.join(CURRENT_WORKING_DIR, "./public/uploads/profile/" + file.filename), error => {
+// 					if (error) {
+// 						throw new TypeError("File dir error : ", error)
+// 					} else {
+// 						res.send("File deleted successfully")
+// 					}
+// 				})
+// 			}
+// 		})
+// 	} catch(error) {
+// 		next(error)
+// 	}
+// }
 
 export default {
 	uploadFile,
-	getMedia,
-	getOneFile,
-	removeFile	
+	getMedia
 }

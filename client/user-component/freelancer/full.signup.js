@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from 'react';
-// import Autocomplete  from "@material-ui/lab/Autocomplete";
-// import TextField  from "@material-ui/core/TextField";
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import {Input, Textarea} from '../../utils/formUtility'
 import Experience from './experience';
 import SkillsOptions from './skills_options';
 import Education from './education';
+import axios from 'axios';
 
 const FillSignup = props => {
 
@@ -23,7 +22,8 @@ const [values, setValues] = useState({
     skill : [],
     education : [],
     experience : [],
-    photo : ''
+    photo : '',
+    photo_sign : ''
 })
 const [imageFile, setImageFile] = useState({photo : ''});
 
@@ -33,7 +33,7 @@ const [isOpenEduc, setOpenEduc] = useState(false);
 useEffect(() => {
     let cleanup = false;
     // const EmailPassword = props.location.state.infos
-    setValues(values => ({...values, email : props.location.state.infos.email, password : props.location.state.infos.password}))
+    setValues(values => ({...values, email : props.location.state.user.email, password : props.location.state.user.password}))
     // console.log()
     return () => {
         cleanup = true;
@@ -90,7 +90,31 @@ const classOpenOrCloseEduc = () => {
 }
 const handleSubmitAll = event => {
     event.preventDefault();
-    console.log(values)
+    const dateNow = Date.now();
+    const formData =  new FormData();
+          formData.append('file', values.photo)
+          formData.append('filename', values.photo.name)
+          formData.append('uploaded', dateNow)
+          formData.append('photo_sign', dateNow + values.email + values.name)
+    const allFields = {
+        email : values.email,
+        password : values.password,
+        firstname : values.firstname,
+        lastname : values.lastname,
+        job_title : values.job_title,
+        description : values.description,
+        hourly_rate : values.hourly_rate,
+        city : values.city,
+        country : values.country,
+        skill : values.skill,
+        education : values.education,
+        experience : values.experience,
+    }
+    
+    axios.post('/user/type-client/add', allFields).then(res => console.log(res.data)).catch(err => console.log(err))
+    // axios.post('/photo-profile/medias/upload', formData, {
+    //     'contentType' : 'multipart/form-data'
+    // }).then(res => console.log('Added Photo')).catch(err => console.log(err))
 }
 return (
 <>
@@ -99,7 +123,7 @@ return (
         <div className='contaier'>
             <h3>Fill out your profile</h3>
         </div>
-        <form onSubmit={handleSubmitAll} className='form_signup_full'>
+        <form onSubmit={handleSubmitAll} className='form_signup_full' encType='multipart/form-data'>
         <section className='section'>
             <div className='inner-section'>
                 <div className='container'>
@@ -285,13 +309,15 @@ return (
                                 </div>
                             </div>
                             {/* {education} */}
+                            <div className='btn-container submit'>
+                                <button className='btn default-1' type='submit'>Save & Go inside</button>
+                            </div>
                         </div>
                         {/* {column right} */}
                     </div>
                 </div>
             </div>
         </section>
-        <button className='btn default-1' type='submit'>Save all</button>
         </form>
     </div> 
 </div>

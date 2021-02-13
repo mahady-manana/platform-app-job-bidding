@@ -31,7 +31,7 @@ return (
         </div>
     </div>
 </div>
-<div className='main-header'>
+<div className='main-header' id='header_main'>
     <div>
         <nav className="navbar navbar-expand-sm justify-content-center mbgc-3">
             <ul className="navbar-nav">

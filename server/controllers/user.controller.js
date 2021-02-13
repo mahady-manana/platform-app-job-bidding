@@ -4,14 +4,31 @@ import Bcryptjs from "bcryptjs";
 const addUser = async (req, res, next) => {
 
     req.body.password = Bcryptjs.hashSync(req.body.password, 10)
+    
     const user = new Users(req.body)
     try {
         await user.save()
         return res.status(200).json({message : "Signin up successfully, Your account is now active!"})
     } catch (error) {
-        return res.json({error : "Something went wrong, please try again later!"})
+        return res.json({error : "Something went wrong, please try again later!", message_error : error})
     }
 }
+const completeUser = async (req, res, next) => {
+
+    Users.findOneAndUpdate({email : req.params.email}, {$set : {
+            firstaname : req.body.firstaname,
+            lastname : req.body.lastname,
+            job_title : req.body.job_title
+    }}, )
+}
+// const addExperience = async (req, res, next) => {
+
+//     const user = new Users(req.body)
+//     Users.findOneAndUpdate(req.params.email, {
+//         $addToSet : 
+//     })
+// }
+
 const readOne = async (req, res, next) => {
     try {
         await Users.findById(req.params.id, (error, user) => {
@@ -92,7 +109,7 @@ export default {
     addUser,
     readOne,
     userList,
-    // addToCart,
+    completeUser,
     // updateCart,
     orderMade
 }

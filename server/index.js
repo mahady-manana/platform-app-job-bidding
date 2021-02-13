@@ -4,6 +4,10 @@ import config from "./config/config";
 import webpackBundler from "./webpackBundler";
 import mongoose from "mongoose";
 import path from "path";
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+
 import React from "react";
 import { ServerStyleSheets, ThemeProvider } from "@material-ui/core";
 import ReactDOMServer from "react-dom/server";
@@ -13,7 +17,7 @@ import SharedRouter from "../client/SharedRouter";
 import AuthRouter from "./routers/user.authentication";
 import UserRouters from "./routers/user.router";
 import SinglePhotoRouter from './routers/single.photo';
-
+import SendMailRouter from './routers/user-email-verify';
 const CURRENT_WD = process.cwd();
 const app = express();
 
@@ -23,7 +27,11 @@ app.use(favicon(path.join(CURRENT_WD, "public", 'images', "icon.png")))
 app.use(express.static(path.join(CURRENT_WD, '/build/')))
 app.use(express.static(path.join(CURRENT_WD, '/public/')))
 app.use("*", express.static(path.join(CURRENT_WD, '/build/')))
-
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended : true}));
+app.use(cookieParser())
+app.use('/', SendMailRouter)
 app.use("/", AuthRouter);
 app.use("/", UserRouters);
 app.use('/', SinglePhotoRouter)
