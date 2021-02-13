@@ -1,7 +1,7 @@
 import express from "express";
 import favicon from "serve-favicon";
 import config from "./config/config";
-import webpackBundler from "./webpackBundler";
+// import webpackBundler from "./webpackBundler";
 import mongoose from "mongoose";
 import path from "path";
 import bodyParser from 'body-parser';
@@ -21,7 +21,7 @@ import SendMailRouter from './routers/user-email-verify';
 const CURRENT_WD = process.cwd();
 const app = express();
 
-webpackBundler.Bundler(app);
+// webpackBundler.Bundler(app);
 
 app.use(favicon(path.join(CURRENT_WD, "public", 'images', "icon.png")))
 app.use(express.static(path.join(CURRENT_WD, '/build/')))

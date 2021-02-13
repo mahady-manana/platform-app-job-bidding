@@ -33,7 +33,7 @@ const saveAndNext = event => {
         }
         axios.post('/user/post/email/verify/', data).then(res => {
             setInfos({...infos, loading : false, isFilled : true})
-            console.log(res.data)
+        
         }).catch(err => console.log(err))
     }
 }
