@@ -1,14 +1,13 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
-const FreelancerPreSignup = props => {
+const FreelancerPreSignup = () => {
 
 const [infos, setInfos] = useState({
     email : '',
     password : '',
     isFilled : false,
     error : '',
-    linking : 'http://localhost:5555/fill/3/profile/',
     loading : false,
     code : Math.floor(100000 + Math.random() * 999999)
 })
@@ -29,7 +28,6 @@ const saveAndNext = event => {
         const data = {
             email : infos.email,
             code : infos.code,
-            linking : infos.linking
         }
         axios.post('/user/post/email/verify/', data).then(res => {
             setInfos({...infos, loading : false, isFilled : true})
