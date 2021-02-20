@@ -45,10 +45,10 @@ return (
                     <Link className="nav-link text-white" to="/service">Services</Link>
                 </li>
                 <li className="nav-item">
-                    <Link className="nav-link text-white" to="/help">Help</Link>
+                    <Link className="nav-link text-white" to="/use-reducer">UseReducer</Link>
                 </li>
                 <li className="nav-item">
-                    <Link className="nav-link text-white" to="/faq">FAQ</Link>
+                    <Link className="nav-link text-white" to="/exmaplecontext/">Context</Link>
                 </li>
             </ul>
         </nav>

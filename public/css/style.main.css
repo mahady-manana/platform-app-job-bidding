@@ -180,9 +180,6 @@ input:focus, textarea:focus {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    background: linear-gradient(
-0deg
-, white, transparent);
 }
 @media screen and (min-width : 768px) {
     .homepage .top-section h1 {
@@ -637,7 +634,7 @@ button.pluseducation {
     box-shadow: 0px 0px 18px 0px #000;
 }
 .codedigitlink input.form-control {
-    width: 120px;
+    width: 135px;
     margin: auto;
     border: 2px solid #3b0ad2;
     border-radius: 50px;
@@ -651,4 +648,10 @@ button.pluseducation {
     font-size: 14px;
     margin-bottom: 15px;
     border-bottom: 2px solid #8c0cb0;
+}
+.intro-verification span.email-user {
+    color: #c70d97;
+    display: block;
+    margin-top: 8px;
+    text-decoration: underline;
 }

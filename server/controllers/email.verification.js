@@ -7,17 +7,17 @@ let transporter = nodemailer.createTransport({
     secure : false,
     auth : {
         user : 'rm.mahady@gmail.com',
-        pass : '......'
+        pass : 'password here'
     }
 })
 
 try {
     await transporter.sendMail({
-        from : '"Admin Go-Inside" - <rm.mahady@gmail.com>',
+        from : '"Admin Go-Inside" - <noreply@go-inside.com>',
         to : req.body.email,
         subject : 'Email verification - Go Inside',
-        html : `<p>Hello,<br/>To activate your account copy/paste the code bellow.<br/>
-        <br/>Your code is : <b>${req.body.code}</b><br/>
+        html : `<p>Hello ${req.body.firstname} ${req.body.lastname.substring(0,1).toUpperCase()},<br/>To activate your account copy/paste the code bellow.<br/>
+        <br/>Your activation code : <b>${req.body.code}</b><br/>
         Thank you for your registration.`
     })
     return res.status(200).json({message : 'ok'})

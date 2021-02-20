@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import {Input, Textarea} from '../../utils/formUtility'
@@ -6,9 +6,10 @@ import Experience from './experience';
 import SkillsOptions from './skills_options';
 import Education from './education';
 import axios from 'axios';
+import {FreelancerContext} from './FreelancerContext';
 
 const FillSignup = props => {
-
+const context = useContext(FreelancerContext)
 const [values, setValues] = useState({
     email : '',
     password : '',
@@ -32,9 +33,15 @@ const [isOpenEduc, setOpenEduc] = useState(false);
 
 useEffect(() => {
     let cleanup = false;
-    // const EmailPassword = props.location.state.infos
-    setValues(values => ({...values, email : props.location.state.user.email, password : props.location.state.user.password}))
-    // console.log()
+    const {contextValues} = context;
+    console.log(contextValues)
+    setValues(values => ({
+        ...values, email : contextValues.email, 
+        password : contextValues.password,
+        firstname : contextValues.firstname,
+        lastname : contextValues.lastname
+    }))
+    
     return () => {
         cleanup = true;
     }

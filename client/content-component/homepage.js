@@ -12,9 +12,7 @@ return (
                     <div className='text-center'>
                         <h1 className='mc-3'>Go Inside</h1>
                         <h2 className='text-white'>Client-Talent Partnership</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo et distinctio omnis, 
-                        perspiciatis labore sequi nemo dolorum molestias commodi cumque 
-                        pariatur praesentium esse cupiditate eos nisi id deleniti in laborum! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo et distinctio omnis, 
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elitn laborum! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo et distinctio omnis, 
                         perspiciatis labore sequi nemo dolorum molestias commodi cumque 
                         pariatur praesentium esse cupiditate eos nisi id deleniti in laborum!</p>
                         <button className='btn default-1'>Find Talented Freelancer</button>
