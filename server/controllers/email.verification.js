@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import config from '../config/config';
 
 const SendMail = async (req, res) => {
 let transporter = nodemailer.createTransport({
@@ -6,8 +7,8 @@ let transporter = nodemailer.createTransport({
     port : 587,
     secure : false,
     auth : {
-        user : 'rm.mahady@gmail.com',
-        pass : 'mahady1906-janoary2021'
+        user : config.smtp.user,
+        pass : config.smtp.pass
     }
 })
 
