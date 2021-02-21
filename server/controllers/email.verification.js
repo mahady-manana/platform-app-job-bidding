@@ -21,10 +21,11 @@ try {
         <br/>Your activation code : <b>${req.body.code}</b><br/>
         Thank you for your registration.`
     })
+
     return res.status(200).json({message : 'ok'})
 } catch (error) {
+    
     return res.json({error : error})
 }
-
 }
 export default SendMail;
