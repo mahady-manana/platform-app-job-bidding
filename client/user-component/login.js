@@ -15,7 +15,7 @@ return (
                         <label htmlFor="password">Password :</label>
                         <input type="password" className="form-control" placeholder="Enter password"/>
                     </div>
-                    <button type="submit" className="btn default-1">Login</button>
+                    <button type="submit" className="btn default-1">Login </button>
                 </form>
             </div>
         </div>
