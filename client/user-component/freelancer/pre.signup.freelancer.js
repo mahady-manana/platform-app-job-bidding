@@ -5,7 +5,7 @@ import {FreelancerContext} from './FreelancerContext';
 
 const FreelancerPreSignup = () => {
 
-const context = useContext(FreelancerContext); 
+const context = useContext(FreelancerContext);
 
 const [infos, setInfos] = useState({
     email : '',
@@ -17,7 +17,6 @@ const [infos, setInfos] = useState({
     loading : false,
     code : Math.floor(100000 + Math.random() * 999999)
 })
-
 const handleChange = event => {
     event.preventDefault();
     const name = event.target.name;
@@ -39,7 +38,7 @@ const saveAndNext = event => {
         context.setContextValues(infos)
         axios.post('/user/post/email/verify/', data).then(res => {
             setInfos({...infos, loading : false, isFilled : true})
-        }).catch(err => console.log(err))
+        }).catch(err => setInfos({...infos, error : err}))
     }
       
 }
