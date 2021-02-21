@@ -19,5 +19,4 @@ return (
     </Switch>
 )
 }
-
 export default SharedRouter;
