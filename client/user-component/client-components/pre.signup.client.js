@@ -1,5 +1,5 @@
-import React from 'react';
-
+import React,{useState} from 'react';
+import {Input} from './utility';
 const ClientPreSignup = () => {
 return (
 <>
@@ -10,15 +10,28 @@ return (
             <div className='container'>
                 <div className="form-container">
                     <form>
-                        <div className="form-group">
-                            <label htmlFor="email">Email address:</label>
-                            <input type="email" className="form-control" placeholder="Enter email"/>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="password">Password:</label>
-                            <input type="password" className="form-control" placeholder="Enter password"/>
-                        </div>
-                        <button type="submit" className="btn default-1">Login</button>
+                       <Input type="text"
+                              Name="firstname"
+                              labelName="First Name"
+                              placeholder="Enter firstname"
+                       />
+
+                        <Input type="text"
+                                name="last name"
+                                labelName="Laste Name"
+                                placeholder="Enter lastname"
+                        />
+                        <Input type="email"
+                                name="email"
+                                labelName="Email"
+                                placeholder="Enter Email"
+                        />
+                        <Input type="password"
+                                name="password"
+                                labelName="Password"
+                                placeholder="Enter password"
+                        />
+                        <button type="submit" className="btn default-1">Save and next</button>
                     </form>
                 </div>
             </div>
