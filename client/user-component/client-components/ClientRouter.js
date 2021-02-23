@@ -2,9 +2,10 @@ import React, {useState} from 'react';
 import {Router, Route} from 'react-router-dom';
 import ClientPreSignup from "./pre.signup.client";
 import { ContextClient } from "./ContextClient";
+
 const ClientRoute = () => {
 
-    const [contextValues, setContextValues] = useState({})
+const [contextValues, setContextValues] = useState({})
 return (
 
 <ContextClient.Provider value={{contextValues, setContextValues}}>
