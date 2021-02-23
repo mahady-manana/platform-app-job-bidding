@@ -655,3 +655,9 @@ button.pluseducation {
     margin-top: 8px;
     text-decoration: underline;
 }
+.pre-signup .form-group {
+    margin-bottom: 0;
+}
+.client-content .pre-signup .form-group {
+    margin-bottom: 20px;
+}
