@@ -6,7 +6,7 @@ Aoka kosa mba samy hanana file config.js :
 
 /server <br/>
 -- configs/ <br/>
---- congig.js (Ity ny config) <br/>
+--- config.js (Ity ny config) <br/>
 --- config.md
 
 *Content anaty : config.js*
