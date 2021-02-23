@@ -1,6 +1,6 @@
 import express from "express";
 import favicon from "serve-favicon";
-import config from "./config/config";
+import config from "./configs/config";
 import webpackBundler from "./webpackBundler";
 import mongoose from "mongoose";
 import path from "path";
