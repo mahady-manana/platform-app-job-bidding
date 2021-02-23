@@ -1,3 +1,4 @@
 /node_modules
 /build
-/server/configs/configs.js
+/server/configs/*
+!server/configs/config.md
