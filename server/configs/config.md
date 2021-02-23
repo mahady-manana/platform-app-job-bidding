@@ -4,9 +4,9 @@ dia tsy afaka push-na anaty repo github ny config.js
 
 Aoka kosa mba samy hanana file config.js :
 
-/server
--- configs/
---- congig.js (Ity ny config)
+/server <br/>
+-- configs/ <br/>
+--- congig.js (Ity ny config) <br/>
 --- config.md
 
 *Content anaty : config.js*
