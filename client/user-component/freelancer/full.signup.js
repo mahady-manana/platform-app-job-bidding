@@ -104,8 +104,6 @@ const handleSubmitAll = event => {
           formData.append('uploaded', dateNow)
           formData.append('photo_sign', dateNow + values.email + values.name)
     const allFields = {
-        email : values.email,
-        password : values.password,
         firstname : values.firstname,
         lastname : values.lastname,
         job_title : values.job_title,
@@ -118,7 +116,7 @@ const handleSubmitAll = event => {
         experience : values.experience,
     }
     
-    axios.post('/user/type-client/add', allFields).then(res => console.log(res.data)).catch(err => console.log(err))
+    axios.put('/user/type-client/full/' + values.email, allFields).then(res => console.log(res.data)).catch(err => console.log(err))
     // axios.post('/photo-profile/medias/upload', formData, {
     //     'contentType' : 'multipart/form-data'
     // }).then(res => console.log('Added Photo')).catch(err => console.log(err))

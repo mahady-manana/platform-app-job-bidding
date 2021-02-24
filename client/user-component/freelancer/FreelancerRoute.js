@@ -12,8 +12,8 @@ return (
 <FreelancerContext.Provider value={{contextValues, setContextValues}}>
     <div className='freelancer-content'>
         <Route path='/freelancer/signup' component={FreelancerPreSignup}/>
-        <Route exact path='/freelancer/fill/profile/type-workers/:fist/:last/e/' component={FillSignup}/>
-        <Route exact path='/freelancer/user/signup/verification/:fist/:last/v/' component={EmailVerifacation}/>
+        <Route exact path='/freelancer/fill/profile/type-workers/:time/:name/e/' component={FillSignup}/>
+        <Route exact path='/freelancer/user/signup/verification/:time/:name/v/' component={EmailVerifacation}/>
     </div>
 </FreelancerContext.Provider>
 )

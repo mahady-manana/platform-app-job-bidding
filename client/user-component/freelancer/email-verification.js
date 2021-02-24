@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {Redirect} from 'react-router-dom';
 import {FreelancerContext} from './FreelancerContext';
+import axios from 'axios';
 
 const EmailVerifacation = props => {
 const context = useContext(FreelancerContext);
@@ -10,8 +11,10 @@ const [user, setUser] = useState({
     firstname : '',
     email : '',
     lastname : '',
+    loading : false,
     isValid : false,
-    error : false
+    error : false,
+    empty : false
 })
 
 useEffect(() => {
@@ -26,14 +29,27 @@ useEffect(() => {
 }, [])
 const handleChange = event => {
     event.preventDefault();
-    setUser({...user, code : event.target.value})
+    setUser({...user, code : event.target.value, error : false, empty : false})
 }
 const verifyCode = event => {
     event.preventDefault();
+    setUser({...user, loading : true})
+    
+    const {contextValues} = context
+    const datas = {
+        firstname : contextValues.firstname,
+        lastname : contextValues.lastname,
+        password : contextValues.password,
+        email : contextValues.email 
+    }
     if (user.code !== context.contextValues.code.toString()) {
-        setUser({...user, error : true})
+        setUser({...user, loading : false, error : true})
     } else {
-        setUser({...user, isValid : true})
+        axios.post('/user/type-client/add', datas)
+             .then(res => {
+                setUser({...user, loading : false, isValid : true})
+             })
+             .catch(error => console.log(error))
     }
 }
 
@@ -41,7 +57,7 @@ const {isValid} = user
 if (isValid) {
     return (
         <Redirect to={{
-                pathname :`/freelancer/fill/profile/type-workers/${user.firstname}/${user.lastname}/e/`,
+                pathname :`/freelancer/fill/profile/type-workers/${Date.now()}/${user.lastname}/e/`,
                 state : {user}
             }}/>
     )
@@ -68,6 +84,7 @@ return (
                             <input type="number" className="form-control" name='code' value={user.code} onChange={handleChange} placeholder='6-Code here'/>
                         </div>
                         <p className='text-danger'>{user.error ? 'Code invalid please check again!' : ''}</p>
+                        <p className='text-danger'>{user.empty ? 'Please fill in the code!' : ''}</p>
                         <button type="submit" className='btn default-1 enable'>Verify</button>
                     </form>
                     <div className='intro-verification'>

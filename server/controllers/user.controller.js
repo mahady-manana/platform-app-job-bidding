@@ -15,11 +15,24 @@ const addUser = async (req, res, next) => {
 }
 const completeUser = async (req, res, next) => {
 
-    Users.findOneAndUpdate({email : req.params.email}, {$set : {
-            firstaname : req.body.firstaname,
-            lastname : req.body.lastname,
-            job_title : req.body.job_title
-    }}, )
+    await Users.findOneAndUpdate({email : req.params.email}, {$set : {
+        
+        firstname : req.body.firstname,
+        lastname : req.body.lastname,
+        job_title : req.body.job_title,
+        description : req.body.description,
+        hourly_rate : req.body.hourly_rate,
+        city : req.body.city,
+        country : req.body.country,
+        skill : req.body.skill,
+        education : req.body.education,
+        experience : req.body.experience,
+    }},{upsert:true}, error => {
+        if (error) {
+            return res.json({error : error + 'this the error'})
+        }
+        return res.json({message : "Updated successfully!"})
+    })
 }
 // const addExperience = async (req, res, next) => {
 
@@ -110,6 +123,5 @@ export default {
     readOne,
     userList,
     completeUser,
-    // updateCart,
     orderMade
 }

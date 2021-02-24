@@ -54,4 +54,4 @@ const Users = new Schema({
     github : {type : String},
 })
 
-export default mongoose.model("User_type_workers_123", Users)
+export default mongoose.model("User_type_workers_12345", Users)

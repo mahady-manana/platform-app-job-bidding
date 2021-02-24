@@ -352,6 +352,7 @@ input:focus, textarea:focus {
     box-shadow: 0px 0px 50px;
     width: 100%;
     left: 0;
+    overflow-y: scroll;
 }
 .popup .popup-content {
     background: #fff;
