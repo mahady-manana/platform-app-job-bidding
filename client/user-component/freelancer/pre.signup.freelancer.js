@@ -47,7 +47,7 @@ const {isFilled} = infos
 if (isFilled) {
     return (
         <Redirect to={{
-            pathname :`/freelancer/user/signup/verification/${infos.firstname}/${infos.lastname}/v/`,
+            pathname :`/freelancer/user/signup/verification/${Date.now()}/${infos.firstname}/v/`,
             }}/>
     )
 }

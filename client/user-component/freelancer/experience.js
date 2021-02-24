@@ -11,7 +11,7 @@ const [values, setValues] = useState({
 })
 const [isAllFilled, setFilled] = useState(false)
 const CheckIfFilled = () => {
-    if (values.title.length > 10  && values.company !== '' && values.date_bg !== '' && values.date_end !== '') {
+    if (values.title.length !== ''  && values.company !== '' && values.date_bg !== '' && values.date_end !== '') {
         setFilled(true)
     } else {
         setFilled(false)
@@ -59,7 +59,7 @@ return (
                             <div className='carrer-title'>
                                 <Input name='title'
                                     type='text'
-                                    labelName='Title : * (min 10 caracters)'
+                                    labelName='Title : *'
                                     placeholder=''
                                     value={values.title}
                                     onChange={handleChange('title')}
@@ -110,6 +110,7 @@ return (
                                     />
                             </div>
                             <div className='finishandsave'>
+                                <p className='text-right mc-2'>Fill in all fields to enable save button.</p>
                                 <button className={`btn default-2 ${classIfEnable()}`} onClick={handleExperienceFields} disabled={isAllFilled ? false : true || true}>Save</button>
                                 <p className='text-danger text-left'>* : Fields required</p>
                             </div>

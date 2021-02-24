@@ -12,7 +12,7 @@ const [values, setValues] = useState({
 })
 const [isAllFilled, setFilled] = useState(false)
 const CheckIfFilled = () => {
-    if (values.title.length > 10  && values.school !== '' && values.date_bg !== '' && values.date_end !== '') {
+    if (values.title.length !== ''  && values.school !== '' && values.date_bg !== '' && values.date_end !== '') {
         setFilled(true)
     } else {
         setFilled(false)
@@ -122,6 +122,7 @@ return (
                                     />
                             </div>
                             <div className='finishandsave'>
+                                <p className='text-right mc-2'>Fill in all fields to enable save button.</p>
                                 <button className={`btn default-2 ${classIfEnable()}`} onClick={handleEducationFields} disabled={isAllFilled ? false : true || true}>Save</button>
                                 <p className='text-danger text-left'>* : Fields required</p>
                             </div>

@@ -4,7 +4,7 @@ import userController from "../controllers/user.controller";
 const UserRouters = express.Router();
 
 UserRouters.post("/user/type-client/add", userController.addUser);
-UserRouters.put("/user/type-client/add/:email", userController.completeUser);
+UserRouters.put("/user/type-client/full/:email/", userController.completeUser);
 UserRouters.get("/user/type-client/users", userController.userList);
 UserRouters.put("/user/type-client/order/:id", userController.orderMade);
 
