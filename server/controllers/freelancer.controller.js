@@ -1,11 +1,11 @@
-import Users from "../models/user";
+import Freelancer from "../models/Freelancer";
 import Bcryptjs from "bcryptjs";
 
-const addUser = async (req, res, next) => {
+const add = async (req, res, next) => {
 
     req.body.password = Bcryptjs.hashSync(req.body.password, 10)
     
-    const user = new Users(req.body)
+    const user = new Freelancer(req.body)
     try {
         await user.save()
         return res.status(200).json({message : "Signin up successfully, Your account is now active!"})
@@ -13,10 +13,9 @@ const addUser = async (req, res, next) => {
         return res.json({error : "Something went wrong, please try again later!", message_error : error})
     }
 }
-const completeUser = async (req, res, next) => {
+const completeUpdate = async (req, res, next) => {
 
-    await Users.findOneAndUpdate({email : req.params.email}, {$set : {
-        
+    await Freelancer.findOneAndUpdate({email : req.params.email}, {$set : {
         firstname : req.body.firstname,
         lastname : req.body.lastname,
         job_title : req.body.job_title,
@@ -36,15 +35,15 @@ const completeUser = async (req, res, next) => {
 }
 // const addExperience = async (req, res, next) => {
 
-//     const user = new Users(req.body)
-//     Users.findOneAndUpdate(req.params.email, {
+//     const user = new Freelancer(req.body)
+//     Freelancer.findOneAndUpdate(req.params.email, {
 //         $addToSet : 
 //     })
 // }
 
 const readOne = async (req, res, next) => {
     try {
-        await Users.findById(req.params.id, (error, user) => {
+        await Freelancer.findById(req.params.id, (error, user) => {
                 if (error || !user) {
                     res.json({error : "User not found!"})
                 }
@@ -54,17 +53,17 @@ const readOne = async (req, res, next) => {
         next(error)
     }
 }
-const userList = async (req, res, next) => {
-    await Users.find((error, user) => {
+const List = async (req, res, next) => {
+    await Freelancer.find((error, user) => {
         if (error || !user) {
-            res.json({error : "Unable to list users."})
+            res.json({error : "Unable to list Freelancer."})
         }
         res.json(user)
     })
 }
 // const addToCart = async (req, res, next) => {
 //     try {
-//         await Users.findByIdAndUpdate({_id : req.params.id}, {
+//         await Freelancer.findByIdAndUpdate({_id : req.params.id}, {
 //             $addToSet : {
 //                 "card" : {
 //                     item : req.body.item
@@ -82,7 +81,7 @@ const userList = async (req, res, next) => {
 // }
 // const updateCart = (req, res, next) => {
 //     try {
-//         await Users.findByIdAndUpdate({_id : req.params.id}, {
+//         await Freelancer.findByIdAndUpdate({_id : req.params.id}, {
 //             $pull : {
 //                 "card" : {
 //                     item : req.body.item
@@ -100,7 +99,7 @@ const userList = async (req, res, next) => {
 // }
 const orderMade = async (req, res, next) => {
     try {
-        await Users.findByIdAndUpdate({_id : req.params.id}, {
+        await Freelancer.findByIdAndUpdate({_id : req.params.id}, {
             $addToSet : {
                 "order" : {
                     item : req.body.item,
@@ -119,9 +118,9 @@ const orderMade = async (req, res, next) => {
 }
 
 export default {
-    addUser,
+    add,
+    completeUpdate,
+    List,
     readOne,
-    userList,
-    completeUser,
     orderMade
 }

@@ -123,7 +123,7 @@ input:focus, textarea:focus {
     color: #fff !important;
 }
 .top-header {
-    padding: 5px 0px;
+    padding: 0px;
 }
 .cta-btn .join_as_freelancer {
     background: #3b0ad2;
@@ -621,6 +621,9 @@ button.pluseducation {
         transform: rotate(-360deg);
     }
 }
+.cta-btn {
+    margin-bottom: 5px;
+}
 .email-verification .inner-section {
     background: linear-gradient(
 45deg
@@ -661,4 +664,71 @@ button.pluseducation {
 }
 .client-content .pre-signup .form-group {
     margin-bottom: 20px;
+}
+.popup.error-validation-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: scroll;
+}
+.popup.error-validation-message .error-message {
+    max-width: 500px;
+    background: #fff;
+    margin: auto;
+    padding: 30px;
+    text-align: center;
+    min-width: 250px;
+}
+span.btn-closex {
+    background: #dedede;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    cursor: pointer;
+}
+.profile-header .avatar-top {
+    width: 70px;
+    height: 100%;
+    background: #ccc;
+}
+.profile-header, .profile-header *:not(.infos-user, .infos-user *) {
+    height: 100%;
+}
+.profile-header .col {
+    padding: 0;
+}
+.profile-header .infos-user {
+    text-align: center;
+    float: right;
+    height: 100%;
+    padding: 5px !important;
+}
+.profile-header .infos-user p {
+    margin-bottom: 0px;
+}
+.profile-header .btn.logout-btn, .profile-header .view-settings, .profile-header .view-profile {
+    display: inline-block;
+    margin-top: 10px;
+    text-transform: uppercase;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 0;
+}
+.profile-header .btn.view-profile {
+    background: #00a047;
+    color: #fff;
+}
+.profile-header .btn.view-settings {
+    background: #004aef;
+    color: #fff;
+}
+.profile-header .btn.logout-btn {
+    background: #b01543;
+    color: #fff;
 }

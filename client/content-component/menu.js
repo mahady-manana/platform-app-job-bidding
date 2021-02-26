@@ -1,18 +1,34 @@
-import React from "react";
+import React, {useState, useEffect, useContext} from "react";
 import { Link } from "react-router-dom";
+import { TopContext } from "../TopContext";
 import Auth from '../user-component/auth/auth.api';
 import HeaderProfile from "../user-component/header-profile";
 import CallToAction from "./call-to-action";
 
 const Menu = () => {
+const [isValid, setValidation] = useState(false)
+const {topContext} = useContext(TopContext);
 
-const renderRightHeader = () => {
-    if (Auth.isAuthenticated()) {
+useEffect(() => {
+    let cleanup = false;
+    if (Auth.isAuthenticated() && Auth.isAuthenticated().user.firstname === topContext.firstname) {
+        setValidation(true)
+    } else {
+        setValidation(false)
+    }
+    return () => {
+        cleanup = true;
+    }
+}, [topContext])
+
+const renderExactcompoent = () => {
+    if (isValid) {
         return (<HeaderProfile/>)
     } else {
         return (<CallToAction/>)
     }
 }
+
 return (
 <>
 <div className="top-header" style={{background : '#ffe6ed'}}>
@@ -26,7 +42,7 @@ return (
             <div className="col-md-3">
             </div>
             <div className="col-md-6">
-                {renderRightHeader()}
+                {renderExactcompoent()} 
             </div>
         </div>
     </div>

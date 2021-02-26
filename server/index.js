@@ -14,8 +14,8 @@ import ReactDOMServer from "react-dom/server";
 import { StaticRouter } from "react-router-dom";
 import theme from "../client/theme";
 import SharedRouter from "../client/SharedRouter";
-import AuthRouter from "./routers/user.authentication";
-import UserRouters from "./routers/user.router";
+import AuthFreelancerRouter from "./routers/user.authentication";
+import FreelancerRouters from "./routers/freelancer.router";
 import SinglePhotoRouter from './routers/single.photo';
 import SendMailRouter from './routers/user-email-verify';
 const CURRENT_WD = process.cwd();
@@ -32,8 +32,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(cookieParser())
 app.use('/', SendMailRouter)
-app.use("/", AuthRouter);
-app.use("/", UserRouters);
+app.use("/", AuthFreelancerRouter);
+app.use("/", FreelancerRouters);
 app.use('/', SinglePhotoRouter)
 app.get("*", (req, res) => {
     const sheets = new ServerStyleSheets();

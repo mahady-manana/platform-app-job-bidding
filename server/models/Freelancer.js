@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const Schema  = mongoose.Schema
 
-const Users = new Schema({
+const Freelancer = new Schema({
     firstname : {
         type : String
     },
@@ -14,6 +14,7 @@ const Users = new Schema({
         index : {unique : true, sparse : true}
     },
     password : {type : String},
+    user_id : {type : String},
     phone : {type : Number},
     city : {type : String},
     country : {type : String},
@@ -54,4 +55,4 @@ const Users = new Schema({
     github : {type : String},
 })
 
-export default mongoose.model("User_type_workers_12345", Users)
+export default mongoose.model("User_type_workers_12345678", Freelancer)

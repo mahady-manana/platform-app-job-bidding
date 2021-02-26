@@ -2,11 +2,12 @@ import React, {useState, useContext} from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import {FreelancerContext} from './FreelancerContext';
+import { TopContext } from '../../TopContext';
 
 const FreelancerPreSignup = () => {
 
 const context = useContext(FreelancerContext);
-
+const {setTopContext} = useContext(TopContext)
 const [infos, setInfos] = useState({
     email : '',
     password : '',
@@ -36,9 +37,11 @@ const saveAndNext = event => {
             lastname : infos.lastname
         }
         context.setContextValues(infos)
-        axios.post('/user/post/email/verify/', data).then(res => {
-            setInfos({...infos, loading : false, isFilled : true})
-        }).catch(err => setInfos({...infos, error : err}))
+        setTopContext(infos)
+        // axios.post('/user/post/email/verify/', data).then(res => {
+        //     setInfos({...infos, loading : false, isFilled : true})
+        // }).catch(err => setInfos({...infos, error : err}))
+        setInfos({...infos, loading : false, isFilled : true})
     }
       
 }
