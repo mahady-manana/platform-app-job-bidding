@@ -2,11 +2,11 @@ import jwt from 'jsonwebtoken';
 import expressJwt from 'express-jwt';
 import config from '../configs/config';
 import Bcryptjs from "bcryptjs";
-import User from "../models/user"
+import Freelancer from "../models/Freelancer"
 
 const login = async (req, res) => {
   try {
-    let user = await User.findOne({
+    let user = await Freelancer.findOne({
       "email": req.body.email
     }).exec()
 

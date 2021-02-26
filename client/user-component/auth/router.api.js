@@ -33,7 +33,7 @@ const read = async (params, credentials, signal) => {
   }  
   const signout = async () => {
     try {
-      let response = await axios.get('/user/worker/auth/signout')
+      let response = await fetch('/user/worker/auth/signout')
         return await response.json()
     } catch(err) {
       console.log(err)

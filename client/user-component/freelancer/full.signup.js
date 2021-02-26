@@ -7,6 +7,7 @@ import SkillsOptions from './skills_options';
 import Education from './education';
 import axios from 'axios';
 import {FreelancerContext} from './FreelancerContext';
+import { completeUpdate } from './api/api-freelancer';
 
 const FillSignup = props => {
 const context = useContext(FreelancerContext)
@@ -116,10 +117,12 @@ const handleSubmitAll = event => {
         experience : values.experience,
     }
     
-    axios.put('/user/type-client/full/' + values.email, allFields).then(res => console.log(res.data)).catch(err => console.log(err))
     // axios.post('/photo-profile/medias/upload', formData, {
     //     'contentType' : 'multipart/form-data'
     // }).then(res => console.log('Added Photo')).catch(err => console.log(err))
+    completeUpdate(values.email, allFields).then(res => {
+        console.log(res.data)
+    })
 }
 return (
 <>

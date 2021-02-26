@@ -1,19 +1,24 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {Redirect} from 'react-router-dom';
 import {FreelancerContext} from './FreelancerContext';
-import axios from 'axios';
+import {create} from './api/api-freelancer';
+import { TopContext } from '../../TopContext';
 
 const EmailVerifacation = props => {
 const context = useContext(FreelancerContext);
+const {setTopContext} = useContext(TopContext);
 
 const [user, setUser] = useState({
     code : '',
     firstname : '',
     email : '',
     lastname : '',
+    user_id : '',
     loading : false,
     isValid : false,
+    invalid : false,
     error : false,
+    errorMsg : '',
     empty : false
 })
 
@@ -29,7 +34,7 @@ useEffect(() => {
 }, [])
 const handleChange = event => {
     event.preventDefault();
-    setUser({...user, code : event.target.value, error : false, empty : false})
+    setUser({...user, code : event.target.value, invalid : false, empty : false})
 }
 const verifyCode = event => {
     event.preventDefault();
@@ -43,13 +48,17 @@ const verifyCode = event => {
         email : contextValues.email 
     }
     if (user.code !== context.contextValues.code.toString()) {
-        setUser({...user, loading : false, error : true})
+        setUser({...user, loading : false, invalid : true})
     } else {
-        axios.post('/user/type-client/add', datas)
-             .then(res => {
-                setUser({...user, loading : false, isValid : true})
-             })
-             .catch(error => console.log(error))
+        setTopContext(user)
+        create(datas).then(data => {
+            if (data.error) {
+                setUser({...user, loading : false, error : true, errorMsg : data.error})
+            } else {
+                console.log(data, 'no error')
+                setUser({...user, loading : false})
+            }
+        })
     }
 }
 
@@ -61,6 +70,10 @@ if (isValid) {
                 state : {user}
             }}/>
     )
+}
+const closeX = event => {
+    event.preventDefault();
+    setUser({...user, error : !user.error})
 }
 const Test = event => {
     event.preventDefault()
@@ -83,7 +96,7 @@ return (
                             <label htmlFor="code">Enter 6 digit code : </label>
                             <input type="number" className="form-control" name='code' value={user.code} onChange={handleChange} placeholder='6-Code here'/>
                         </div>
-                        <p className='text-danger'>{user.error ? 'Code invalid please check again!' : ''}</p>
+                        <p className='text-danger'>{user.invalid ? 'Code invalid please check again!' : ''}</p>
                         <p className='text-danger'>{user.empty ? 'Please fill in the code!' : ''}</p>
                         <button type="submit" className='btn default-1 enable'>Verify</button>
                     </form>
@@ -102,6 +115,19 @@ return (
 <div className={`loading-popup ${user.loading ? '' : 'closex'}`}>
         <span className='loading-icon'>Processing...</span>
 </div>
+<div className={`popup error-validation-message ${user.error ? '' : 'closex'}`}>
+        <span className='btn-closex' onClick={closeX}>X</span>
+        <div className="error-message text-left">
+            <h3 className='text-danger'>Error :</h3>
+            <p className='text-danger'>{user.errorMsg}</p>
+            <p>This may happen if :</p>
+            <ul>
+                <li>Your email was already associated with another Go-Inside Account.</li>
+                <li>You internet connection shutdown unexpecteadly.</li>
+            </ul>
+        </div>
+</div>
+
 </>    
 )
 }
