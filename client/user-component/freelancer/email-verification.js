@@ -41,8 +41,8 @@ const {isValid} = user
 if (isValid) {
     return (
         <Redirect to={{
-            pathname :`/freelancer/fill/profile/type-workers/${user.firstname}/${user.lastname}/e/`,
-            state : {user}
+                pathname :`/freelancer/fill/profile/type-workers/${user.firstname}/${user.lastname}/e/`,
+                state : {user}
             }}/>
     )
 }

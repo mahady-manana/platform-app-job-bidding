@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import expressJwt from 'express-jwt';
-import config from '../config/config';
+import config from '../configs/config';
 import Bcryptjs from "bcryptjs";
 import User from "../models/user"
 
