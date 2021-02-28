@@ -59,8 +59,8 @@ return (
                             <div className='carrer-title'>
                                 <Input name='title'
                                     type='text'
-                                    labelName='Title : *'
-                                    placeholder=''
+                                    fa='fa-briefcase'
+                                    placeholder='Your job title'
                                     value={values.title}
                                     onChange={handleChange('title')}
                                     />
@@ -68,8 +68,8 @@ return (
                             <div className='carrer-company'>
                                 <Input name='company'
                                     type='text'
-                                    labelName='Company : *'
-                                    placeholder=''
+                                    fa='fa-building'
+                                    placeholder='Company'
                                     value={values.company}
                                     onChange={handleChange('company')}
                                     />
@@ -77,10 +77,11 @@ return (
                             <div className='row date'>
                                 <div className='col-sm-6'>
                                     <div className='begin-date'>
+                                        <span>Date start</span>
                                         <Input name='date_bg'
                                             type='date'
-                                            labelName='Start : *'
-                                            placeholder=''
+                                            fa='fa-calendar-plus'
+                                            placeholder='Start date >>>'
                                             value={values.date_bg}
                                             onChange={handleChange('date_bg')}
                                             />
@@ -88,10 +89,11 @@ return (
                                 </div>
                                 <div className='col-sm-6'>
                                     <div className='inner'>
+                                        <span>Date End</span>
                                         <Input name='date_end'
                                                     type='date'
-                                                    labelName='End : *'
-                                                    placeholder=''
+                                                    fa='fa-calendar-plus'
+                                                    placeholder='End date'
                                                     value={values.date_end}
                                                     onChange={handleChange('date_end')}
                                                     />                              
@@ -103,8 +105,7 @@ return (
                                 <Textarea name='description'
                                     rows='5'
                                     cols='20'
-                                    labelName='Description : '
-                                    placeholder=''
+                                    placeholder='Description'
                                     value={values.description}
                                     onChange={handleChange('description')}
                                     />

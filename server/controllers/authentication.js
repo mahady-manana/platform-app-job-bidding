@@ -37,7 +37,6 @@ const login = async (req, res) => {
     return res.status('401').json({
       error: "Cannot sign in!"
     })
-
   }
 }
 
@@ -48,14 +47,30 @@ const logout = (req, res) => {
   })
 }
 
-const signinRequire = expressJwt({
-  secret: config.jwtSecret,
-  userProperty: 'auth',
-  algorithms: ['RS256']
-})
+// const signinRequire = expressJwt({
+//   secret: config.jwtSecret,
+//   userProperty: 'auth',
+//   algorithms: ['RS256']
+// })
+const hasAuthorization = (req, res, next) => {
+  const bearer = req.headers.authorization;
+
+  if (bearer) {
+      const token = bearer.split(' ')[1];
+
+      jwt.verify(token, config.jwtSecret, (err, user) => {
+          if (err) {
+              return res.status(403).json("Status 403 e!");
+          }
+          next();
+      });
+  } else {
+      res.status(401).json({error : 'Unauthorized user!'});
+  }
+};
 
 export default {
   login,
   logout,
-  signinRequire
+  hasAuthorization
 }

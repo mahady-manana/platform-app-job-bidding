@@ -1,4 +1,5 @@
 import React, { useState, useContext} from "react";
+import { Redirect } from "react-router-dom";
 import { TopContext } from "../TopContext";
 import Auth from "./auth/auth.api";
 import { signin } from "./auth/router.api";
@@ -9,7 +10,8 @@ const {setTopContext} = useContext(TopContext)
 
 const [logger, setLogger] = useState({
     email : '',
-    password : ''
+    password : '',
+    isValid : false
 })
 
 const handleChange = name => event => {
@@ -25,12 +27,19 @@ const handleLogin = event => {
             console.log(data)
         } else {
             Auth.authenticate(data, () => {
+                setLogger({...logger, isValid : true})
                 setTopContext(data.user)
-                console.log(data)
             })
-            
         }
     })
+}
+const {isValid} = logger;
+if (isValid) {
+    return (
+        <Redirect to={{
+            pathname : '/freelancer/dashbord'
+        }}/>
+    )
 }
 return (
 <div className="login">

@@ -20,25 +20,25 @@ h4 {
     font-size: 18px;
 }
 .white {
-    color: #fcfcfc;
+    color: #fcfcfc !important;
 }
 .white-b {
     background-color: #fcfcfc;
 }
 .mc-1 {
-    color: #f71e27;
+    color: #00ade0;
 }
 .mc-2 {
-    color: #ad112d;
+    color: #bc1749;
 }
 .mc-3 {
-    color: #bc1749;
+    color: #00177b;
 }
 .mcm {
     color: #1f0308;
 }
-.mbgm {
-    background-color: #1f0308;
+.mbgb {
+    background-color: #00177b;
 }
 a {
     color: #bc1749 !important;
@@ -47,22 +47,13 @@ a:hover {
     color: #bc1749 !important;
 }
 .mbgc-1 {
-    background-color: #f71e27;
+    background-color: #00ade0 !important;
 }
 .mbgc-2 {
-    background-color: #ad112d;
+    background-color: #bc1749;
 }
 .mbgc-3 {
-    background-color: #bc1749;
-}
-.mbrc-1 {
-    background-color: #f71e27;
-}
-.mbrgc-2 {
-    background-color: #ad112d;
-}
-.mbrc-3 {
-    background-color: #bc1749;
+    background-color: #00177b;
 }
 *:hover {
     transition: .5s;
@@ -90,7 +81,17 @@ input:focus, textarea:focus {
     }
 }
 .btn.default-1:hover {
-    border-color: #350207;
+    background: #fff;
+    color: #bc1749 !important;
+}
+.signup-container .btn.submit {
+    width: 100%;
+}
+.btn.default-1 {
+    background: #bc1749;
+    color: #fff;
+    border-radius: 0;
+    border: 1px solid #bc1749;
 }
 .btn.default-2:hover {
     border-color: #bc1749;
@@ -98,11 +99,6 @@ input:focus, textarea:focus {
 .btn.default-2 {
     border: 1px solid #350207;
     color: #350207;
-    letter-spacing: 5px;
-}
-.btn.default-1 {
-    border: 1px solid #bc1749;
-    color: #bc1749;
     letter-spacing: 5px;
 }
 .divider {
@@ -125,25 +121,7 @@ input:focus, textarea:focus {
 .top-header {
     padding: 0px;
 }
-.cta-btn .join_as_freelancer {
-    background: #3b0ad2;
-}
-.cta-btn .btn.hire_a_freelancer {
-    background: #c70d97;
-}
-.cta-btn .btn.login {
-    background: #099c1b;
-}
-.top-header .cta-btn .btn {
-    color: #fff;
-    transition: .5s;
-    margin-left: 0.5em;
-    box-shadow: 2px 2px 3px 0px rgb(119 119 119);
-}
-.top-header .cta-btn .btn:hover {
-    background: #bc1749;
-    transform: scale(1.05);
-}
+
 .call-to-action-top .join_us:after {
     content: '';
     position: absolute;
@@ -334,9 +312,7 @@ input:focus, textarea:focus {
     display: block;
 }
 .edit-profile .job-title input {
-    text-transform: uppercase;
     font-weight: 700;
-    padding: 0;
     color: #c70d97;
 }
 /***
@@ -380,16 +356,10 @@ input:focus, textarea:focus {
 }
 .add-experience .plusexperience {
     width: 100%;
-    height: 70px;
     color: #3b0ad2;
     background: #ffff;
     border: 1px solid;
     font-size: 36px;
-}
-.form_signup_full .right_col_main {
-    box-shadow: 0px 0px 20px -5px rgb(0 0 0 / 30%);
-    padding: 27px;
-    background: #fff;
 }
 .form_signup_full .right_col_main h3 {
     font-size: 15px;
@@ -398,7 +368,7 @@ input:focus, textarea:focus {
     letter-spacing: 5px;
     padding: 10px;
     text-transform: uppercase;
-    background: #c70d97;
+    background: #00177b;
     text-align: center;
 }
 .skills-section .item_skill_list {
@@ -410,11 +380,6 @@ input:focus, textarea:focus {
 }
 .skills-section .listofskill {
     margin-bottom: 15px;
-}
-.edit-profile {
-    background: linear-gradient(
-45deg
-, #3b0ad2, #c70d97);
 }
 .right_col_main .experience_posted .experience_tab {
     margin-bottom: 15px;
@@ -485,7 +450,6 @@ button.pluseducation {
     background: transparent;
     border: 1px solid #000;
     width: 100%;
-    height: 70px;
     font-size: 35px;
 }
 .add-education .education_tab h4.title {
@@ -530,30 +494,56 @@ button.pluseducation {
     right: 30px;
     border-radius: 50px;
 }
-.pre-signup .form-container {
-    background: #ffffff;
-    padding: 27px;
-    max-width: 360px;
-    margin: auto;
-    border: 1px solid #ffffff;
-    text-align: center;
-    box-shadow: 0px 0px 10px 0px #000;
-}
 .pre-signup .inner-section {
-    background: linear-gradient(
-45deg
-, #c70d97, #3b0ad2);
+    background: repeating-linear-gradient(
+30deg
+, #e1e3eb, #f8f9fa 2px);
 }
-.pre-signup h3 {
-    text-align: center;
-    margin-bottom: 27px;
+.pre-signup.freelancer .col-form-left {
+    background: #fff;
+    padding: 30px;
+}
+.pre-signup.freelancer .inner-right {
+    height: 100%;
+    background: rgb(0 23 123 / 75%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
     color: #fff;
+}
+.pre-signup.freelancer .inner-right h2:before {
+    content: "";
+    position: absolute;
+    width: 80px;
+    height: 2px;
+    background: #fff;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.pre-signup.freelancer .signup-inner {
+    box-shadow: 0px 0px 30px 0px #ccc;
+}
+.pre-signup.freelancer .inner-right h2 {
+    font-size: 25px;
+    position: relative;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+.pre-signup.freelancer .inner-right h3 {
+    text-transform: uppercase;
+    font-size: 18px;
+    color: #fff;
+}
+.pre-signup.freelancer .col-content-right {
+    padding: 0;
+    background-size: cover !important;
 }
 .edit-profile .btn-container.submit {
     text-align: right;
-    margin: 35px 0;
-    padding-top: 30px;
-    border-top: 1px solid #560bc7;
 }
 .loading-popup {
     position: fixed;
@@ -624,25 +614,21 @@ button.pluseducation {
 .cta-btn {
     margin-bottom: 5px;
 }
-.email-verification .inner-section {
-    background: linear-gradient(
-45deg
-, #3b0ad2, #c70d97);
-}
 .email-verification .codedigitlink {
     max-width: 400px;
     margin: auto;
     text-align: center;
-    background: #fdfdfd;
+    background: rgb(0 23 123 / 80%);
+    color: #fff;
     padding: 20px;
-    box-shadow: 0px 0px 18px 0px #000;
+    box-shadow: 0px 0px 18px 0px #b7b7b7;
 }
 .codedigitlink input.form-control {
     width: 135px;
     margin: auto;
-    border: 2px solid #3b0ad2;
+    border: 2px solid #00177b;
     border-radius: 50px;
-    background: #dbc8f1;
+    background: #fffcfc;
     font-size: 13px;
     text-align: center;
     font-weight: bold;
@@ -731,4 +717,85 @@ span.btn-closex {
 .profile-header .btn.logout-btn {
     background: #b01543;
     color: #fff;
+}
+/*
+* Custom form default with FA
+*
+*/
+.custom-form {
+    margin-bottom: 15px;
+}
+.custom-form label {
+    margin: 0 !important;
+    display: flex;
+}
+.custom-form .form-input {
+    border: 1px solid #ccc;
+    padding: 5px 15px;
+    height: 40px;
+    width: 100%;
+    box-shadow: inset 8px 0px 5px -7px #ccc;
+}
+.custom-form i {
+    font-size: 20px;
+    height: 40px;
+    background: #6f6f6f;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+.custom-form .form-textarea {
+    width: 100%;
+    padding: 15px;
+}
+/*
+* Custom custom form
+*
+*/
+.freelancer .custom-form i {
+    background: #00ade0;
+}
+.signup-container .custom-form {
+    margin-bottom: 35px;
+}
+.info-privacy {
+    font-size: 14px;
+}
+/*
+* Responsive popup
+*
+*/
+@media screen and (max-width : 480px) {
+    .popup .popup-content {
+        width: auto !important;
+    }
+}
+@media screen and (max-width : 767px) {
+    .custom-form .form-input {
+        width: calc(100% - 40px) !important;
+    }
+}
+.form_signup_full .custom-form i.fas {
+    background: #8ad9f1;
+}
+.form_signup_full .custom-form .form-input {
+    border-color: transparent !important;
+    border-bottom-color: #8ad9f1 !important;
+}
+.edit-profile {
+    background: #e6e6e6;
+}
+.form_signup_full .personnal-infos, .form_signup_full .skills-section, .form_signup_full .add-experience, .form_signup_full .add-education {
+    background: #fff;
+    padding: 27px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 6px 0px #ccc;
+    margin-bottom: 40PX;
+}
+.form_signup_full .addhere .add-span {
+    font-size: 16px;
+    display: block;
+    margin-bottom: 10px;
 }

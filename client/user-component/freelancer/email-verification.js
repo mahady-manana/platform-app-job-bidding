@@ -1,8 +1,10 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {Redirect} from 'react-router-dom';
 import {FreelancerContext} from './FreelancerContext';
-import {create} from './api/api-freelancer';
+import {create} from '../api/api';
 import { TopContext } from '../../TopContext';
+import { signin } from '../auth/router.api';
+import Auth from '../auth/auth.api';
 
 const EmailVerifacation = props => {
 const context = useContext(FreelancerContext);
@@ -12,6 +14,7 @@ const [user, setUser] = useState({
     code : '',
     firstname : '',
     email : '',
+    password : '',
     lastname : '',
     user_id : '',
     loading : false,
@@ -26,7 +29,7 @@ useEffect(() => {
     let cleanup = false;
     const data = context.contextValues
     if (data !== undefined) {
-        setUser({...user, firstname : data.firstname, lastname : data.lastname, email : data.email})
+        setUser({...user, firstname : data.firstname, lastname : data.lastname, email : data.email, password : data.password})
     }
     return () => {
         cleanup = true;
@@ -51,22 +54,36 @@ const verifyCode = event => {
         setUser({...user, loading : false, invalid : true})
     } else {
         setTopContext(user)
-        create(datas).then(data => {
+        create('freelancer', datas).then(data => {
             if (data.error) {
                 setUser({...user, loading : false, error : true, errorMsg : data.error})
             } else {
-                console.log(data, 'no error')
-                setUser({...user, loading : false})
+                signin({
+                    email : user.email,
+                    password : user.password
+                }).then(data => {
+                    if (data.error) {
+                        console.log(data)
+                    } else {
+                        Auth.authenticate(data, () => {
+                            setUser({...user, user_id : data.user._id,loading : false, isValid : true})
+                            setTopContext(user)
+                        })
+                    }
+                })
             }
         })
     }
 }
-
+const Test = event => {
+    event.preventDefault()
+    console.log(context.contextValues)
+}
 const {isValid} = user
 if (isValid) {
     return (
         <Redirect to={{
-                pathname :`/freelancer/fill/profile/type-workers/${Date.now()}/${user.lastname}/e/`,
+                pathname :`/freelancer/welcome/steps/`,
                 state : {user}
             }}/>
     )
@@ -75,21 +92,16 @@ const closeX = event => {
     event.preventDefault();
     setUser({...user, error : !user.error})
 }
-const Test = event => {
-    event.preventDefault()
-    const {contextValues} = context
-    console.log(contextValues)
-} 
 return (
 <>
 <div className='email-verification'>
     <div className='entry'>
     <section className='section'>
-        <div className='inner-section'>
+        <div className='inner-section' style={{background : 'url(/images/bg-verify.jpg) no-repeat center', backgroundSize : 'cover'}}>
             <div className='container'>
+                <button onClick={Test}>Clik</button>
                 <div className='codedigitlink'>
-                <h3>Verification...</h3>
-                <button onClick={Test}>click</button>
+                <h3>User verification</h3>
                 <div className="form-container">
                     <form onSubmit={verifyCode}>
                         <div className="form-group">
@@ -98,7 +110,7 @@ return (
                         </div>
                         <p className='text-danger'>{user.invalid ? 'Code invalid please check again!' : ''}</p>
                         <p className='text-danger'>{user.empty ? 'Please fill in the code!' : ''}</p>
-                        <button type="submit" className='btn default-1 enable'>Verify</button>
+                        <button type="submit" className='btn white mbgc-1'>Verify</button>
                     </form>
                     <div className='intro-verification'>
                     <p>We have just sent your code at : <span className='email-user'>{user.email}</span></p>

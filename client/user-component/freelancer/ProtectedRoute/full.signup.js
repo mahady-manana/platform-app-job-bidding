@@ -1,13 +1,14 @@
 import React, {useState, useEffect, useContext} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import {Input, Textarea} from '../../utils/formUtility'
-import Experience from './experience';
-import SkillsOptions from './skills_options';
-import Education from './education';
-import axios from 'axios';
-import {FreelancerContext} from './FreelancerContext';
-import { completeUpdate } from './api/api-freelancer';
+import {Input, Textarea} from '../../../utils/formUtility'
+import Experience from '../experience';
+import SkillsOptions from '../skills_options';
+import Education from '../education';
+import {FreelancerContext} from '../FreelancerContext';
+import { completeUpdate } from '../../api/api';
+import Auth from '../../auth/auth.api';
+import { read } from '../../auth/router.api';
 
 const FillSignup = props => {
 const context = useContext(FreelancerContext)
@@ -33,18 +34,28 @@ const [isOpenAddExp, setIsOpenAddExp] = useState(false);
 const [isOpenEduc, setOpenEduc] = useState(false);
 
 useEffect(() => {
-    let cleanup = false;
-    const {contextValues} = context;
-    console.log(contextValues)
-    setValues(values => ({
-        ...values, email : contextValues.email, 
-        password : contextValues.password,
-        firstname : contextValues.firstname,
-        lastname : contextValues.lastname
-    }))
-    
+    let abortController = new AbortController();
+    const jwtAuth = Auth.isAuthenticated();
+    read(jwtAuth.user._id, jwtAuth.token, abortController.signal)
+        .then(data => {
+            setValues({
+                ...values,
+                firstname : data.firstname,
+                lastname : data.lastname,
+                job_title : data.job_title,
+                description : data.description,
+                hourly_rate : data.hourly_rate,
+                city : data.city,
+                country : data.country,
+                skill : data.skill,
+                education : data.education,
+                experience : data.experience,
+            })
+            console.log(data)
+        })
+
     return () => {
-        cleanup = true;
+        abortController.abort();
     }
 }, [])
 
@@ -116,21 +127,25 @@ const handleSubmitAll = event => {
         education : values.education,
         experience : values.experience,
     }
-    
+    const auth = Auth.isAuthenticated();
     // axios.post('/photo-profile/medias/upload', formData, {
     //     'contentType' : 'multipart/form-data'
     // }).then(res => console.log('Added Photo')).catch(err => console.log(err))
-    completeUpdate(values.email, allFields).then(res => {
-        console.log(res.data)
+    completeUpdate('freelancer', auth.user._id,auth.token,  allFields).then(res => {
+        console.log(res)
     })
 }
 return (
 <>
 <div className='edit-profile'>
     <div className ='entry'>
-        <div className='contaier'>
-            <h3>Fill out your profile</h3>
-        </div>
+        <section className='section'>
+            <div className='inner-section'>
+                <div className='contaier'>
+                    <h3 className='text-center'>All settings of yours : Make sure to save your change</h3>
+                </div>
+            </div>
+        </section>
         <form onSubmit={handleSubmitAll} className='form_signup_full' encType='multipart/form-data'>
         <section className='section'>
             <div className='inner-section'>
@@ -151,93 +166,93 @@ return (
                             </div>
                         </div>
                         <div className='col-md-8 right_col_main'>
-                            <div className='inner-col'>
-                                <div className='personnal-info'>
-                                   <h3>Personnal informations :</h3>
+                            <div className='personnal-infos'>
+                                <div className='inner-col'>
+                                    <div className='personnal-info'>
+                                    <h3>Personnal informations :</h3>
+                                    </div>
+                                    <div className='row name-input'>
+                                        <div className='col-sm-6'>                                        
+                                            <Input name='firstname'
+                                                    type='text'
+                                                    fa='fa-user-edit'
+                                                    placeholder='First name'
+                                                    value={values.firstname}
+                                                    onChange={handleChange('firstname')}
+                                                    />
+                                        </div>
+                                        <div className='col-sm-6'>
+                                            <Input name='lastname'
+                                                        type='text'
+                                                        fa='fa-user-edit'
+                                                        placeholder='Last name'
+                                                        value={values.lastname}
+                                                        onChange={handleChange('lastname')}
+                                                        />                                    
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className='row name-input'>
-                                    <div className='col-sm-6'>                                        
-                                        <Input name='firstname'
+                                <div className='row'>
+                                    <div className='col-sm-8'>
+                                        <div className='job-title'>
+                                            <Input name='job_title'
                                                 type='text'
-                                                labelName='First Name :'
-                                                placeholder=''
-                                                value={values.firstname}
-                                                onChange={handleChange('firstname')}
+                                                fa ='fa-briefcase'
+                                                placeholder='Your Title'
+                                                value={values.job_title}
+                                                onChange={handleChange('job_title')}
                                                 />
+                                        </div>
+                                    </div>
+                                    <div className='col-sm-4'>
+                                        <div className='inner'>
+                                            <Input name='hourly_rate'
+                                                        type='number'
+                                                        fa='fa-euro-sign'
+                                                        placeholder='Hourly rate'
+                                                        value={values.hourly_rate}
+                                                        onChange={handleChange('hourly_rate')}
+                                                        />                              
+                                        </div>                                   
+                                    </div>
+                                </div>
+                                <div className='description'>
+                                    <Textarea name='description'
+                                        rows='5'
+                                        cols='20'
+                                        placeholder='Describe yourself'
+                                        value={values.description}
+                                        onChange={handleChange('description')}
+                                        />
+                                </div>
+                                <div className='adress-title'>
+                                    <h4>Adress :</h4>
+                                </div>
+                                <div className='row adress'>
+                                    <div className='col-sm-6'>
+                                        <div className='city-addres'>
+                                            <Input name='city'
+                                                type='text'
+                                                fa='fa-map-marker-alt'
+                                                placeholder='Address, City'
+                                                value={values.city}
+                                                onChange={handleChange('city')}
+                                                />
+                                        </div>
                                     </div>
                                     <div className='col-sm-6'>
-                                        <Input name='lastname'
-                                                    type='text'
-                                                    labelName='Last Name :'
-                                                    placeholder=''
-                                                    value={values.lastname}
-                                                    onChange={handleChange('lastname')}
-                                                    />                                    
+                                        <div className='inner'>
+                                            <Input name='country'
+                                                        type='country'
+                                                        fa='fa-globe-europe'
+                                                        placeholder='Country'
+                                                        value={values.country}
+                                                        onChange={handleChange('country')}
+                                                        />                              
+                                        </div>                                   
                                     </div>
                                 </div>
                             </div>
-                            <div className='row'>
-                                <div className='col-sm-8'>
-                                    <div className='job-title'>
-                                        <Input name='job_title'
-                                            type='text'
-                                            labelName='Job Title :'
-                                            placeholder=''
-                                            value={values.job_title}
-                                            onChange={handleChange('job_title')}
-                                            />
-                                    </div>
-                                </div>
-                                <div className='col-sm-4'>
-                                    <div className='inner'>
-                                        <Input name='hourly_rate'
-                                                    type='number'
-                                                    labelName='Hourly : €/hours'
-                                                    placeholder=''
-                                                    value={values.hourly_rate}
-                                                    onChange={handleChange('hourly_rate')}
-                                                    />                              
-                                    </div>                                   
-                                </div>
-                            </div>
-                            <div className='description'>
-                                <Textarea name='description'
-                                    rows='5'
-                                    cols='20'
-                                    labelName='Describe yourself :'
-                                    placeholder=''
-                                    value={values.description}
-                                    onChange={handleChange('description')}
-                                    />
-                            </div>
-                            <div className='adress-title'>
-                                <h4>Adress :</h4>
-                            </div>
-                            <div className='row adress'>
-                                <div className='col-sm-6'>
-                                    <div className='city-addres'>
-                                        <Input name='city'
-                                            type='text'
-                                            labelName='City :'
-                                            placeholder=''
-                                            value={values.city}
-                                            onChange={handleChange('city')}
-                                            />
-                                    </div>
-                                </div>
-                                <div className='col-sm-6'>
-                                    <div className='inner'>
-                                        <Input name='country'
-                                                    type='country'
-                                                    labelName='Country'
-                                                    placeholder=''
-                                                    value={values.country}
-                                                    onChange={handleChange('country')}
-                                                    />                              
-                                    </div>                                   
-                                </div>
-                            </div>
-                            
                             {/* {Row for skills} */}
 
                             <div className='skills-section'>
@@ -283,7 +298,9 @@ return (
                                     }
                                 </div>
                                 <div className='addhere'>
-                                    <button className='plusexperience' onClick={closeAddExp}>+</button>
+                                    <button className='plusexperience' onClick={closeAddExp}>+
+                                        <span className='add-span'>Add experience</span>
+                                    </button>
                                 </div>
                                 <div className={`popup experience_add_popup ${classOpenOrCloseExp()}`}>
                                     <span className='closex_btn' onClick={closeAddExp}>x</span>
@@ -309,7 +326,9 @@ return (
                                     }
                                 </div>
                                 <div className='addhere'>
-                                    <button className='pluseducation' onClick={closeAddEduc}>+</button>
+                                    <button className='pluseducation' onClick={closeAddEduc}>+
+                                        <span className='add-span'>Add education</span>
+                                    </button>
                                 </div>
                                 <div className={`popup education_add_popup ${classOpenOrCloseEduc()}`}>
                                     <span className='closex_btn' onClick={closeAddEduc}>x</span>
@@ -318,7 +337,7 @@ return (
                             </div>
                             {/* {education} */}
                             <div className='btn-container submit'>
-                                <button className='btn default-1' type='submit'>Save & Go inside</button>
+                                <button className='btn save-change-submit mbgc-1 white' type='submit'>Save change</button>
                             </div>
                         </div>
                         {/* {column right} */}
