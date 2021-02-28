@@ -11,7 +11,7 @@ const {topContext} = useContext(TopContext);
 
 useEffect(() => {
     let cleanup = false;
-    if (Auth.isAuthenticated() && Auth.isAuthenticated().user.firstname === topContext.firstname) {
+    if (Auth.isAuthenticated()) {
         setValidation(true)
     } else {
         setValidation(false)
@@ -31,7 +31,7 @@ const renderExactcompoent = () => {
 
 return (
 <>
-<div className="top-header" style={{background : '#ffe6ed'}}>
+<div className="top-header" style={{background : '#fffcfc'}}>
     <div className="container-fluid">
         <div className="row">
             <div className="col-md-3">

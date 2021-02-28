@@ -15,7 +15,7 @@ const add = async (req, res, next) => {
 }
 const completeUpdate = async (req, res, next) => {
 
-    await Freelancer.findOneAndUpdate({email : req.params.email}, {$set : {
+    await Freelancer.findByIdAndUpdate(req.params.id, {$set : {
         firstname : req.body.firstname,
         lastname : req.body.lastname,
         job_title : req.body.job_title,
@@ -33,21 +33,13 @@ const completeUpdate = async (req, res, next) => {
         return res.json({message : "Updated successfully!"})
     })
 }
-// const addExperience = async (req, res, next) => {
-
-//     const user = new Freelancer(req.body)
-//     Freelancer.findOneAndUpdate(req.params.email, {
-//         $addToSet : 
-//     })
-// }
-
 const readOne = async (req, res, next) => {
     try {
         await Freelancer.findById(req.params.id, (error, user) => {
                 if (error || !user) {
                     res.json({error : "User not found!"})
                 }
-                res.json(user)
+                return res.json(user)
         })
     } catch (error) {
         next(error)

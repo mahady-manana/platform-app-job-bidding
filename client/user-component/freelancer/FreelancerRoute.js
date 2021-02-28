@@ -1,9 +1,12 @@
 import React, {useState} from 'react';
-import {Router, Route} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import EmailVerifacation from "./email-verification";
-import FillSignup from "./full.signup";
 import FreelancerPreSignup from "./pre.signup.freelancer";
 import { FreelancerContext } from "./FreelancerContext";
+import { ProtectedRoute } from '../auth/ProtectedRoute';
+import Dashbord from './ProtectedRoute/dashbord';
+import FillSignup from './ProtectedRoute/full.signup';
+import { WelcomeToGoInside } from './welcome-user';
 const FreelancerRoute = () => {
 
     const [contextValues, setContextValues] = useState({})
@@ -12,8 +15,10 @@ return (
 <FreelancerContext.Provider value={{contextValues, setContextValues}}>
     <div className='freelancer-content'>
         <Route path='/freelancer/signup' component={FreelancerPreSignup}/>
-        <Route exact path='/freelancer/fill/profile/type-workers/:time/:name/e/' component={FillSignup}/>
-        <Route exact path='/freelancer/user/signup/verification/:time/:name/v/' component={EmailVerifacation}/>
+        <Route exact path='/freelancer/user/signup/verification/:time' component={EmailVerifacation}/>
+        <ProtectedRoute path='/freelancer/dashbord' component={Dashbord}/>
+        <ProtectedRoute path='/freelancer/welcome/steps' component={WelcomeToGoInside}/>
+        <ProtectedRoute path='/freelancer/settings/profile/edit/:id' component={FillSignup}/>
     </div>
 </FreelancerContext.Provider>
 )

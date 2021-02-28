@@ -16,21 +16,38 @@ const signin = async (user) => {
       console.log(err)
     }
 }
+// const read = async (id, credentials, signal) => {
+//     try {
+//       let response = await fetch('/user/worker/auth/' + id, {
+//         method: 'GET',
+//         headers: {
+//           'Accept': 'application/json',
+//           'Content-Type': 'application/json',
+//           'Authorization': 'Bearer ' + credentials.t
+//         }
+//     })
+//       return await response.json()
+//     } catch(err) {
+//       console.log(err)
+//       console.trace()
+//     }
+//   }  
 const read = async (params, credentials, signal) => {
-    try {
-      let response = await fetch('/user/worker/auth/' + params.userId, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + credentials.t
-        }
-    })
-      return await response.json()
-    } catch(err) {
-      console.log(err)
-    }
-  }  
+  try {
+    let response = await fetch('/user/worker/auth/' + params, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + credentials
+      },
+      signal : signal
+  })
+    return await response.json()
+  } catch(err) {
+    console.log(err)
+  }
+}
   const signout = async () => {
     try {
       let response = await fetch('/user/worker/auth/signout')

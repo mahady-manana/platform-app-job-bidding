@@ -55,4 +55,4 @@ const Freelancer = new Schema({
     github : {type : String},
 })
 
-export default mongoose.model("User_type_workers_12345678", Freelancer)
+export default mongoose.model("User_type_workers_123456789", Freelancer)

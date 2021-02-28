@@ -2,6 +2,7 @@ import React from "react";
 import SlideFreelancer from "./slide-freelancer";
 
 const Homepage = () => {
+
 return (
 <>
 <div className='homepage'>
@@ -110,7 +111,7 @@ return (
             </div>
         </section>
         <section className='section'>
-            <div className='inner-section mbgm'>
+            <div className='inner-section mbgb'>
                 <div className='container'>
                     <div className='row'>
                         <div className='col-md-6'>
