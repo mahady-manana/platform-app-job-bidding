@@ -75,10 +75,6 @@ const verifyCode = event => {
         })
     }
 }
-const Test = event => {
-    event.preventDefault()
-    console.log(context.contextValues)
-}
 const {isValid} = user
 if (isValid) {
     return (
@@ -99,7 +95,6 @@ return (
     <section className='section'>
         <div className='inner-section' style={{background : 'url(/images/bg-verify.jpg) no-repeat center', backgroundSize : 'cover'}}>
             <div className='container'>
-                <button onClick={Test}>Clik</button>
                 <div className='codedigitlink'>
                 <h3>User verification</h3>
                 <div className="form-container">

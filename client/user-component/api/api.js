@@ -31,7 +31,27 @@ const completeUpdate = async (type ,params, credentials, data) => {
         console.log(error)
     }
 }
+const sendEmail = async (data) => {
+    try {
+        const postemail = axios.post('/user/post/email/verify/', data)
+        return (await postemail).data
+    } catch (error) {
+        return error
+    }
+}
+const profilePhoto = async (data) => {
+    try {
+        const post = axios.post('/photo-profile/medias/upload', data, {
+            'contentType' : 'multipart/form-data'
+        })
+        return (await post).data
+    } catch (error) {
+        console.log(error)
+    }
+}
 export {
     create,
-    completeUpdate
+    completeUpdate,
+    sendEmail,
+    profilePhoto
 }

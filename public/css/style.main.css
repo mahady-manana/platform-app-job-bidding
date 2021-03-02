@@ -293,9 +293,9 @@ input:focus, textarea:focus {
 .login .inner-section {
     display: flex;
     align-items: center;
-    background: linear-gradient(
+    background: linear-gradient( 
 45deg
-, rgb(66 4 14 / 80%) 50%, transparent 50%);
+ , rgb(0 23 123 / 80%) 50%, transparent 50%);
 }
 .main-footer .col-sm-3 {
     border-right: 1px solid #9c9c9c;
@@ -381,34 +381,27 @@ input:focus, textarea:focus {
 .skills-section .listofskill {
     margin-bottom: 15px;
 }
-.right_col_main .experience_posted .experience_tab {
-    margin-bottom: 15px;
+.add-experience .experience_tab, .add-education .education_tab {
+    margin-bottom: 30px;
     padding: 15px;
-    border: 1px solid #ccc;
+    border-bottom: 2px dotted #7581b7;
 }
-.experience_posted .experience_tab h4.title {
-    font-size: 15px;
-    text-transform: uppercase;
-    border-bottom: 1px solid #f3f3f3;
-    padding-bottom: 10px;
-}
-.experience_posted .experience_tab .company {
+.add-experience .experience_tab .company {
     text-transform: uppercase;
     color: #c70d97;
     font-size: 14px;
     text-decoration: underline;
 }
-.experience_posted .experience_tab .date_experience {
-    background: #b3b3b3;
+.add-experience .experience_tab .date_experience {
     padding: 5px;
-    color: #fff;
+    color: #00177b;
     font-size: 13px;
 }
-.experience_posted .experience_tab .description_experience {
-    box-shadow: inset 0px 0px 5px 0px #ccc;
-    padding: 27px 15px;
-    background: #fdfdfd;
-    border-radius: 5px;
+.add-experience .experience_tab .description_experience, 
+.add-education .education_tab .description {
+    margin: 15px 0px;
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
 }
 .left_main_col .inner-col {
     background: #fff;
@@ -427,15 +420,15 @@ input:focus, textarea:focus {
 .left_main_col .input-profile {
     display: none;
 }
-.left_main_col .profile_upload label {
+.left_main_col .profile_upload .btn {
     cursor: pointer;
     text-align: center;
     border: 1px solid #888;
     color: #888;
     border-radius: 50px;
-    padding: 10px 5px;
+    padding: 8px 20px;
 }
-.left_main_col .profile_upload label:hover {
+.left_main_col .profile_upload .btn:hover {
     background: #c70d97;
     color: #fff;
     border-color: #fff;
@@ -452,23 +445,20 @@ button.pluseducation {
     width: 100%;
     font-size: 35px;
 }
-.add-education .education_tab h4.title {
-    font-size: 16px;
-    text-transform: uppercase;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 15px;
+.experience_tab h4.title, .education_tab h4.title {
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 2px;
 }
 .add-education .education_tab .school {
     color: #c70d97;
 }
 .add-education .education_tab .date_educ {
-    background: #ccc;
-    color: #fff;
+    color: #00177b;
     padding: 2px;
     font-size: 13px;
 }
 .add-education .education_tab .degree_educ {
-    background: #ccc;
     display: inline-block;
     padding: 5px;
     color: #c70d97;
@@ -665,7 +655,7 @@ button.pluseducation {
     text-align: center;
     min-width: 250px;
 }
-span.btn-closex {
+.btn-closex {
     background: #dedede;
     position: absolute;
     top: 0;
@@ -679,12 +669,14 @@ span.btn-closex {
     cursor: pointer;
 }
 .profile-header .avatar-top {
-    width: 70px;
+    width: 80px;
     height: 100%;
-    background: #ccc;
+    background: #00177b;
 }
-.profile-header, .profile-header *:not(.infos-user, .infos-user *) {
-    height: 100%;
+.profile-header .avatar-top img {
+    height: 80px;
+    object-fit: cover;
+    clip-path: circle(50% at 50% 50%);
 }
 .profile-header .col {
     padding: 0;
@@ -798,4 +790,245 @@ span.btn-closex {
     font-size: 16px;
     display: block;
     margin-bottom: 10px;
+}
+/*
+* font awaisome Brands
+*
+*/
+.fab {
+    font-family: "Font Awesome 5 Brands" !important;
+}
+.popup-form-photo .btn-container-save {
+    text-align: center;
+}
+.popup-form-photo .save-photo {
+    text-align: right;
+    background: #00ade0;
+    color: #fff;
+    padding: 5px 30px;
+    border-radius: 40px;
+    border: none;
+    box-shadow: 3px 3px 5px 0 #024b61;
+}
+.popup-form-photo .popup-content {
+    max-width: 400px;
+    margin: auto;
+    box-shadow: 0 0 18px 0 #000;
+    border: 2px solid #00ade0;
+}
+.popup-form-photo input {
+    display: none;
+}
+.popup-form-photo label {
+    background: #00177b;
+    color: #fff;
+    text-align: center;
+    padding: 10px 30px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+.left_main_col .profile_upload {
+    text-align: center;
+}
+.email-infos-hidden p {
+    padding: 10px;
+    background: #00177b;
+    color: #fff;
+    margin: 20px 0;
+    font-size: 15px;
+}
+/*
+*
+*  Popup message
+*/
+.message-popup.message-success {
+    background: #03a55a;
+}
+.message-popup {
+    position: fixed;
+    top: 50%;
+    color: #fff;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 0 20px 0 #c1c1c1;
+    outline: 1px solid #fff;
+    outline-offset: -5px;
+    animation: popupmessage 15s;
+    opacity : 1;
+}
+@keyframes popupmessage {
+    0% {
+        top : 50%;
+        opacity : 1;
+    }
+    100% {
+        top : 0;
+        opacity : 0;
+    }
+}
+.experience_tab .edit-icon, .add-education .edit-icon {
+    position: absolute;
+    right: 0;
+    font-size: 20px;
+    top: -10px;
+    width: 37px;
+    border-radius: 20px;
+    border: 1px solid #00177b;
+    height: 37px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #00177b;
+    cursor: pointer;
+}
+.experience_tab,
+.add-education .education_tab {
+    position: relative;
+}
+.image-welcomen .image-container, .image-welcomen .image-container img {
+    height: 100%;
+    object-fit: cover;
+}
+.image-welcomen {
+    padding: 0;
+}
+.welcome-new-user {
+    background: #00ade0;
+    color: #fff;
+    padding: 30px;
+}
+.welcome-new-user h4 {
+    font-size: 20px;
+    color: #00177b;
+    border-bottom: 1px solid #00177b;
+    padding-bottom: 10px;
+}
+.welcome-new-user .tosetting {
+    background: #fff;
+    display: inline-block;
+    text-align: center;
+    color: #00177b !important;
+    padding: 5px 15px;
+    margin: auto;
+}
+.welcome-new-user {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 35px !important;
+}
+.image-welcomen {
+    padding: 0 !important;
+}
+.form_signup_full .tab-icon {
+    color: #7783b8;
+    margin-right: 10px;
+    font-size: 20px;
+    width: 30px;
+}
+.profile-tab-dashbord .social {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+.profile-tab-dashbord .social .link-social {
+    font-size: 20px;
+    height: 40px;
+    background: #004aef;
+    width: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff !important;
+    margin-right: 5px;
+}
+.profile-tab-dashbord .perso-infos {
+    text-align: center;
+}
+.profile-tab-dashbord {
+    background: #00ade0;
+    padding: 15px;
+    box-shadow: 2px 2px 5px 0px #adb5bd;
+}
+.profile-tab-dashbord .image-container {
+    text-align: center;
+}
+.profile-tab-dashbord .skills .item {
+    display: block;
+}
+.profile-tab-dashbord h3 {
+    text-transform: uppercase;
+    font-size: 14px;
+    padding-bottom: 10px;
+    margin-top: 20px;
+}
+.profile-tab-dashbord .title {
+    font-size: 18px;
+    margin: 15px 0;
+    border-top: 2px dotted;
+    border-bottom: 2px dotted;
+    padding: 5px 0;
+    color: #f3f3f3;
+}
+.user-dashbord.type-freelancer {
+    background: #f9f9f9;
+}
+.col-rigth-infos .gird-infos-item {
+    background: #fff;
+    box-shadow: 0 0 15px 0 #ccc;
+    padding: 25px;
+    margin-bottom: 40px;
+}
+.col-rigth-infos h3 {
+    font-size: 16px;
+    text-transform: uppercase;
+    border-bottom: 2px dotted #a8afd2;
+    color: #00177b;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+.col-rigth-infos h1.fullname {
+    font-size: 30px;
+}
+.col-rigth-infos h2.personnal-title {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+.col-rigth-infos .hourly-rate span {
+    display: inline-block;
+}
+
+.col-rigth-infos .hourly-rate {
+    text-align: left;
+}
+.col-rigth-infos .hourly-rate .rate {
+    font-size: 20px;
+    background: #00177b;
+    padding: 8px 15px;
+    color: #fff;
+    border-radius: 50px;
+}
+.col-rigth-infos .full-skills .item-skill {
+    margin-right: 15px;
+    color: #004aef;
+    border: 1px solid;
+    padding: 5px 10px;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+.col-rigth-infos .experince-items .item,
+.col-rigth-infos .education-items .item {
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+.col-rigth-infos .experince-items h4, .col-rigth-infos .education-items h4 {
+    font-size: 18px;
+}
+.col-rigth-infos .experince-items .date, .col-rigth-infos .education-items .date {
+    display: block;
+    font-size: 14px;
+    font-style: italic;
 }

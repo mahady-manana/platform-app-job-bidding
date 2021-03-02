@@ -15,6 +15,7 @@ const Freelancer = new Schema({
     },
     password : {type : String},
     user_id : {type : String},
+    photo : {type : String},
     phone : {type : Number},
     city : {type : String},
     country : {type : String},
@@ -30,17 +31,18 @@ const Freelancer = new Schema({
             title : {type : String},
             company : {type : String},
             description : {type : String},
-            date_bg : {type : Date},
-            date_end : {type : Date},
+            date_bg : {type : String},
+            date_end : {type : String},
         }
     ],
     education : [
         {
             degree : {type : String},
+            title : {type : String},
             school : {type : String},
             description : {type : String},
-            date_bg : {type : Date},
-            date_end : {type : Date},
+            date_bg : {type : String},
+            date_end : {type : String},
         }
     ],
     job : [
@@ -55,4 +57,4 @@ const Freelancer = new Schema({
     github : {type : String},
 })
 
-export default mongoose.model("User_type_workers_123456789", Freelancer)
+export default mongoose.model("User_type_workers_123456789a", Freelancer)

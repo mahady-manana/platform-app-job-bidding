@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import expressJwt from 'express-jwt';
 import config from '../configs/config';
 import Bcryptjs from "bcryptjs";
 import Freelancer from "../models/Freelancer"
@@ -12,7 +11,7 @@ const login = async (req, res) => {
 
     if (!user)
       return res.status('401').json({
-        error: "User not found"
+        error: "User not found : Verify your email address."
       })
 
     if (!Bcryptjs.compareSync(req.body.password, user.password)) {
@@ -29,13 +28,13 @@ const login = async (req, res) => {
 
     return res.json({
       token,
-      user: {_id: user._id, firstname: user.firstname, lastname: user.lastname, email: user.email},
+      user: {_id: user._id, firstname: user.firstname, lastname: user.lastname, email: user.email, photo : user.photo},
       status : "authorized"
     })
   } catch (err) {
     console.log(err)
     return res.status('401').json({
-      error: "Cannot sign in!"
+      error: "Something went wrong : Please try again later!"
     })
   }
 }

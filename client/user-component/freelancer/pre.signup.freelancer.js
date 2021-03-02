@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import {FreelancerContext} from './FreelancerContext';
 import { TopContext } from '../../TopContext';
 import { Input } from '../../utils/formUtility';
+import { sendEmail } from '../api/api';
 
 const FreelancerPreSignup = () => {
 
@@ -37,12 +38,13 @@ const saveAndNext = event => {
         }
         context.setContextValues(infos)
         setTopContext(infos)
-        // axios.post('/user/post/email/verify/', data).then(res => {
-        //     setInfos({...infos, loading : false, isFilled : true})
-        // }).catch(err => setInfos({...infos, error : err}))
-        setInfos({...infos, loading : false, isFilled : true})
-    }
-      
+        sendEmail(data).then(res => {
+            if (res.error) {
+                setInfos({...infos, loading : false, isFilled : true})
+            }
+            setInfos({...infos, loading : false, isFilled : true})
+        })  
+    }   
 }
 
 const {isFilled} = infos

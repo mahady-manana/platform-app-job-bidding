@@ -12,8 +12,8 @@ const signin = async (user) => {
         body: JSON.stringify(user)
       })
       return await response.json()
-    } catch(err) {
-      console.log(err)
+    } catch(error) {
+      return error.json();
     }
 }
 // const read = async (id, credentials, signal) => {
