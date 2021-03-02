@@ -1,4 +1,4 @@
-const SkillsOptions = [
+export const SkillsOptions = [
     'Angular',
     'Javascript',
     'Reactjs',
@@ -13,5 +13,3 @@ const SkillsOptions = [
     'Web development',
     'Mobile Development'
 ]
-
-export default SkillsOptions;

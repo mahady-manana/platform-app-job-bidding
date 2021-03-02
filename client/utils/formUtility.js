@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Input = ({placeholder, onBlur, type, name, value, onChange, className, labelName, fa}) => {
+const Input = ({placeholder, onBlur, type, name, value, onChange, className, labelName, fa, fab}) => {
 return (
 <div className="custom-form">
     <label htmlFor={name} className={className}><i aria-hidden className={`fas ${fa}`}></i>{labelName}

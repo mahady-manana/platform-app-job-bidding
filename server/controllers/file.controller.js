@@ -10,17 +10,16 @@ const uploadFile = async (req, res, next) => {
 		const fileInfo = await new Single({
 				filename : file.filename,
 				uploadDate : Date.now(),
-				photo_sign : req.body.photo_sign
 			})
 			fileInfo.save()
                     .then(file => {
                     res.status(200).json("File uploaded successfully!")
                     })
                     .catch(error => {
-                    res.send(error)
+                    res.json({error : 'something went wrong!'})
                     })
 	} catch(error) {
-		next(error)
+		res.json({error : 'something went wrong!'})
 	}
 }
 

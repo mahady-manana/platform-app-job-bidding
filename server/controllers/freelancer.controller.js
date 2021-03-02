@@ -19,6 +19,7 @@ const completeUpdate = async (req, res, next) => {
         firstname : req.body.firstname,
         lastname : req.body.lastname,
         job_title : req.body.job_title,
+        photo : req.body.photo,
         description : req.body.description,
         hourly_rate : req.body.hourly_rate,
         city : req.body.city,
@@ -26,6 +27,10 @@ const completeUpdate = async (req, res, next) => {
         skill : req.body.skill,
         education : req.body.education,
         experience : req.body.experience,
+        facebook : req.body.facebook,
+        linkedin : req.body.linkedin,
+        twitter : req.body.twitter,
+        github : req.body.github,
     }},{upsert:true}, error => {
         if (error) {
             return res.json({error : error + 'this the error'})

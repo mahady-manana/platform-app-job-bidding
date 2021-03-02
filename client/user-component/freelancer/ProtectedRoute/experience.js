@@ -1,18 +1,50 @@
-import React, {useState, useEffect} from 'react';
-import {Input, Textarea} from '../../utils/formUtility';
+import React, {useState, useEffect, useContext} from 'react';
+import {Input, Textarea} from '../../../utils/formUtility';
+import { ContextForIndexSign } from './profile-settings';
 
 const Experience = props => {
+const {contextForIndex} = useContext(ContextForIndexSign);
 const [values, setValues] = useState({
     title : '',
-    school : '',
-    degree : '',
+    company : '',
     date_bg : '',
     date_end : '',
     description : '',
+    update : false,
+    index : ''
 })
+useEffect(() => {
+    let cleanup = false;
+    if (contextForIndex === undefined) {
+        setValues({
+            title : '',
+            company : '',
+            date_bg : '',
+            date_end : '',
+            description : '',
+            update : false,
+            index : ''
+        })
+    }  else {
+        const {data} = contextForIndex
+        setValues({
+            title : data.title || '',
+            company : data.company || '',
+            date_bg : data.date_bg || '',
+            date_end : data.date_end || '',
+            description : data.description || '',
+            update : true,
+            index : contextForIndex.index
+        })
+    }   
+    return () => {
+        cleanup = true
+    }
+}, [contextForIndex])
+
 const [isAllFilled, setFilled] = useState(false)
 const CheckIfFilled = () => {
-    if (values.title.length !== ''  && values.school !== '' && values.date_bg !== '' && values.date_end !== '') {
+    if (values.title.length !== ''  && values.company !== '' && values.date_bg !== '' && values.date_end !== '') {
         setFilled(true)
     } else {
         setFilled(false)
@@ -32,21 +64,19 @@ const handleChange = name => event => {
     CheckIfFilled()
     classIfEnable()
 }
-const handleEducationFields = event => {
+const handleExperienceFields = event => {
     event.preventDefault();
-    const education_data = {
+    const experience_data = {
         title : values.title,
-        school : values.school,
-        degree : values.degree,
+        company : values.company,
         date_bg : values.date_bg,
         date_end : values.date_end,
         description : values.description
     }
-    props.save(education_data)
+    props.save(experience_data, values.update, values.index)
     setValues({
         title : '',
-        school : '',
-        degree : '',
+        company : '',
         date_bg : '',
         date_end : '',
         description : ''
@@ -55,35 +85,26 @@ const handleEducationFields = event => {
 }
 return (
 <div className='popup-content'>
-<div className='form-education'>
+<div className='form-experience'>
 <div className='professionnal-title'>
-                                <h4>Education :</h4>
+                                <h4>Experience :</h4>
                             </div>
-                            <div className='education-title'>
+                            <div className='carrer-title'>
                                 <Input name='title'
                                     type='text'
-                                    fa='fa-graduation-cap'
-                                    placeholder='Title or fields'
+                                    fa='fa-briefcase'
+                                    placeholder='Your job title'
                                     value={values.title}
                                     onChange={handleChange('title')}
                                     />
                             </div>
-                            <div className='education-title'>
-                                <Input name='degree'
+                            <div className='carrer-company'>
+                                <Input name='company'
                                     type='text'
-                                    fa='fa-user-graduate'
-                                    placeholder='Degree or Certificate'
-                                    value={values.degree}
-                                    onChange={handleChange('degree')}
-                                    />
-                            </div>
-                            <div className='carrer-school'>
-                                <Input name='school'
-                                    type='text'
-                                    fa='fa-school'
-                                    placeholder='School or Formation Center'
-                                    value={values.school}
-                                    onChange={handleChange('school')}
+                                    fa='fa-building'
+                                    placeholder='Company'
+                                    value={values.company}
+                                    onChange={handleChange('company')}
                                     />
                             </div>
                             <div className='row date'>
@@ -93,7 +114,7 @@ return (
                                         <Input name='date_bg'
                                             type='date'
                                             fa='fa-calendar-plus'
-                                            placeholder=''
+                                            placeholder='Start date >>>'
                                             value={values.date_bg}
                                             onChange={handleChange('date_bg')}
                                             />
@@ -105,7 +126,7 @@ return (
                                         <Input name='date_end'
                                                     type='date'
                                                     fa='fa-calendar-plus'
-                                                    placeholder=''
+                                                    placeholder='End date'
                                                     value={values.date_end}
                                                     onChange={handleChange('date_end')}
                                                     />                              
@@ -124,7 +145,7 @@ return (
                             </div>
                             <div className='finishandsave'>
                                 <p className='text-right mc-2'>Fill in all fields to enable save button.</p>
-                                <button className={`btn default-2 ${classIfEnable()}`} onClick={handleEducationFields} disabled={isAllFilled ? false : true || true}>Save</button>
+                                <button className={`btn default-2 ${classIfEnable()}`} onClick={handleExperienceFields} disabled={isAllFilled ? false : true || true}>Save</button>
                                 <p className='text-danger text-left'>* : Fields required</p>
                             </div>
 </div>

@@ -8,7 +8,7 @@ CONTRIBUTOR :
 Armel Adrianimanana - Senior PHP Developer<br/> 
 Email : 
 
-Ranico Dazy - Stundent<br/>
+Ranico Dazy - Student<br/>
 Email :
 
 ## Our project.

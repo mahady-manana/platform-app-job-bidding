@@ -8,14 +8,18 @@ import ClientRoute from "./user-component/client-components/ClientRouter";
 import FreelancerRoute from "./user-component/freelancer/FreelancerRoute";
 import Login from "./user-component/login";
 
+export const CheckNewSignupContext = React.createContext(null)
+
 const SharedRouter = () => {
+const [loginAndLogoutContext, setLoginAndLogoutContext] = useState(false)
 const [topContext, setTopContext] = useState({
     firstname : '',
     lastname : '',
-    avatar : ''
+    avatar : '',
 }); 
 return (
 <TopContext.Provider value={{topContext, setTopContext}}>
+<CheckNewSignupContext.Provider value={{loginAndLogoutContext, setLoginAndLogoutContext}}>
     <Switch>
         <>
         <Menu/>
@@ -26,6 +30,7 @@ return (
         <Footer/>
         </>
     </Switch>
+</CheckNewSignupContext.Provider>
 </TopContext.Provider>
 )
 }

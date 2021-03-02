@@ -2,15 +2,17 @@ import React, {useState, useEffect, useContext} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import {Input, Textarea} from '../../../utils/formUtility'
-import Experience from '../experience';
-import SkillsOptions from '../skills_options';
-import Education from '../education';
+import Experience from './experience';
+import {SkillsOptions} from './skills_options';
+import Education from './education';
 import {FreelancerContext} from '../FreelancerContext';
-import { completeUpdate } from '../../api/api';
+import { completeUpdate, profilePhoto } from '../../api/api';
 import Auth from '../../auth/auth.api';
 import { read } from '../../auth/router.api';
-
-const FillSignup = props => {
+import {TabExperience} from './tab-experience';
+import {TabEducation} from './tab-education';
+export const ContextForIndexSign = React.createContext(null)
+const ProfileSettings = props => {
 const context = useContext(FreelancerContext)
 const [values, setValues] = useState({
     email : '',
@@ -26,12 +28,26 @@ const [values, setValues] = useState({
     education : [],
     experience : [],
     photo : '',
-    photo_sign : ''
+    previewPhoto : '',
+    photoName : '',
+    user_id : '',
+    facebook : '',
+    linkedin : '',
+    twitter : '',
+    github : '',
+})
+const [contextForIndex, setContextForIndex] = useState({
+    data : {},
+    index : ''
 })
 const [imageFile, setImageFile] = useState({photo : ''});
-
+const [openPopupUpload, setOpenPhotoUpload] = useState(false)
 const [isOpenAddExp, setIsOpenAddExp] = useState(false);
 const [isOpenEduc, setOpenEduc] = useState(false);
+const [popupMessage, setPopupMessage] = useState({
+    error : false,
+    success : false
+})
 
 useEffect(() => {
     let abortController = new AbortController();
@@ -40,18 +56,24 @@ useEffect(() => {
         .then(data => {
             setValues({
                 ...values,
-                firstname : data.firstname,
-                lastname : data.lastname,
-                job_title : data.job_title,
-                description : data.description,
-                hourly_rate : data.hourly_rate,
-                city : data.city,
-                country : data.country,
-                skill : data.skill,
-                education : data.education,
-                experience : data.experience,
+                email : data.email || '',
+                user_id : data._id || '',
+                photoName : data.photo || '',
+                firstname : data.firstname || '',
+                lastname : data.lastname || '',
+                job_title : data.job_title || '',
+                description : data.description || '',
+                hourly_rate : data.hourly_rate || '',
+                city : data.city || '',
+                country : data.country || '',
+                skill : data.skill || [],
+                education : data.education || [],
+                experience : data.experience || [],
+                facebook : data.facebook || '',
+                linkedin : data.linkedin || '',
+                twitter : data.twitter || '',
+                github : data.github || '',
             })
-            console.log(data)
         })
 
     return () => {
@@ -62,36 +84,86 @@ useEffect(() => {
 const handleBase64Image = event => {
     event.preventDefault();
     const reader = new FileReader();
-    reader.readAsDataURL(event.target.files[0])
+    const renamedPhoto = new File([event.target.files[0]], 
+        'photo-' + Date.now() + values.user_id + event.target.files[0].name.replace(/ /g, "-" ),
+        {type : event.target.files[0].type})
+        
+    reader.readAsDataURL(renamedPhoto)
     reader.onload = e => {
-        setImageFile({photo : reader.result})
+        setValues({...values, photo : renamedPhoto, photoName : renamedPhoto.name, previewPhoto : reader.result})
     }
-    setValues({...values, photo : event.target.files[0]})
 }
 const handleChange = name => event => {
     event.preventDefault();
     const val = event.target.value;
     setValues({...values, [name] : val})
 }
-const handleExperience = data => {
-    setValues(previousValues => ({
-        ...previousValues, experience : values.experience.concat(data)
-    }))
+const handleExperience = (data, update, index) => {
+    if (update && index !== '') {
+            const updatedExp = values.experience;
+            updatedExp[index].title = data.title;
+            updatedExp[index].company =  data.company;
+            updatedExp[index].date_bg = data.date_bg 
+            updatedExp[index].date_end =  data.date_end
+            updatedExp[index].description = data.description
+            setValues(previousValues => ({
+                ...previousValues, experience : updatedExp
+            }))
+
+    } else {
+        setValues(previousValues => ({
+            ...previousValues, experience : values.experience.concat(data)
+        }))
+    }
     setIsOpenAddExp(!isOpenAddExp)
 }
-const handleEducation = data => {
-    setValues(previousValues => ({
-        ...previousValues, education : values.education.concat(data)
-    }))
+const handleEducation = (data, update, index) => {
+    if (update && index !== '') {
+        const updatedEdu = values.education;
+        updatedEdu[index].title = data.title;
+        updatedEdu[index].school =  data.school;
+        updatedEdu[index].degree = data.degree 
+        updatedEdu[index].date_bg = data.date_bg 
+        updatedEdu[index].date_end =  data.date_end
+        updatedEdu[index].description = data.description
+
+        setValues(previousValues => ({
+            ...previousValues, education : updatedEdu
+        }))  
+    } else {
+        setValues(previousValues => ({
+            ...previousValues, education : values.education.concat(data)
+        }))
+    }
     setOpenEduc(!isOpenEduc)
 }
 const closeAddExp = event => {
     event.preventDefault();
-    setIsOpenAddExp(!isOpenAddExp)
+    setContextForIndex(undefined);
+    setIsOpenAddExp(!isOpenAddExp);
 }
 const closeAddEduc = event => {
     event.preventDefault();
+    setContextForIndex(undefined);
     setOpenEduc(!isOpenEduc);
+}
+const updateEducation = indexID => event => {
+    event.preventDefault();
+    const edu = values.education[indexID]
+    setContextForIndex({
+        data : edu,
+        index : indexID
+    })
+    setOpenEduc(!isOpenEduc)
+}
+const updateExperience = indexID => event => {
+    event.preventDefault();
+    const exp = values.experience[indexID]
+    setContextForIndex({
+        data : exp,
+        index : indexID
+    })
+    setIsOpenAddExp(!isOpenAddExp);
 }
 const classOpenOrCloseExp = () => {
     if (isOpenAddExp) {
@@ -107,14 +179,23 @@ const classOpenOrCloseEduc = () => {
         return 'closex'
     }
 }
+
 const handleSubmitAll = event => {
     event.preventDefault();
-    const dateNow = Date.now();
-    const formData =  new FormData();
-          formData.append('file', values.photo)
-          formData.append('filename', values.photo.name)
-          formData.append('uploaded', dateNow)
-          formData.append('photo_sign', dateNow + values.email + values.name)
+    if (values.photo !== '') {
+        const dateNow = Date.now();
+        const formData =  new FormData();
+            formData.append('file', values.photo)
+            formData.append('uploaded', dateNow)
+            profilePhoto(formData).then(res => { 
+                        if (res.error) {
+                            setOpenPhotoUpload(false)
+                        }
+                        setOpenPhotoUpload(false)
+                    }
+                )
+    }
+    const auth = Auth.isAuthenticated();
     const allFields = {
         firstname : values.firstname,
         lastname : values.lastname,
@@ -122,27 +203,43 @@ const handleSubmitAll = event => {
         description : values.description,
         hourly_rate : values.hourly_rate,
         city : values.city,
+        photo : values.photoName,
         country : values.country,
         skill : values.skill,
         education : values.education,
         experience : values.experience,
+        facebook : values.facebook,
+        linkedin : values.linkedin,
+        twitter : values.twitter,
+        github : values.github,   
     }
-    const auth = Auth.isAuthenticated();
-    // axios.post('/photo-profile/medias/upload', formData, {
-    //     'contentType' : 'multipart/form-data'
-    // }).then(res => console.log('Added Photo')).catch(err => console.log(err))
     completeUpdate('freelancer', auth.user._id,auth.token,  allFields).then(res => {
-        console.log(res)
+        if (res.error) {
+            setPopupMessage({...popupMessage, error : true})
+            setTimeout(() => {
+                setPopupMessage({...popupMessage, error : false})
+            }, 15000);
+        } else {
+            setPopupMessage({...popupMessage, success : true})
+            setTimeout(() => {
+                setPopupMessage({...popupMessage, success : false})
+            }, 15000);
+        }
     })
 }
+const openPhotoUploader = event => {
+    event.preventDefault()
+    setOpenPhotoUpload(!openPopupUpload);
+}
 return (
-<>
+<ContextForIndexSign.Provider value={{contextForIndex, setContextForIndex}}>
 <div className='edit-profile'>
     <div className ='entry'>
         <section className='section'>
             <div className='inner-section'>
-                <div className='contaier'>
-                    <h3 className='text-center'>All settings of yours : Make sure to save your change</h3>
+                <div className='container text-intro-setting'>
+                    <h3 className='text-center'>Make sure your profile is up-to-date</h3>
+                    <p className='text-center'>YOUR PROFILE IS VERY VERY IMPORTANT - So make all best and accurate.</p>
                 </div>
             </div>
         </section>
@@ -153,15 +250,52 @@ return (
                     <div className='row'>
                         <div className='col-md-4 left_main_col'>
                             <div className='inner-col'>
-                                <div className='profile_image'>
-                                    <div className='image-container'>
-                                        <img src={imageFile.photo} alt=''/>
+                                <div className='profile'>
+                                    <div className='profile_image'>
+                                        <div className='image-container'>
+                                            <img src={values.previewPhoto || '/uploads/profile/' + values.photoName} alt=''/>
+                                        </div>
+                                    </div>
+                                    <div className='profile_upload'>
+                                        <button className='btn' onClick={openPhotoUploader}>
+                                            Choose profile
+                                        </button>
                                     </div>
                                 </div>
-                                <div className='profile_upload'>
-                                    <label>{imageFile.photo === '' ? 'Choose profile' : 'Change profile'}
-                                        <input className='input-profile' type='file' onChange={handleBase64Image}/>
-                                    </label>
+                                <div className='additionnals-infos'>
+                                    <div className='email-infos-hidden'>
+                                        <p className='text-center'><i aria-hidden className='fas fa-envelope-open-text'></i> {values.email}</p>
+                                    </div>
+                                    <div className='social-media'>                
+                                        <Input name='firstname'
+                                                        type='text'
+                                                        fa='fab fa-linkedin-in'
+                                                        placeholder='Linkedin'
+                                                        value={values.linkedin}
+                                                        onChange={handleChange('linkedin')}
+                                                        />                
+                                        <Input name='firstname'
+                                                        type='text'
+                                                        fa='fab fa-facebook-f'
+                                                        placeholder='Facebook'
+                                                        value={values.facebook}
+                                                        onChange={handleChange('facebook')}
+                                                        />                
+                                        <Input name='firstname'
+                                                        type='text'
+                                                        fa='fab fa-twitter'
+                                                        placeholder='Twitter'
+                                                        value={values.twitter}
+                                                        onChange={handleChange('twitter')}
+                                                        />                
+                                        <Input name='firstname'
+                                                        type='text'
+                                                        fa='fab fa-github'
+                                                        placeholder='Github'
+                                                        value={values.github}
+                                                        onChange={handleChange('github')}
+                                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -284,19 +418,11 @@ return (
                             {/* {Carrer prof } */}
                             <div className='add-experience'>
                                 <h3>Professionnal Experience</h3>
-                                <div className='experience_posted'>
                                     {
                                         values.experience.map((item, index) => {
-                                            return (
-                                                <div key={index} className='experience_tab'>
-                                                    <h4 className='title'>{item.title}</h4>
-                                                    <p><span className='company'>{item.company}</span> - From : <span className='date_experience'>{item.date_bg}</span> to <span className='date_experience'> {item.date_end}</span></p>
-                                                    <div className='description_experience'>{item.description}</div>
-                                                </div>
-                                            )
+                                            return (<TabExperience key={index} item={item} update={updateExperience(index)}/>)
                                         })
                                     }
-                                </div>
                                 <div className='addhere'>
                                     <button className='plusexperience' onClick={closeAddExp}>+
                                         <span className='add-span'>Add experience</span>
@@ -315,12 +441,7 @@ return (
                                     {
                                         values.education.map((item, index) => {
                                             return (
-                                                <div key={index} className='education_tab'>
-                                                    <h4 className='title'>{item.title}</h4>
-                                                    <p><span className='school'>{item.school}</span> - From : <span className='date_educ'>{item.date_bg}</span> to <span className='date_educ'> {item.date_end}</span></p>
-                                                    <div className='degree_educ'>Degree : {item.degree}</div>
-                                                    <div className='description'>{item.description}</div>
-                                                </div>
+                                                <TabEducation key={index} item={item} update={updateEducation(index)}/>
                                             )
                                         })
                                     }
@@ -346,9 +467,39 @@ return (
             </div>
         </section>
         </form>
+        <form onSubmit={handleSubmitAll} className={`popup popup-form-photo ${openPopupUpload ? '' : 'closex'}`}>
+            <span className='btn-closex' onClick={openPhotoUploader}>x</span>
+            <div className='popup-content'>
+                <div className='form-inner'>
+                    <div className='profile_image'>
+                        <div className='image-container'>
+                            <img src={values.previewPhoto || '/uploads/profile/' + values.photo} alt=''/>
+                        </div>
+                    </div>
+                    <div className='profile_upload'>
+                        <label>{(values.previewPhoto === '' || values.photo === '') ? 'Choose photo' : 'Change photo'}
+                            <input className='input-profile' type='file' accept="image/png, image/jpg,image/jpeg" onChange={handleBase64Image}/>
+                        </label>
+                    </div>
+                        <div className='btn-container-save'>
+                            <button type='submit' className='save-photo' disabled={
+                                (values.previewPhoto === '' || values.photo === '') ? true : false
+                            }>Save photo</button>
+                        </div>
+                </div>
+            </div>
+        </form>
     </div> 
 </div>
-</>
+<div className={`message-popup ${popupMessage.error ? 'message-error' : popupMessage.success ? 'message-success' : 'closex'}`}>
+    <div className='content'>
+        <i className={popupMessage.error ? 'fas fa-exclamation-circle' : 
+                      popupMessage.success ? 'fa fa-check-circle' : ''} ></i>
+        <p>{popupMessage.error ? 'Error - Unable to process this action' : 
+            popupMessage.success ? 'Change saved successfully!' : ''}</p>
+    </div>
+</div>
+</ContextForIndexSign.Provider>
 )
 }
-export default FillSignup;
+export default ProfileSettings;

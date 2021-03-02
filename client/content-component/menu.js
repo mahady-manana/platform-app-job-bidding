@@ -1,14 +1,13 @@
 import React, {useState, useEffect, useContext} from "react";
 import { Link } from "react-router-dom";
-import { TopContext } from "../TopContext";
+import { CheckNewSignupContext } from "../SharedRouter";
 import Auth from '../user-component/auth/auth.api';
 import HeaderProfile from "../user-component/header-profile";
 import CallToAction from "./call-to-action";
 
 const Menu = () => {
 const [isValid, setValidation] = useState(false)
-const {topContext} = useContext(TopContext);
-
+const {loginAndLogoutContext} = useContext(CheckNewSignupContext);
 useEffect(() => {
     let cleanup = false;
     if (Auth.isAuthenticated()) {
@@ -19,16 +18,11 @@ useEffect(() => {
     return () => {
         cleanup = true;
     }
-}, [topContext])
-
-const renderExactcompoent = () => {
-    if (isValid) {
-        return (<HeaderProfile/>)
-    } else {
-        return (<CallToAction/>)
-    }
+}, [loginAndLogoutContext])
+const Test = event => {
+    event.preventDefault();
+    console.log(loginAndLogoutContext)
 }
-
 return (
 <>
 <div className="top-header" style={{background : '#fffcfc'}}>
@@ -42,7 +36,7 @@ return (
             <div className="col-md-3">
             </div>
             <div className="col-md-6">
-                {renderExactcompoent()} 
+                {isValid ? (<HeaderProfile/>) : (<CallToAction/>)} 
             </div>
         </div>
     </div>
@@ -64,7 +58,7 @@ return (
                     <Link className="nav-link text-white" to="/use-reducer">UseReducer</Link>
                 </li>
                 <li className="nav-item">
-                    <Link className="nav-link text-white" to="/exmaplecontext/">Context</Link>
+                    <Link className="nav-link text-white" to="/exmaplecontext/" onClick={Test}>Click Test</Link>
                 </li>
             </ul>
         </nav>

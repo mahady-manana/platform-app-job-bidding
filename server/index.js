@@ -35,7 +35,7 @@ app.use('/', SendMailRouter)
 app.use("/", AuthFreelancerRouter);
 app.use("/", FreelancerRouters);
 app.use('/', SinglePhotoRouter)
-app.get("*", (req, res) => {
+app.get("*", cors(), (req, res) => {
     const sheets = new ServerStyleSheets();
     const context = {};
     const html = ReactDOMServer.renderToString(
