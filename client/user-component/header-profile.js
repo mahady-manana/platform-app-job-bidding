@@ -35,7 +35,7 @@ useEffect(() => {
 }, [])
 const handleLogout = event => {
     event.preventDefault();
-    signout().then(res => {
+    signout('freelanceer').then(res => {
         
         setToLogout(true);
         Auth.clearJWT(() => {

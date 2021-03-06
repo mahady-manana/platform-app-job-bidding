@@ -1,6 +1,7 @@
 import React, { useState, useContext} from "react";
 import { Redirect } from "react-router-dom";
 import { TopContext } from "../TopContext";
+import { Input } from "../utils/formUtility";
 import Auth from "./auth/auth.api";
 import { signin } from "./auth/router.api";
 
@@ -52,14 +53,20 @@ return (
         <div className='container'>
             <div className="form-container">
                 <form onSubmit={handleLogin}>
-                    <div className="form-group">
-                        <label htmlFor="email">Email address :</label>
-                        <input type="email" className="form-control" placeholder="Enter email" value ={logger.email} onChange={handleChange('email')}/>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="password">Password :</label>
-                        <input type="password" className="form-control" placeholder="Enter password" value ={logger.password} onChange={handleChange('password')}/>
-                    </div>
+                    <Input className = 'email'
+                                       type ='email'
+                                       name = 'email'
+                                       fa = 'fa-envelope-open-text'
+                                       placeholder = 'Email'
+                                       value = {logger.email}
+                                       onChange = {handleChange('email')}/>
+                                <Input className = 'password'
+                                       type ='password'
+                                       name = 'password'
+                                       fa = "fa-lock"
+                                       placeholder = 'Password'
+                                       value = {logger.password}
+                                       onChange = {handleChange('password')}/>
                     <p className='text-danger'>
                         {
                             logger.error

@@ -25,7 +25,7 @@ const Freelancer = new Schema({
     skill : [],
     description : {type : String},
     languages : {type : String},
-    joining_date : {type : Date},
+    joining_date : {type : String},
     experience : [
         {
             title : {type : String},

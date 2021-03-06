@@ -55,9 +55,7 @@ useEffect(() => {
                 github : data.github,
             })
         })
-    return () => {
-        abortController.abort()
-    }
+    return () => abortController.abort();
 }, [])
 
 return (
@@ -96,8 +94,8 @@ return (
                                 <div className='title'>
                                     <span>{user.job_title}</span>
                                 </div>
-                                <div className='hourly'>
-                                    <h3>Hourly rate : {user.hourly_rate} €/h</h3>
+                                <div className='address'>
+                                    <p>{user.city}, {user.country}</p>
                                 </div>
                                 <div className='bid'>
                                     <h3>Bid available : 10 bid</h3>
@@ -168,7 +166,7 @@ return (
                                 <h3>Educations</h3>
                                 <div className='education-items'>
                                     {
-                                        user.experience.map((item, index) => {
+                                        user.education.map((item, index) => {
                                             return (
                                                 <div className='item' key={index}>
                                                     <h4>{item.title}</h4>

@@ -6,15 +6,12 @@ import config from "../webpack.client.js";
 // End module for dev only 
 
 const Bundler = app => {
-    
-    if (process.env.NODE_ENV === "development") {
-        const compiler = webpack(config);
-        const middleware = webpackDevMiddleware(compiler, {
-            publicPath : config.output.publicPath
-        })
-        const hotMiddleware = webpackHotMiddleware(compiler);
-        app.use(middleware)
-        app.use(hotMiddleware)
-    }
+    const compiler = webpack(config);
+    const middleware = webpackDevMiddleware(compiler, {
+        publicPath : config.output.publicPath
+    })
+    const hotMiddleware = webpackHotMiddleware(compiler);
+    app.use(middleware)
+    app.use(hotMiddleware)
 }
 export default {Bundler};

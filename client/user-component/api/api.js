@@ -4,6 +4,10 @@ const create = async (type, data) => {
     let API_URL;
     if (type === 'freelancer') {
         API_URL = '/user/type-freelancer/tp3/add';
+    } else if (type === 'client') {
+        API_URL = '/user/type-ccompany/tp2/add';
+    } else {
+        return undefined
     }
     try {
         const user = axios.post(API_URL, data);
@@ -17,6 +21,10 @@ const completeUpdate = async (type ,params, credentials, data) => {
     let API_URL;
     if (type === 'freelancer') {
         API_URL = '/user/type-freelancer/tp3/full/';
+    } else if (type === 'client') {
+        API_URL = '/user/type-freelancer/tp3/full/';
+    } else {
+        
     }
     try {
         const user = axios.put(API_URL + params, data ,{

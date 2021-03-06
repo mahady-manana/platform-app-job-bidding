@@ -76,9 +76,7 @@ useEffect(() => {
             })
         })
 
-    return () => {
-        abortController.abort();
-    }
+    return () => abortController.abort();
 }, [])
 
 const handleBase64Image = event => {
@@ -236,8 +234,8 @@ return (
 <div className='edit-profile'>
     <div className ='entry'>
         <section className='section'>
-            <div className='inner-section'>
-                <div className='container text-intro-setting'>
+            <div className='inner-section mbgc-1'>
+                <div className='container text-intro-setting white'>
                     <h3 className='text-center'>Make sure your profile is up-to-date</h3>
                     <p className='text-center'>YOUR PROFILE IS VERY VERY IMPORTANT - So make all best and accurate.</p>
                 </div>

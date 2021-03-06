@@ -1,6 +1,6 @@
 import express from "express";
 import FreelancerController from "../controllers/freelancer.controller";
-import authContrl from '../controllers/authentication';
+import authContrl from '../controllers/authentication-freelancer';
 const FreelancerRouter = express.Router();
 
 FreelancerRouter.post("/user/type-freelancer/tp3/add", FreelancerController.add);

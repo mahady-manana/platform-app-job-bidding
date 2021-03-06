@@ -1,8 +1,16 @@
 import axios from 'axios';
 
-const signin = async (user) => {
+const signin = async (type, user) => {
+  let API_URL;
+  if (type === 'freelanceer') {
+    API_URL = '/user/worker/auth/v3/signin';
+  } else if (type === 'client') {
+    API_URL = '/user/ccompany/auth/v2/signin';
+  } else {
+    return undefined;
+  }
     try {
-      let response = await fetch('/user/worker/auth/signin/', {
+      let response = await fetch(API_URL, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -33,6 +41,14 @@ const signin = async (user) => {
 //     }
 //   }  
 const read = async (params, credentials, signal) => {
+  // let API_URL;
+  // if (type === 'freelanceer') {
+  //   API_URL = '/user/worker/auth/v3/signin';
+  // } else if (type === 'client') {
+  //   API_URL = '/user/ccompany/auth/v2/signin';
+  // } else {
+  //   return undefined;
+  // }
   try {
     let response = await fetch('/user/worker/auth/' + params, {
       method: 'GET',
@@ -48,9 +64,17 @@ const read = async (params, credentials, signal) => {
     console.log(err)
   }
 }
-  const signout = async () => {
+  const signout = async (type) => {
+    let API_URL;
+    if (type === 'freelanceer') {
+      API_URL = "/user/worker/auth/v3/signout";
+    } else if (type === 'client') {
+      API_URL = '/user/ccompany/auth/v2/signout';
+    } else {
+      return undefined;
+    }
     try {
-      let response = await fetch('/user/worker/auth/signout')
+      let response = await fetch(API_URL)
         return await response.json()
     } catch(err) {
       console.log(err)
