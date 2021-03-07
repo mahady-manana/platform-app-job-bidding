@@ -1,3 +1,4 @@
+
 img {
     max-width: 100%;
     height: auto;
@@ -56,11 +57,14 @@ a:hover {
     background-color: #00177b;
 }
 *:hover {
+    -webkit-transition: .5s;
+    -o-transition: .5s;
     transition: .5s;
 }
 input:focus, textarea:focus {
     outline: none !important;
-    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+            box-shadow: none !important;
 }
 .btn.enable {
     background: #c70d97;
@@ -131,7 +135,13 @@ input:focus, textarea:focus {
     bottom: -17px;
     border: 4px double #fff;
     left: 50%;
-    transform: translateX(-50%) rotate(
+    -webkit-transform: translateX(-50%) rotate(
+45deg
+);
+        -ms-transform: translateX(-50%) rotate(
+45deg
+);
+            transform: translateX(-50%) rotate(
 45deg
 );
 }
@@ -144,7 +154,9 @@ input:focus, textarea:focus {
     background: #bc1749;
     bottom: -11px;
     left: 50%;
-    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
 }
 .call-to-action-top .join_us {
     font-size: 18px;
@@ -155,9 +167,14 @@ input:focus, textarea:focus {
     position: relative;
 }
 .homepage .top-section .inner-section {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    flex-wrap: wrap;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
 }
 @media screen and (min-width : 768px) {
     .homepage .top-section h1 {
@@ -167,7 +184,8 @@ input:focus, textarea:focus {
 .grid-home-1 .item .inner-col {
     padding: 15px;
     text-align: center;
-    box-shadow: 4px 4px 18px -5px #a9a9a9;
+    -webkit-box-shadow: 4px 4px 18px -5px #a9a9a9;
+            box-shadow: 4px 4px 18px -5px #a9a9a9;
     height: 100%;
 }
 /*
@@ -196,7 +214,9 @@ input:focus, textarea:focus {
         width: 30%;
         left: 35%;
         top: 50%;
-        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+                transform: translateY(-50%);
     }
     .image-globe-show .image {
         height: 30%;
@@ -216,7 +236,9 @@ input:focus, textarea:focus {
         position: absolute;
         left: 50%;
         top: 0;
-        transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+            -ms-transform: translateX(-50%);
+                transform: translateX(-50%);
     }
     .image-globe-show .image3 {
         position: absolute;
@@ -227,7 +249,9 @@ input:focus, textarea:focus {
         bottom: 0;
         position: absolute;
         left: 50%;
-        transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+            -ms-transform: translateX(-50%);
+                transform: translateX(-50%);
     }
     .image-globe-show .image5 {
         position: absolute;
@@ -247,6 +271,9 @@ input:focus, textarea:focus {
     }
 }
 .show-rond-image {
+    background: -o-linear-gradient(
+60deg
+, #eaa5d8 50%, #f0f0f0 50%);
     background: linear-gradient(
 30deg
 , #eaa5d8 50%, #f0f0f0 50%);
@@ -294,8 +321,15 @@ input:focus, textarea:focus {
     text-align: center;
 }
 .login .inner-section {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    background: -o-linear-gradient( 
+45deg
+ , rgb(0 23 123 / 80%) 50%, transparent 50%);
     background: linear-gradient( 
 45deg
  , rgb(0 23 123 / 80%) 50%, transparent 50%);
@@ -325,7 +359,8 @@ input:focus, textarea:focus {
     background: rgb(0 0 0 / 60%);
     z-index: 999;
     padding: 40px;
-    box-shadow: 0px 0px 50px;
+    -webkit-box-shadow: 0px 0px 50px;
+            box-shadow: 0px 0px 50px;
     width: 100%;
     left: 0;
     overflow-y: scroll;
@@ -333,6 +368,8 @@ input:focus, textarea:focus {
 .popup .popup-content {
     background: #fff;
     padding: 27px;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
     margin: auto;
 }
@@ -344,9 +381,13 @@ input:focus, textarea:focus {
     position: absolute;
     right: 0;
     top: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     cursor: pointer;
-    justify-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     padding: 0px !important;
     height: 30px;
     width: 30px;
@@ -405,7 +446,8 @@ input:focus, textarea:focus {
 }
 .left_main_col .inner-col {
     background: #fff;
-    box-shadow: 0px 0px 18px 0px rgb(0 0 0 / 30%);
+    -webkit-box-shadow: 0px 0px 18px 0px rgb(0 0 0 / 30%);
+            box-shadow: 0px 0px 18px 0px rgb(0 0 0 / 30%);
     padding: 15px;
 }
 .left_main_col .profile_image .image-container {
@@ -436,8 +478,10 @@ input:focus, textarea:focus {
 .left_main_col .profile_image img {
     height: 100%;
     width: 100%;
-    clip-path: circle(50% at 50% 50%);
-    object-fit: cover;
+    -webkit-clip-path: circle(50% at 50% 50%);
+            clip-path: circle(50% at 50% 50%);
+    -o-object-fit: cover;
+       object-fit: cover;
 }
 button.pluseducation {
     background: transparent;
@@ -479,6 +523,9 @@ button.pluseducation {
     border-radius: 50px;
 }
 .pre-signup .inner-section {
+    background: -o-repeating-linear-gradient(
+60deg
+, #e1e3eb, #f8f9fa 2px);
     background: repeating-linear-gradient(
 30deg
 , #e1e3eb, #f8f9fa 2px);
@@ -490,10 +537,19 @@ button.pluseducation {
 .pre-signup.freelancer .inner-right {
     height: 100%;
     background: rgb(0 23 123 / 75%);
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     padding: 30px;
     color: #fff;
 }
@@ -505,10 +561,13 @@ button.pluseducation {
     background: #fff;
     bottom: 0;
     left: 50%;
-    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
 }
 .pre-signup.freelancer .signup-inner {
-    box-shadow: 0px 0px 30px 0px #ccc;
+    -webkit-box-shadow: 0px 0px 30px 0px #ccc;
+            box-shadow: 0px 0px 30px 0px #ccc;
 }
 .pre-signup.freelancer .inner-right h2 {
     font-size: 25px;
@@ -536,9 +595,15 @@ button.pluseducation {
     height: 100%;
     width: 100%;
     background: rgb(0 0 0 / 80%);
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
 .loading-popup .loading-icon {
     color: #fff;
@@ -557,10 +622,17 @@ button.pluseducation {
     border-top: 2px solid #e91e63;
     border-bottom: 2px solid #fff;
     z-index: -2;
-    transform: rotate(
+    -webkit-transform: rotate(
 0deg
 );
-    animation: 2s infinite linear loading;
+        -ms-transform: rotate(
+0deg
+);
+            transform: rotate(
+0deg
+);
+    -webkit-animation: 2s infinite linear loading;
+            animation: 2s infinite linear loading;
 }
 
 .loading-popup .loading-icon:after {
@@ -568,9 +640,16 @@ button.pluseducation {
     position: absolute;
     width: 90px;
     height: 90px;
-    animation: 2s infinite linear loading2;
+    -webkit-animation: 2s infinite linear loading2;
+            animation: 2s infinite linear loading2;
     left: calc(50% - 45px);
-    transform: rotate(
+    -webkit-transform: rotate(
+0deg
+);
+        -ms-transform: rotate(
+0deg
+);
+            transform: rotate(
 0deg
 );
     top: calc(50% - 45px);
@@ -579,20 +658,44 @@ button.pluseducation {
     border-right: 2px solid #fff;
     z-index: -2;
 }
-@keyframes loading {
+@-webkit-keyframes loading {
     0% {
-        transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
     }
     100% {
-        transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+    }
+}
+@keyframes loading {
+    0% {
+        -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+    }
+}
+@-webkit-keyframes loading2 {
+    0% {
+        -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(-360deg);
+                transform: rotate(-360deg);
     }
 }
 @keyframes loading2 {
     0% {
-        transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
     }
     100% {
-        transform: rotate(-360deg);
+        -webkit-transform: rotate(-360deg);
+                transform: rotate(-360deg);
     }
 }
 .cta-btn {
@@ -605,7 +708,8 @@ button.pluseducation {
     background: rgb(0 23 123 / 80%);
     color: #fff;
     padding: 20px;
-    box-shadow: 0px 0px 18px 0px #b7b7b7;
+    -webkit-box-shadow: 0px 0px 18px 0px #b7b7b7;
+            box-shadow: 0px 0px 18px 0px #b7b7b7;
 }
 .codedigitlink input.form-control {
     width: 135px;
@@ -636,9 +740,15 @@ button.pluseducation {
     margin-bottom: 20px;
 }
 .popup.error-validation-message {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     overflow-y: scroll;
 }
 .popup.error-validation-message .error-message {
@@ -656,22 +766,34 @@ button.pluseducation {
     right: 0;
     width: 50px;
     height: 50px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     font-weight: 700;
     cursor: pointer;
 }
 .profile-header .avatar-top {
     width: 50px;
     height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 .profile-header .avatar-top img {
     height: 50px;
-    object-fit: cover;
-    clip-path: circle(50% at 50% 50%);
+    -o-object-fit: cover;
+       object-fit: cover;
+    -webkit-clip-path: circle(50% at 50% 50%);
+            clip-path: circle(50% at 50% 50%);
 }
 .profile-header .col {
     padding: 0;
@@ -714,6 +836,8 @@ button.pluseducation {
 }
 .custom-form label {
     margin: 0 !important;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 }
 .custom-form .form-input {
@@ -721,16 +845,23 @@ button.pluseducation {
     padding: 5px 15px;
     height: 40px;
     width: 100%;
-    box-shadow: inset 8px 0px 5px -7px #ccc;
+    -webkit-box-shadow: inset 8px 0px 5px -7px #ccc;
+            box-shadow: inset 8px 0px 5px -7px #ccc;
 }
 .custom-form i {
     font-size: 20px;
     height: 40px;
     background: #6f6f6f;
     width: 50px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     color: #fff;
 }
 .custom-form .form-textarea {
@@ -778,7 +909,8 @@ button.pluseducation {
     background: #fff;
     padding: 27px;
     border-radius: 5px;
-    box-shadow: 5px 5px 6px 0px #ccc;
+    -webkit-box-shadow: 5px 5px 6px 0px #ccc;
+            box-shadow: 5px 5px 6px 0px #ccc;
     margin-bottom: 40PX;
 }
 .form_signup_full .addhere .add-span {
@@ -803,12 +935,14 @@ button.pluseducation {
     padding: 5px 30px;
     border-radius: 40px;
     border: none;
-    box-shadow: 3px 3px 5px 0 #024b61;
+    -webkit-box-shadow: 3px 3px 5px 0 #024b61;
+            box-shadow: 3px 3px 5px 0 #024b61;
 }
 .popup-form-photo .popup-content {
     max-width: 400px;
     margin: auto;
-    box-shadow: 0 0 18px 0 #000;
+    -webkit-box-shadow: 0 0 18px 0 #000;
+            box-shadow: 0 0 18px 0 #000;
     border: 2px solid #00ade0;
 }
 .popup-form-photo input {
@@ -844,14 +978,28 @@ button.pluseducation {
     top: 50%;
     color: #fff;
     left: 50%;
-    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
     text-align: center;
     padding: 20px;
-    box-shadow: 0 0 20px 0 #c1c1c1;
+    -webkit-box-shadow: 0 0 20px 0 #c1c1c1;
+            box-shadow: 0 0 20px 0 #c1c1c1;
     outline: 1px solid #fff;
     outline-offset: -5px;
-    animation: popupmessage 15s;
+    -webkit-animation: popupmessage 15s;
+            animation: popupmessage 15s;
     opacity : 1;
+}
+@-webkit-keyframes popupmessage {
+    0% {
+        top : 50%;
+        opacity : 1;
+    }
+    100% {
+        top : 0;
+        opacity : 0;
+    }
 }
 @keyframes popupmessage {
     0% {
@@ -872,9 +1020,15 @@ button.pluseducation {
     border-radius: 20px;
     border: 1px solid #00177b;
     height: 37px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     color: #00177b;
     cursor: pointer;
 }
@@ -884,7 +1038,8 @@ button.pluseducation {
 }
 .image-welcomen .image-container, .image-welcomen .image-container img {
     height: 100%;
-    object-fit: cover;
+    -o-object-fit: cover;
+       object-fit: cover;
 }
 .image-welcomen {
     padding: 0;
@@ -909,9 +1064,15 @@ button.pluseducation {
     margin: auto;
 }
 .welcome-new-user {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     padding: 20px 35px !important;
 }
 .image-welcomen {
@@ -924,8 +1085,12 @@ button.pluseducation {
     width: 30px;
 }
 .profile-tab-dashbord .social {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     margin-top: 15px;
 }
 .profile-tab-dashbord .social .link-social {
@@ -933,9 +1098,15 @@ button.pluseducation {
     height: 40px;
     background: #004aef;
     width: 45px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     color: #fff !important;
     margin-right: 5px;
 }
@@ -945,7 +1116,8 @@ button.pluseducation {
 .profile-tab-dashbord {
     background: #00ade0;
     padding: 15px;
-    box-shadow: 2px 2px 5px 0px #adb5bd;
+    -webkit-box-shadow: 2px 2px 5px 0px #adb5bd;
+            box-shadow: 2px 2px 5px 0px #adb5bd;
 }
 .profile-tab-dashbord .image-container {
     text-align: center;
@@ -972,7 +1144,8 @@ button.pluseducation {
 }
 .col-rigth-infos .gird-infos-item {
     background: #fff;
-    box-shadow: 0 0 15px 0 #ccc;
+    -webkit-box-shadow: 0 0 15px 0 #ccc;
+            box-shadow: 0 0 15px 0 #ccc;
     padding: 25px;
     margin-bottom: 40px;
 }
@@ -1039,11 +1212,14 @@ button.pluseducation {
     background: #00ade0;
     border-color: #00ade0;
     padding: 10px 30px;
-    box-shadow: 0px 0 20px 0 #000;
+    -webkit-box-shadow: 0px 0 20px 0 #000;
+            box-shadow: 0px 0 20px 0 #000;
 }
 .profile-infos img {
-    clip-path: circle(50% at 50% 50%);
-    object-fit: cover;
+    -webkit-clip-path: circle(50% at 50% 50%);
+            clip-path: circle(50% at 50% 50%);
+    -o-object-fit: cover;
+       object-fit: cover;
     width: 150px;
     height: 150px;
 }
@@ -1065,4 +1241,15 @@ button.pluseducation {
 }
 .client-settings .form_signup_full .email-infos-hidden p {
     background: #cd5176;
+}
+.call-to-action-top .cta-btn .btn:hover {
+    background: #00177b;
+    color: #fff;
+}
+
+.call-to-action-top .cta-btn .btn {
+    background: transparent;
+    margin-right: 3px;
+    color: #00177b;
+    border: 1px solid #00177b;
 }

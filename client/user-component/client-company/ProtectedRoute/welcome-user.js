@@ -33,7 +33,7 @@ return (
                                 amet consectetur adipisicing elit. Hic eius vero, nulla, 
                                 ullam doloremque facilis quod in, totam consequatur commodi 
                                 voluptatibus ducimus asperiores cum at? Vitae totam et nam aut.</p>
-                            <Link className='tosetting' to={`/freelancer/profile/settings/`}><button className='btn btn-to-complete-profile'>LET'S COMPLETE YOUR PROFILE</button></Link>
+                            <Link className='tosetting' to={`/ccom/profile/settings/`}><button className='btn btn-to-complete-profile'>LET'S COMPLETE YOUR PROFILE</button></Link>
                         </div>
                     </div>
                 </div>
