@@ -1,19 +1,31 @@
 import jwt from 'jsonwebtoken';
 import config from '../configs/config';
 import Bcryptjs from "bcryptjs";
-import Freelancer from "../models/Freelancer"
-
+import Freelancer from "../models/Freelancer";
+import ClientCompany from '../models/ClientCompany'; 
 const login = async (req, res) => {
+    let user;
   try {
-    let user = await Freelancer.findOne({
+    let freelancer = await Freelancer.findOne({
       "email": req.body.email
     }).exec()
+    let client = await ClientCompany.findOne({
+        "email": req.body.email
+    }).exec()
+    
+    if (!freelancer && !client) {
+        return res.status('401').json({
+            error: "User not found : Verify your email address."
+        })
+    }
 
-    if (!user)
-      return res.status('401').json({
-        error: "User not found : Verify your email address."
-      })
-
+    if (freelancer) {
+        user = freelancer;
+    }
+    
+    if (client) {
+        user = client;
+    }
     if (!Bcryptjs.compareSync(req.body.password, user.password)) {
         return res.json({error : "Invalid password : Please verify your password"})      
     }
@@ -46,11 +58,6 @@ const logout = (req, res) => {
   })
 }
 
-// const signinRequire = expressJwt({
-//   secret: config.jwtSecret,
-//   userProperty: 'auth',
-//   algorithms: ['RS256']
-// })
 const hasAuthorization = (req, res, next) => {
   const bearer = req.headers.authorization;
 

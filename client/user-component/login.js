@@ -1,5 +1,6 @@
 import React, { useState, useContext} from "react";
 import { Redirect } from "react-router-dom";
+import { CheckNewSignupContext } from "../SharedRouter";
 import { TopContext } from "../TopContext";
 import { Input } from "../utils/formUtility";
 import Auth from "./auth/auth.api";
@@ -7,14 +8,15 @@ import { signin } from "./auth/router.api";
 
 const Login = () => {
 
-const {setTopContext} = useContext(TopContext) 
-
+const {setTopContext} = useContext(TopContext);
+const {loginAndLogoutContext, setLoginAndLogoutContext} = useContext(CheckNewSignupContext);
 const [logger, setLogger] = useState({
     email : '',
     password : '',
     isValid : false,
     error : false,
-    loading : false
+    loading : false,
+    type : ''
 })
 
 const handleChange = name => event => {
@@ -31,8 +33,11 @@ const handleLogin = event => {
             setLogger({...logger, loading : false, error : data.error})
         } else {
             Auth.authenticate(data, () => {
-                setLogger({...logger, loading : false ,isValid : true})
+                
+                setLoginAndLogoutContext(!loginAndLogoutContext)
+                setLogger({...logger, type : data.user.type, loading : false ,isValid : true})
                 setTopContext(data.user)
+                console.log(data.type)
             })
         }
     })
@@ -41,7 +46,8 @@ const {isValid} = logger;
 if (isValid) {
     return (
         <Redirect to={{
-            pathname : '/freelancer/profile/view/'
+            pathname : `${logger.type === 'freelancer' ? '/freelancer/profile/view/' :
+                          logger.type === 'client' ? '/ccom/profile/view/' : '/'}`
         }}/>
     )
 }

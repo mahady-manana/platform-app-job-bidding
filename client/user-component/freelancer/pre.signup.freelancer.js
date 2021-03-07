@@ -3,7 +3,8 @@ import { Redirect } from 'react-router-dom';
 import {FreelancerContext} from './FreelancerContext';
 import { TopContext } from '../../TopContext';
 import { Input } from '../../utils/formUtility';
-import { sendEmail } from '../api/api';
+import { sendEmail } from '../api/api-freelancer';
+import { CheckerSignup } from '../auth/router.api';
 
 const FreelancerPreSignup = () => {
 
@@ -16,6 +17,7 @@ const [infos, setInfos] = useState({
     lastname : '',
     isFilled : false,
     error : '',
+    userChecker : '',
     loading : false,
     code : Math.floor(100000 + Math.random() * 999999)
 })
@@ -30,20 +32,28 @@ const saveAndNext = event => {
        setInfos({...infos, error : 'All fields is required and Password must be at last 8 caracters'})
     } else {
         setInfos({...infos, loading : true})
-        const data = {
+        const data_infos = {
             email : infos.email,
             code : infos.code,
             firstname : infos.firstname,
             lastname : infos.lastname
         }
-        context.setContextValues(infos)
-        setTopContext(infos)
-        sendEmail(data).then(res => {
-            if (res.error) {
-                setInfos({...infos, loading : false, isFilled : true})
+        CheckerSignup({email : infos.email}).then(
+            data => {
+                if (data && data.error) {
+                    setInfos({...infos, userChecker : data.error, loading : false})
+                } else {
+                    context.setContextValues(infos)
+                    setTopContext(infos)
+                    sendEmail(data_infos).then(res => {
+                        if (res.error) {
+                            setInfos({...infos, loading : false, isFilled : true})
+                        }
+                        setInfos({...infos, loading : false, isFilled : true})
+                    })
+                }
             }
-            setInfos({...infos, loading : false, isFilled : true})
-        })  
+        )  
     }   
 }
 
@@ -66,6 +76,7 @@ return (
                     <div className='col-sm-5 col-form-left'>
                         <div className="form-container">
                             <p className='text-info'>* All fields is required</p>
+                            <p className='text-danger'>{infos.userChecker}</p>
                             <form onSubmit={saveAndNext}>
                                 <Input className = 'name'
                                        type ='text'

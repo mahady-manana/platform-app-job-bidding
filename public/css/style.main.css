@@ -1047,3 +1047,22 @@ button.pluseducation {
     width: 150px;
     height: 150px;
 }
+.user-dashbord.type-client {
+    background: #fbf1f4;
+}
+.type-client .profile-tab-dashbord {
+    background: #dc86a0;
+    text-align: center;
+}
+.type-client .profile-tab-dashbord .social .link-social {
+    background: #696969;
+}
+.client-settings .form_signup_full h3 {
+    background: #bc1749;
+}
+.client-settings .form_signup_full i.fas {
+    background: #d98fa5;
+}
+.client-settings .form_signup_full .email-infos-hidden p {
+    background: #cd5176;
+}

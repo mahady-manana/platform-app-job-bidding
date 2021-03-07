@@ -28,7 +28,7 @@ const login = async (req, res) => {
 
     return res.json({
       token,
-      user: {_id: user._id, firstname: user.firstname, lastname: user.lastname, company: user.company, email: user.email, photo : user.photo},
+      user: {_id: user._id, type: user.type,firstname: user.firstname, lastname: user.lastname, company: user.company, email: user.email, photo : user.photo},
       status : "authorized"
     })
   } catch (err) {

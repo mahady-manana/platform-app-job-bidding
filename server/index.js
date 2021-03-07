@@ -19,6 +19,7 @@ import FreelancerRouters from "./routers/freelancer.router";
 import SinglePhotoRouter from './routers/single.photo';
 import SendMailRouter from './routers/user-email-verify';
 import CCompanyRouter from "./routers/ccompany.router";
+import CheckerSignupRouter  from "./routers/verify_signup";
 const CURRENT_WD = process.cwd();
 const app = express();
 
@@ -34,6 +35,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(cookieParser())
+app.use('/', CheckerSignupRouter)
 app.use('/', SendMailRouter)
 app.use("/", AuthFreelancerRouter);
 app.use("/", FreelancerRouters);

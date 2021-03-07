@@ -1,11 +1,8 @@
 import express from 'express'
-import AuthFreelancer from '../controllers/authentication-freelancer'
-import AuthCCom from "../controllers/authentication.ccompany";
+import Auth from "../controllers/authentication";
 const AuthUserRouter = express.Router()
 
-AuthUserRouter.post('/user/worker/auth/v3/signin', AuthFreelancer.login);
-AuthUserRouter.get("/user/worker/auth/v3/signout", AuthFreelancer.logout);
-AuthUserRouter.post('/user/ccompany/auth/v2/signin', AuthCCom.login);
-AuthUserRouter.get('/user/ccompany/auth/v2/signout', AuthCCom.logout);
+AuthUserRouter.post('/user/all/auth/v1/signin', Auth.login);
+AuthUserRouter.get("/user/all/auth/v1/signout", Auth.logout);
 
 export default AuthUserRouter;

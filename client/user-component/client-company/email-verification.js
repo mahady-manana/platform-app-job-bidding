@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {Redirect} from 'react-router-dom';
-import {create} from '../api/api';
+import {create} from '../api/api-client';
 import { TopContext } from '../../TopContext';
 import { signin } from '../auth/router.api';
 import Auth from '../auth/auth.api';
@@ -53,7 +53,7 @@ const verifyCode = event => {
         setUser({...user, loading : false, invalid : true})
     } else {
         setTopContext(user)
-        create('client', datas).then(data => {
+        create(datas).then(data => {
             if (data.error) {
                 setUser({...user, loading : false, error : true, errorMsg : data.error})
             } else {

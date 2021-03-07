@@ -1,33 +1,17 @@
 import axios from 'axios';
 
-const create = async (type, data) => {
-    let API_URL;
-    if (type === 'freelancer') {
-        API_URL = '/user/type-freelancer/tp3/add';
-    } else if (type === 'client') {
-        API_URL = '/user/type-ccompany/tp2/add';
-    } else {
-        return undefined
-    }
+const create = async (data) => {
     try {
-        const user = axios.post(API_URL, data);
+        const user = axios.post('/user/type-ccompany/tp2/add', data);
         return (await user).data;
     } catch (error) {
         console.log(error);
-    }
+0    }
 }
 
-const completeUpdate = async (type ,params, credentials, data) => {
-    let API_URL;
-    if (type === 'freelancer') {
-        API_URL = '/user/type-freelancer/tp3/full/';
-    } else if (type === 'client') {
-        API_URL = '/user/type-freelancer/tp3/full/';
-    } else {
-        
-    }
+const completeUpdate = async (params, credentials, data) => {
     try {
-        const user = axios.put(API_URL + params, data ,{
+        const user = axios.put('/user/type-ccompany/tp2/full/' + params, data ,{
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -57,9 +41,26 @@ const profilePhoto = async (data) => {
         console.log(error)
     }
 }
+const read = async (params, credentials, signal) => {
+    try {
+      let response = await fetch('/user/type-ccompany/tp2/auth/' + params, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + credentials
+        },
+        signal : signal
+    })
+      return await response.json()
+    } catch(err) {
+      console.log(err)
+    }
+}
 export {
     create,
     completeUpdate,
     sendEmail,
-    profilePhoto
+    profilePhoto,
+    read
 }

@@ -14,10 +14,12 @@ const ClientCompany = new Schema({
         type : String,
         index : {unique : true, sparse : true}
     },
+    company_address : {type : String}, 
     description :{type : String}, 
     password : {type : String},
     user_id : {type : String},
     photo : {type : String},
+    skill : [],
     phone : {type : Number},
     city : {type : String},
     country : {type : String},
@@ -32,5 +34,6 @@ const ClientCompany = new Schema({
     linkedin : {type : String},
     twitter : {type : String},
     github : {type : String},
+    type : {type : String, default : 'client'},
 })
-export default mongoose.model("User_type_clientOrCompany_12", ClientCompany)
+export default mongoose.model("User_type_clientOrCompany_12345", ClientCompany)
