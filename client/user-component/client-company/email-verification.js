@@ -22,6 +22,7 @@ const [user, setUser] = useState({
     isValid : false,
     invalid : false,
     error : false,
+    danger : '',
     errorMsg : '',
     empty : false
 })
@@ -35,7 +36,7 @@ useEffect(() => {
 }, [])
 const handleChange = event => {
     event.preventDefault();
-    setUser({...user, code : event.target.value, invalid : false, empty : false})
+    setUser({...user, code : event.target.value, invalid : false, empty : false, danger : ''})
 }
 const verifyCode = event => {
     event.preventDefault();
@@ -57,12 +58,12 @@ const verifyCode = event => {
             if (data.error) {
                 setUser({...user, loading : false, error : true, errorMsg : data.error})
             } else {
-                signin('client', {
+                signin({
                     email : user.email,
                     password : user.password
                 }).then(data => {
                     if (data.error) {
-                        console.log(data)
+                        setUser({...user, loading : false, danger : data.error})
                     } else {
                         Auth.authenticate(data, () => {
                             setUser({...user, user_id : data.user._id,loading : false, isValid : true})
@@ -104,6 +105,7 @@ return (
                         </div>
                         <p className='text-danger'>{user.invalid ? 'Code invalid please check again!' : ''}</p>
                         <p className='text-danger'>{user.empty ? 'Please fill in the code!' : ''}</p>
+                        <p className='text-danger'>{user.danger}</p>
                         <button type="submit" className='btn white mbgc-1'>Verify</button>
                     </form>
                     <div className='intro-verification'>

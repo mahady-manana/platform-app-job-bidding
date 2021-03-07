@@ -36,4 +36,4 @@ const ClientCompany = new Schema({
     github : {type : String},
     type : {type : String, default : 'client'},
 })
-export default mongoose.model("User_type_clientOrCompany_12345", ClientCompany)
+export default mongoose.model("User_type_clientOrCompany_1a2345", ClientCompany)

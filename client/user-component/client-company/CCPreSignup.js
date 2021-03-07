@@ -45,7 +45,6 @@ const saveAndNext = event => {
                 if (data && data.error) {
                     setInfos({...infos, userChecker : data.error, loading : false})
                 } else {
-                    console.log(infos)
                     setCCContext(infos)
                     setTopContext(infos)
                     sendEmail(data_inofs).then(res => {

@@ -63,7 +63,7 @@ const verifyCode = event => {
                     password : user.password
                 }).then(data => {
                     if (data.error) {
-                        console.log(data)
+                        setUser({...user, loading : false, error : true, errorMsg : data.error})
                     } else {
                         Auth.authenticate(data, () => {
                             setUser({...user, user_id : data.user._id,loading : false, isValid : true})
