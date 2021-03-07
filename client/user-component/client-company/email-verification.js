@@ -1,13 +1,13 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {Redirect} from 'react-router-dom';
-import {FreelancerContext} from './FreelancerContext';
-import {create} from '../api/api-freelancer';
+import {create} from '../api/api-client';
 import { TopContext } from '../../TopContext';
 import { signin } from '../auth/router.api';
 import Auth from '../auth/auth.api';
+import { CCContext } from './CCContext';
 
-const EmailVerifacation = props => {
-const context = useContext(FreelancerContext);
+export const EmailVerification = () => {
+const {ccoContext} = useContext(CCContext);
 const {setTopContext} = useContext(TopContext);
 
 const [user, setUser] = useState({
@@ -16,6 +16,7 @@ const [user, setUser] = useState({
     email : '',
     password : '',
     lastname : '',
+    company : '',
     user_id : '',
     loading : false,
     isValid : false,
@@ -27,13 +28,10 @@ const [user, setUser] = useState({
 
 useEffect(() => {
     let cleanup = false;
-    const data = context.contextValues
-    if (data !== undefined) {
-        setUser({...user, firstname : data.firstname, lastname : data.lastname, email : data.email, password : data.password})
+    if (ccoContext !== undefined) {
+        setUser({...user, firstname : ccoContext.firstname, lastname : ccoContext.lastname, company : ccoContext.company, email : ccoContext.email, password : ccoContext.password})
     }
-    return () => {
-        cleanup = true;
-    }
+    return () => cleanup = true;
 }, [])
 const handleChange = event => {
     event.preventDefault();
@@ -43,14 +41,15 @@ const verifyCode = event => {
     event.preventDefault();
     setUser({...user, loading : true})
     
-    const {contextValues} = context
     const datas = {
-        firstname : contextValues.firstname,
-        lastname : contextValues.lastname,
-        password : contextValues.password,
-        email : contextValues.email 
+        firstname : ccoContext.firstname,
+        lastname : ccoContext.lastname,
+        company : ccoContext.company,
+        password : ccoContext.password,
+        email : ccoContext.email,
+        joined : Date.now() 
     }
-    if (user.code !== context.contextValues.code.toString()) {
+    if (user.code !== ccoContext.code.toString()) {
         setUser({...user, loading : false, invalid : true})
     } else {
         setTopContext(user)
@@ -58,7 +57,7 @@ const verifyCode = event => {
             if (data.error) {
                 setUser({...user, loading : false, error : true, errorMsg : data.error})
             } else {
-                signin({
+                signin('client', {
                     email : user.email,
                     password : user.password
                 }).then(data => {
@@ -79,7 +78,7 @@ const {isValid} = user
 if (isValid) {
     return (
         <Redirect to={{
-                pathname :`/freelancer/welcome/steps/`,
+                pathname :`/ccom/welcome/steps/`,
                 state : {user}
             }}/>
     )
@@ -138,4 +137,3 @@ return (
 </>    
 )
 }
-export default EmailVerifacation;

@@ -18,11 +18,15 @@ import AuthFreelancerRouter from "./routers/user.authentication";
 import FreelancerRouters from "./routers/freelancer.router";
 import SinglePhotoRouter from './routers/single.photo';
 import SendMailRouter from './routers/user-email-verify';
+import CCompanyRouter from "./routers/ccompany.router";
+import CheckerSignupRouter  from "./routers/verify_signup";
 const CURRENT_WD = process.cwd();
 const app = express();
 
-webpackBundler.Bundler(app);
-
+// Webpack Development bundle
+if (process.env.NODE_ENV === "development") {
+    webpackBundler.Bundler(app);
+}
 app.use(favicon(path.join(CURRENT_WD, "public", 'images', "icon.png")))
 app.use(express.static(path.join(CURRENT_WD, '/build/')))
 app.use(express.static(path.join(CURRENT_WD, '/public/')))
@@ -31,10 +35,12 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(cookieParser())
+app.use('/', CheckerSignupRouter)
 app.use('/', SendMailRouter)
 app.use("/", AuthFreelancerRouter);
 app.use("/", FreelancerRouters);
-app.use('/', SinglePhotoRouter)
+app.use('/', SinglePhotoRouter);
+app.use('/', CCompanyRouter);
 app.get("*", cors(), (req, res) => {
     const sheets = new ServerStyleSheets();
     const context = {};

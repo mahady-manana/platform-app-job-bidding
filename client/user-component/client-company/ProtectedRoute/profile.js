@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useContext} from 'react';
 import { CheckNewSignupContext } from '../../../SharedRouter';
-import { read } from '../../api/api-freelancer';
+import { read } from '../../api/api-client';
 import Auth from '../../auth/auth.api';
 
 export const Profile = () => {
@@ -8,14 +8,12 @@ const [user, setUser] = useState({
     email : '',
     firstname : '',
     lastname : '',
-    job_title : '',
+    company : '',
     description : '',
-    hourly_rate : '',
+    company_address : '',
     city : '',
     country : '',
     skill : [],
-    education : [],
-    experience : [],
     photoName : '',
     user_id : '',
     facebook : '',
@@ -39,13 +37,11 @@ useEffect(() => {
                 description : data.description,
                 firstname : data.firstname,
                 lastname : data.lastname,
-                job_title : data.job_title,
-                hourly_rate : data.hourly_rate,
+                company : data.company,
+                company_address : data.company_address,
                 city : data.city,
                 country : data.country,
                 skill : data.skill || [],
-                education : data.education || [],
-                experience : data.experience || [],
                 facebook : data.facebook,
                 linkedin : data.linkedin,
                 twitter : data.twitter,
@@ -57,7 +53,7 @@ useEffect(() => {
 
 return (
 <>
-<div className='user-dashbord type-freelancer'>
+<div className='user-dashbord type-client'>
 <div className="inner-content">
     <section className="section">
         <div className="inner-section">
@@ -89,7 +85,7 @@ return (
                                     </div>
                                 </div>
                                 <div className='title'>
-                                    <span>{user.job_title}</span>
+                                    <span>{user.company}</span>
                                 </div>
                                 <div className='address'>
                                     <p>{user.city}, {user.country}</p>
@@ -118,11 +114,9 @@ return (
                             <div className="gird-infos-item personnal-infos">
                                 <div className='row'>
                                     <div className='col-sm-9'>
-                                        <h1 className='fullname'>{`${user.firstname} ${user.lastname}`}</h1>
-                                        <h2 className='personnal-title'>{user.job_title}</h2>
-                                    </div>
-                                    <div className='col-sm-3 hourly-rate'>
-                                        <span className='rate'>{user.hourly_rate} €/h</span>
+                                        <h1 className='fullname'>{`${user.company}`}</h1>
+                                        <h2 className='personnal-title'>{user.firstname} {user.lastname}</h2>
+                                        <p>{user.company_address}</p>
                                     </div>
                                 </div>
                                 <div className='full-description'>
@@ -130,49 +124,12 @@ return (
                                 </div>
                             </div>
                             <div className='gird-infos-item full-skills'>
-                                <h3>Top Skills</h3>
+                                <h3>Researched Skills</h3>
                                 <div className='skill-list'>
                                     {
                                         user.skill.map((item, index) => {
                                             return (
                                                 <span key={index} className='item-skill'>{item}</span>
-                                            )
-                                        })
-                                    }
-                                </div>
-                            </div>
-                            <div className='gird-infos-item full-experience'>
-                                <h3>Experiences</h3>
-                                <div className='experince-items'>
-                                    {
-                                        user.experience.map((item, index) => {
-                                            return (
-                                                <div className='item' key={index}>
-                                                    <h4>{item.title}</h4>
-                                                    <p><strong>{item.company}</strong>
-                                                        <span className='date'>{item.date_bg} - {item.date_end}</span>
-                                                    </p>
-                                                    <div>{item.description}</div>
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                </div>
-                            </div>
-                            <div className='gird-infos-item full-education'>
-                                <h3>Educations</h3>
-                                <div className='education-items'>
-                                    {
-                                        user.education.map((item, index) => {
-                                            return (
-                                                <div className='item' key={index}>
-                                                    <h4>{item.title}</h4>
-                                                    <p><b>{item.degree}</b></p>
-                                                    <p><strong>{item.school}</strong>
-                                                        <span className='date'>{item.date_bg} - {item.date_end}</span>
-                                                    </p>
-                                                    <div>{item.description}</div>
-                                                </div>
                                             )
                                         })
                                     }

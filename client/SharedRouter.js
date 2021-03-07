@@ -7,6 +7,8 @@ import { TopContext } from "./TopContext";
 import ClientRoute from "./user-component/client-components/ClientRouter";
 import FreelancerRoute from "./user-component/freelancer/FreelancerRoute";
 import Login from "./user-component/login";
+// CCRouter
+import {CCRoute} from './user-component/client-company/CCRoute';
 
 export const CheckNewSignupContext = React.createContext(null)
 
@@ -26,6 +28,7 @@ return (
         <Route exact path="/" component={Homepage}/>
         <Route path="/login/" component={Login}/>
         <Route path='/freelancer/' component={FreelancerRoute}/>
+        <Route path='/ccom/' component={CCRoute}/>
         <Route path='/client/' component={ClientRoute}/>
         <Footer/>
         </>

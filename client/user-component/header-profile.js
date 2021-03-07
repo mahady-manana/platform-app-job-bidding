@@ -12,7 +12,8 @@ const [user, setUser] = useState({
     firstname : '',
     lastname : '',
     profilePhoto : '',
-    user_id : ''
+    user_id : '',
+    type : ''
 })
 const [logout, setToLogout] = useState(false);
 const {setTopContext} = useContext(TopContext);
@@ -26,7 +27,8 @@ useEffect(() => {
             firstname : userInfos.firstname,
             lastname : userInfos.lastname,
             profilePhoto : userInfos.photo, 
-            user_id : userInfos._id
+            user_id : userInfos._id,
+            type : userInfos.type
         })
     }
     return () => {
@@ -35,6 +37,7 @@ useEffect(() => {
 }, [])
 const handleLogout = event => {
     event.preventDefault();
+
     signout().then(res => {
         
         setToLogout(true);
@@ -62,8 +65,15 @@ return (
                 <div className='infos-user'>
                     <p className='greeting'>Hello {user.firstname} {user.lastname}</p>
                     <div className='btn-collapsed'>
-                        <Link to='/freelancer/profile/view/'><span className='btn view-profile'>Profile</span></Link>
-                        <Link to={'/freelancer/profile/settings/' }><span className='btn view-settings'>Settings</span></Link>
+                        <Link to={
+                            user.type === 'freelancer' ? '/freelancer/profile/view/' :
+                                            'client' ? '/ccom/profile/view/' : '/'
+
+                        }><span className='btn view-profile'>Profile</span></Link>
+                        <Link to={
+                            user.type === 'freelancer' ? '/freelancer/profile/settings/' :
+                                            'client' ? '/ccom/profile/settings/' : '/'
+                         }><span className='btn view-settings'>Settings</span></Link>
                         <span className='btn logout-btn' onClick={handleLogout}>Log out</span>
                     </div>
                 </div>

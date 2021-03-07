@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const signin = async (user) => {
     try {
-      let response = await fetch('/user/worker/auth/signin/', {
+      let response = await fetch('/user/all/auth/v1/signin', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -13,44 +13,21 @@ const signin = async (user) => {
       })
       return await response.json()
     } catch(error) {
-      return error.json();
+      console.log(error);
     }
 }
-// const read = async (id, credentials, signal) => {
-//     try {
-//       let response = await fetch('/user/worker/auth/' + id, {
-//         method: 'GET',
-//         headers: {
-//           'Accept': 'application/json',
-//           'Content-Type': 'application/json',
-//           'Authorization': 'Bearer ' + credentials.t
-//         }
-//     })
-//       return await response.json()
-//     } catch(err) {
-//       console.log(err)
-//       console.trace()
-//     }
-//   }  
-const read = async (params, credentials, signal) => {
-  try {
-    let response = await fetch('/user/worker/auth/' + params, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + credentials
-      },
-      signal : signal
-  })
-    return await response.json()
-  } catch(err) {
-    console.log(err)
-  }
-}
-  const signout = async () => {
+const CheckerSignup = async (user) => {
     try {
-      let response = await fetch('/user/worker/auth/signout')
+      let response = await axios.post('/user/all/checker/v1/signup', user)
+      return (await response).data
+    } catch(err) {
+      console.log(err)
+    }
+  }  
+const signout = async () => {
+
+    try {
+      let response = await fetch('/user/all/auth/v1/signout')
         return await response.json()
     } catch(err) {
       console.log(err)
@@ -58,8 +35,8 @@ const read = async (params, credentials, signal) => {
   }
   
   export {
+    CheckerSignup,
     signin,
     signout,
-    read
-  }
+}
   

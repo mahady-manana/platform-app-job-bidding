@@ -264,7 +264,9 @@ input:focus, textarea:focus {
 }
 .main-footer li {
     list-style: none;
-    line-height: 2.5em;
+}
+.main-footer li>a {
+    color: #fff !important;
 }
 .main-footer ul {
     padding-left: 0 !important;
@@ -275,7 +277,7 @@ input:focus, textarea:focus {
     padding: 15px;
 }
 .main-footer.section {
-    background: #000000;
+    background: #00177b;
     color: #fff;
 }
 /*
@@ -286,9 +288,10 @@ input:focus, textarea:focus {
 .login .form-container {
     max-width: 350px;
     margin: auto;
-    background: #f1f1f1;
-    padding: 27px;
+    background: rgb(0 23 123 / 80%);
+    padding: 50px 30px;
     border: 1px solid #ccc;
+    text-align: center;
 }
 .login .inner-section {
     display: flex;
@@ -296,9 +299,6 @@ input:focus, textarea:focus {
     background: linear-gradient( 
 45deg
  , rgb(0 23 123 / 80%) 50%, transparent 50%);
-}
-.main-footer .col-sm-3 {
-    border-right: 1px solid #9c9c9c;
 }
 /*
 *
@@ -464,12 +464,6 @@ button.pluseducation {
     color: #c70d97;
     text-transform: uppercase;
     font-size: 14px;
-}
-.add-education .education_tab .description {
-    background: #f5f5f5;
-    padding: 20px;
-    margin: 15px 0px;
-    border: 1px solid #ccc;
 }
 /*
 * Backtotop btn
@@ -669,12 +663,13 @@ button.pluseducation {
     cursor: pointer;
 }
 .profile-header .avatar-top {
-    width: 80px;
+    width: 50px;
     height: 100%;
-    background: #00177b;
+    display: flex;
+    align-items: center;
 }
 .profile-header .avatar-top img {
-    height: 80px;
+    height: 50px;
     object-fit: cover;
     clip-path: circle(50% at 50% 50%);
 }
@@ -1031,4 +1026,43 @@ button.pluseducation {
     display: block;
     font-size: 14px;
     font-style: italic;
+}
+.login .form-container .custom-form i {
+    background: #00ade0;
+}
+.login .form-container .btn:hover {
+    background: #00177b;
+    color: #ffffff !important;
+}
+
+.login .form-container .btn {
+    background: #00ade0;
+    border-color: #00ade0;
+    padding: 10px 30px;
+    box-shadow: 0px 0 20px 0 #000;
+}
+.profile-infos img {
+    clip-path: circle(50% at 50% 50%);
+    object-fit: cover;
+    width: 150px;
+    height: 150px;
+}
+.user-dashbord.type-client {
+    background: #fbf1f4;
+}
+.type-client .profile-tab-dashbord {
+    background: #dc86a0;
+    text-align: center;
+}
+.type-client .profile-tab-dashbord .social .link-social {
+    background: #696969;
+}
+.client-settings .form_signup_full h3 {
+    background: #bc1749;
+}
+.client-settings .form_signup_full i.fas {
+    background: #d98fa5;
+}
+.client-settings .form_signup_full .email-infos-hidden p {
+    background: #cd5176;
 }

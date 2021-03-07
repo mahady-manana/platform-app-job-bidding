@@ -25,7 +25,7 @@ const Freelancer = new Schema({
     skill : [],
     description : {type : String},
     languages : {type : String},
-    joining_date : {type : Date},
+    joining_date : {type : String},
     experience : [
         {
             title : {type : String},
@@ -55,6 +55,7 @@ const Freelancer = new Schema({
     linkedin : {type : String},
     twitter : {type : String},
     github : {type : String},
+    type : {type : String, default : 'freelancer'},
 })
 
-export default mongoose.model("User_type_workers_123456789a", Freelancer)
+export default mongoose.model("User_type_workers_1a2a3a4a56789a", Freelancer)

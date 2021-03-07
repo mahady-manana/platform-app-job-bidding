@@ -1,20 +1,21 @@
 import React, {useState, useContext} from 'react';
 import { Redirect } from 'react-router-dom';
-import {FreelancerContext} from './FreelancerContext';
+import {CCContext} from './CCContext';
 import { TopContext } from '../../TopContext';
 import { Input } from '../../utils/formUtility';
-import { sendEmail } from '../api/api-freelancer';
+import { sendEmail } from '../api/api-client';
 import { CheckerSignup } from '../auth/router.api';
 
-const FreelancerPreSignup = () => {
+export const CCPreSignup = () => {
 
-const context = useContext(FreelancerContext);
+const {setCCContext} = useContext(CCContext);
 const {setTopContext} = useContext(TopContext)
 const [infos, setInfos] = useState({
     email : '',
     password : '',
     firstname : '',
     lastname : '',
+    company : '',
     isFilled : false,
     error : '',
     userChecker : '',
@@ -24,7 +25,7 @@ const [infos, setInfos] = useState({
 const handleChange = name => event => {
     event.preventDefault();
     const values = event.target.value;
-    setInfos({...infos, [name] : values, error : ''})
+    setInfos({...infos, [name] : values, error : '', userChecker : ''})
 }
 const saveAndNext = event => {
     event.preventDefault();
@@ -32,20 +33,22 @@ const saveAndNext = event => {
        setInfos({...infos, error : 'All fields is required and Password must be at last 8 caracters'})
     } else {
         setInfos({...infos, loading : true})
-        const data_infos = {
+        const data_inofs = {
             email : infos.email,
             code : infos.code,
             firstname : infos.firstname,
-            lastname : infos.lastname
+            lastname : infos.lastname,
+            company : infos.company
         }
         CheckerSignup({email : infos.email}).then(
             data => {
                 if (data && data.error) {
                     setInfos({...infos, userChecker : data.error, loading : false})
                 } else {
-                    context.setContextValues(infos)
+                    console.log(infos)
+                    setCCContext(infos)
                     setTopContext(infos)
-                    sendEmail(data_infos).then(res => {
+                    sendEmail(data_inofs).then(res => {
                         if (res.error) {
                             setInfos({...infos, loading : false, isFilled : true})
                         }
@@ -61,7 +64,7 @@ const {isFilled} = infos
 if (isFilled) {
     return (
         <Redirect to={{
-            pathname :`/freelancer/user/signup/verification/${Date.now()}/`,
+            pathname :`/ccom/user/signup/verification/${Date.now()}/`,
             }}/>
     )
 }
@@ -93,6 +96,13 @@ return (
                                        placeholder = 'Last name'
                                        value = {infos.lastname}
                                        onChange = {handleChange('lastname')}/>
+                                <Input className = 'company'
+                                       type ='text'
+                                       fa = 'far fa-building'
+                                       name = 'company'
+                                       placeholder = 'Company'
+                                       value = {infos.company}
+                                       onChange = {handleChange('company')}/>
                                 <Input className = 'email'
                                        type ='email'
                                        name = 'email'
@@ -115,7 +125,7 @@ return (
                     </div>
                     <div className='col-sm-7 col-content-right' style={{background : `url(/images/bg-signup1.jpg) no-repeat center`}}>
                         <div className='inner-right'>
-                            <h2>Be the number 1 at Go Inside</h2>
+                            <h2>Find a Talent</h2>
                             <h3>Some of your benefits</h3>
                             <p className='text-center'>Lorem ipsum dolor sit, 
                             amet consectetur adipisicing elit. Hic eius vero, nulla, 
@@ -135,4 +145,3 @@ return (
 </>
 )
 }
-export default FreelancerPreSignup;

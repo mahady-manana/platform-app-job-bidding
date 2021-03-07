@@ -2,30 +2,22 @@ import React, {useState, useEffect, useContext} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import {Input, Textarea} from '../../../utils/formUtility'
-import Experience from './experience';
 import {SkillsOptions} from '../../skills_options';
-import Education from './education';
-import {FreelancerContext} from '../FreelancerContext';
-import { completeUpdate, profilePhoto ,read} from '../../api/api-freelancer';
+import { completeUpdate, profilePhoto ,read} from '../../api/api-client';
 import Auth from '../../auth/auth.api';
-import {TabExperience} from './tab-experience';
-import {TabEducation} from './tab-education';
 export const ContextForIndexSign = React.createContext(null)
-const ProfileSettings = props => {
-const context = useContext(FreelancerContext)
+const ProfileSettings = () => {
 const [values, setValues] = useState({
     email : '',
     password : '',
     firstname : '',
     lastname : '',
-    job_title : '',
+    company : '',
+    company_address : '',
     description : '',
-    hourly_rate : '',
     city : '',
     country : '',
     skill : [],
-    education : [],
-    experience : [],
     photo : '',
     previewPhoto : '',
     photoName : '',
@@ -39,10 +31,7 @@ const [contextForIndex, setContextForIndex] = useState({
     data : {},
     index : ''
 })
-const [imageFile, setImageFile] = useState({photo : ''});
 const [openPopupUpload, setOpenPhotoUpload] = useState(false)
-const [isOpenAddExp, setIsOpenAddExp] = useState(false);
-const [isOpenEduc, setOpenEduc] = useState(false);
 const [popupMessage, setPopupMessage] = useState({
     error : false,
     success : false
@@ -59,15 +48,13 @@ useEffect(() => {
                 user_id : data._id || '',
                 photoName : data.photo || '',
                 firstname : data.firstname || '',
+                company : data.company || '',
                 lastname : data.lastname || '',
-                job_title : data.job_title || '',
+                company_address : data.company_address || '',
                 description : data.description || '',
-                hourly_rate : data.hourly_rate || '',
                 city : data.city || '',
                 country : data.country || '',
                 skill : data.skill || [],
-                education : data.education || [],
-                experience : data.experience || [],
                 facebook : data.facebook || '',
                 linkedin : data.linkedin || '',
                 twitter : data.twitter || '',
@@ -95,87 +82,7 @@ const handleChange = name => event => {
     const val = event.target.value;
     setValues({...values, [name] : val})
 }
-const handleExperience = (data, update, index) => {
-    if (update && index !== '') {
-            const updatedExp = values.experience;
-            updatedExp[index].title = data.title;
-            updatedExp[index].company =  data.company;
-            updatedExp[index].date_bg = data.date_bg 
-            updatedExp[index].date_end =  data.date_end
-            updatedExp[index].description = data.description
-            setValues(previousValues => ({
-                ...previousValues, experience : updatedExp
-            }))
 
-    } else {
-        setValues(previousValues => ({
-            ...previousValues, experience : values.experience.concat(data)
-        }))
-    }
-    setIsOpenAddExp(!isOpenAddExp)
-}
-const handleEducation = (data, update, index) => {
-    if (update && index !== '') {
-        const updatedEdu = values.education;
-        updatedEdu[index].title = data.title;
-        updatedEdu[index].school =  data.school;
-        updatedEdu[index].degree = data.degree 
-        updatedEdu[index].date_bg = data.date_bg 
-        updatedEdu[index].date_end =  data.date_end
-        updatedEdu[index].description = data.description
-
-        setValues(previousValues => ({
-            ...previousValues, education : updatedEdu
-        }))  
-    } else {
-        setValues(previousValues => ({
-            ...previousValues, education : values.education.concat(data)
-        }))
-    }
-    setOpenEduc(!isOpenEduc)
-}
-const closeAddExp = event => {
-    event.preventDefault();
-    setContextForIndex(undefined);
-    setIsOpenAddExp(!isOpenAddExp);
-}
-const closeAddEduc = event => {
-    event.preventDefault();
-    setContextForIndex(undefined);
-    setOpenEduc(!isOpenEduc);
-}
-const updateEducation = indexID => event => {
-    event.preventDefault();
-    const edu = values.education[indexID]
-    setContextForIndex({
-        data : edu,
-        index : indexID
-    })
-    setOpenEduc(!isOpenEduc)
-}
-const updateExperience = indexID => event => {
-    event.preventDefault();
-    const exp = values.experience[indexID]
-    setContextForIndex({
-        data : exp,
-        index : indexID
-    })
-    setIsOpenAddExp(!isOpenAddExp);
-}
-const classOpenOrCloseExp = () => {
-    if (isOpenAddExp) {
-        return 'openx'
-    } else {
-        return 'closex'
-    }
-}
-const classOpenOrCloseEduc = () => {
-    if (isOpenEduc) {
-        return 'openx'
-    } else {
-        return 'closex'
-    }
-}
 
 const handleSubmitAll = event => {
     event.preventDefault();
@@ -196,15 +103,13 @@ const handleSubmitAll = event => {
     const allFields = {
         firstname : values.firstname,
         lastname : values.lastname,
-        job_title : values.job_title,
+        company : values.company,
+        company_address : values.company_address,
         description : values.description,
-        hourly_rate : values.hourly_rate,
         city : values.city,
         photo : values.photoName,
         country : values.country,
         skill : values.skill,
-        education : values.education,
-        experience : values.experience,
         facebook : values.facebook,
         linkedin : values.linkedin,
         twitter : values.twitter,
@@ -230,16 +135,8 @@ const openPhotoUploader = event => {
 }
 return (
 <ContextForIndexSign.Provider value={{contextForIndex, setContextForIndex}}>
-<div className='edit-profile'>
+<div className='edit-profile client-settings'>
     <div className ='entry'>
-        <section className='section'>
-            <div className='inner-section mbgc-1'>
-                <div className='container text-intro-setting white'>
-                    <h3 className='text-center'>Make sure your profile is up-to-date</h3>
-                    <p className='text-center'>YOUR PROFILE IS VERY VERY IMPORTANT - So make all best and accurate.</p>
-                </div>
-            </div>
-        </section>
         <form onSubmit={handleSubmitAll} className='form_signup_full' encType='multipart/form-data'>
         <section className='section'>
             <div className='inner-section'>
@@ -255,7 +152,7 @@ return (
                                     </div>
                                     <div className='profile_upload'>
                                         <button className='btn' onClick={openPhotoUploader}>
-                                            Choose profile
+                                            Company logo or profile
                                         </button>
                                     </div>
                                 </div>
@@ -300,7 +197,25 @@ return (
                             <div className='personnal-infos'>
                                 <div className='inner-col'>
                                     <div className='personnal-info'>
-                                    <h3>Personnal informations :</h3>
+                                    <h3>Company or Personnal informations :</h3>
+                                    </div>
+                                    <div className='comapny-input'>
+                                        <div className='company'>                                        
+                                                <Input name='company'
+                                                        type='text'
+                                                        fa='far fa-building'
+                                                        placeholder='Company name'
+                                                        value={values.company}
+                                                        onChange={handleChange('company')}
+                                                        />
+                                                <Input name='company_address'
+                                                        type='text'
+                                                        fa='fa-map-marker-alt'
+                                                        placeholder='Company Address'
+                                                        value={values.company_address}
+                                                        onChange={handleChange('company_address')}
+                                                        />
+                                            </div>
                                     </div>
                                     <div className='row name-input'>
                                         <div className='col-sm-6'>                                        
@@ -323,35 +238,11 @@ return (
                                         </div>
                                     </div>
                                 </div>
-                                <div className='row'>
-                                    <div className='col-sm-8'>
-                                        <div className='job-title'>
-                                            <Input name='job_title'
-                                                type='text'
-                                                fa ='fa-briefcase'
-                                                placeholder='Your Title'
-                                                value={values.job_title}
-                                                onChange={handleChange('job_title')}
-                                                />
-                                        </div>
-                                    </div>
-                                    <div className='col-sm-4'>
-                                        <div className='inner'>
-                                            <Input name='hourly_rate'
-                                                        type='number'
-                                                        fa='fa-euro-sign'
-                                                        placeholder='Hourly rate'
-                                                        value={values.hourly_rate}
-                                                        onChange={handleChange('hourly_rate')}
-                                                        />                              
-                                        </div>                                   
-                                    </div>
-                                </div>
                                 <div className='description'>
                                     <Textarea name='description'
                                         rows='5'
                                         cols='20'
-                                        placeholder='Describe yourself'
+                                        placeholder='Describe your Company, Domain, Activities, etc'
                                         value={values.description}
                                         onChange={handleChange('description')}
                                         />
@@ -388,8 +279,8 @@ return (
 
                             <div className='skills-section'>
                                 <div className='skills'>
-                                    <h3>Skills :</h3>
-                                    <p>Choose your skills here</p>
+                                    <h3>Researched Skills :</h3>
+                                    <p>Choose what skills you are looking for</p>
                                 </div>
                                 <div className='skills-input'>
                                     <div className='listofskill'>{values.skill.map((item, i)=> {
@@ -412,48 +303,6 @@ return (
 
                             {/* {Row for skills} */}
                             
-                            {/* {Carrer prof } */}
-                            <div className='add-experience'>
-                                <h3>Professionnal Experience</h3>
-                                    {
-                                        values.experience.map((item, index) => {
-                                            return (<TabExperience key={index} item={item} update={updateExperience(index)}/>)
-                                        })
-                                    }
-                                <div className='addhere'>
-                                    <button className='plusexperience' onClick={closeAddExp}>+
-                                        <span className='add-span'>Add experience</span>
-                                    </button>
-                                </div>
-                                <div className={`popup experience_add_popup ${classOpenOrCloseExp()}`}>
-                                    <span className='closex_btn' onClick={closeAddExp}>x</span>
-                                    <Experience save={handleExperience}/>
-                                </div>
-                            </div>
-                            {/* {Carrer prof} */}
-                            {/* {Education} */}
-                            <div className='add-education'>
-                                <h3>Education</h3>
-                                <div className='education'>
-                                    {
-                                        values.education.map((item, index) => {
-                                            return (
-                                                <TabEducation key={index} item={item} update={updateEducation(index)}/>
-                                            )
-                                        })
-                                    }
-                                </div>
-                                <div className='addhere'>
-                                    <button className='pluseducation' onClick={closeAddEduc}>+
-                                        <span className='add-span'>Add education</span>
-                                    </button>
-                                </div>
-                                <div className={`popup education_add_popup ${classOpenOrCloseEduc()}`}>
-                                    <span className='closex_btn' onClick={closeAddEduc}>x</span>
-                                    <Education save={handleEducation}/>
-                                </div>
-                            </div>
-                            {/* {education} */}
                             <div className='btn-container submit'>
                                 <button className='btn save-change-submit mbgc-1 white' type='submit'>Save change</button>
                             </div>

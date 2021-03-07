@@ -1,31 +1,19 @@
 import jwt from 'jsonwebtoken';
 import config from '../configs/config';
 import Bcryptjs from "bcryptjs";
-import Freelancer from "../models/Freelancer";
-import ClientCompany from '../models/ClientCompany'; 
+import ClientCompany from "../models/ClientCompany";
+
 const login = async (req, res) => {
-    let user;
   try {
-    let freelancer = await Freelancer.findOne({
+    let user = await ClientCompany.findOne({
       "email": req.body.email
     }).exec()
-    let client = await ClientCompany.findOne({
-        "email": req.body.email
-    }).exec()
-    
-    if (!freelancer && !client) {
-        return res.status('401').json({
-            error: "User not found : Verify your email address."
-        })
-    }
 
-    if (freelancer) {
-        user = freelancer;
-    }
-    
-    if (client) {
-        user = client;
-    }
+    if (!user)
+      return res.status('401').json({
+        error: "User not found : Verify your email address."
+      })
+
     if (!Bcryptjs.compareSync(req.body.password, user.password)) {
         return res.json({error : "Invalid password : Please verify your password"})      
     }
@@ -40,7 +28,7 @@ const login = async (req, res) => {
 
     return res.json({
       token,
-      user: {_id: user._id, type: user.type, firstname: user.firstname, lastname: user.lastname, email: user.email, photo : user.photo},
+      user: {_id: user._id, type: user.type,firstname: user.firstname, lastname: user.lastname, company: user.company, email: user.email, photo : user.photo},
       status : "authorized"
     })
   } catch (err) {
@@ -74,7 +62,6 @@ const hasAuthorization = (req, res, next) => {
       res.status(401).json({error : 'Unauthorized user!'});
   }
 };
-
 export default {
   login,
   logout,

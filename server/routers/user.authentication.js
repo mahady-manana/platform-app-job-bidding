@@ -1,9 +1,8 @@
 import express from 'express'
-import Auth from '../controllers/authentication'
+import Auth from "../controllers/authentication";
+const AuthUserRouter = express.Router()
 
-const AuthFreelancerRouter = express.Router()
+AuthUserRouter.post('/user/all/auth/v1/signin', Auth.login);
+AuthUserRouter.get("/user/all/auth/v1/signout", Auth.logout);
 
-AuthFreelancerRouter.post('/user/worker/auth/signin', Auth.login);
-AuthFreelancerRouter.get("/user/worker/auth/signout", Auth.logout);
-
-export default AuthFreelancerRouter;
+export default AuthUserRouter;
