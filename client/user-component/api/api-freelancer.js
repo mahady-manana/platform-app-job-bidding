@@ -10,16 +10,7 @@ const create = async (data) => {
 }
 
 const completeUpdate = async (params, credentials, data) => {
-    let API_URL;
-    if (type === 'freelancer') {
-        API_URL = '/user/type-freelancer/tp3/full/';
-        console.log(type, 'FREE')
-    } else if (type === 'client') {
-        API_URL = '/user/type-ccompany/tp2/full/';
-        console.log(type, 'CLI')
-    } else {
-        return undefined
-    }
+       
     try {
         const user = axios.put('/user/type-freelancer/tp3/full/' + params, data ,{
             headers: {
