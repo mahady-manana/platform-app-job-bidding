@@ -88,6 +88,10 @@ const closeX = event => {
     event.preventDefault();
     setUser({...user, error : !user.error})
 }
+const test = event => {
+    event.preventDefault();
+    console.log(ccoContext.code)
+}
 return (
 <>
 <div className='email-verification'>
@@ -96,7 +100,7 @@ return (
         <div className='inner-section' style={{background : 'url(/images/bg-verify.jpg) no-repeat center', backgroundSize : 'cover'}}>
             <div className='container'>
                 <div className='codedigitlink'>
-                <h3>User verification</h3>
+                <h3 onClick={test}>User verification</h3>
                 <div className="form-container">
                     <form onSubmit={verifyCode}>
                         <div className="form-group">

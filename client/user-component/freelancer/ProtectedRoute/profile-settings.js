@@ -5,14 +5,14 @@ import {Input, Textarea} from '../../../utils/formUtility'
 import Experience from './experience';
 import {SkillsOptions} from '../../skills_options';
 import Education from './education';
-import {FreelancerContext} from '../FreelancerContext';
-import { completeUpdate, profilePhoto ,read} from '../../api/api-freelancer';
+import { addPhoto, completeUpdate ,read} from '../../api/api-freelancer';
 import Auth from '../../auth/auth.api';
 import {TabExperience} from './tab-experience';
 import {TabEducation} from './tab-education';
+import {Cloudinary} from '../../api/cloudinary.api'
+import { UploadCloudinary } from '../../../utils/upload-cloudinary';
 export const ContextForIndexSign = React.createContext(null)
 const ProfileSettings = props => {
-const context = useContext(FreelancerContext)
 const [values, setValues] = useState({
     email : '',
     password : '',
@@ -27,19 +27,17 @@ const [values, setValues] = useState({
     education : [],
     experience : [],
     photo : '',
-    previewPhoto : '',
-    photoName : '',
     user_id : '',
     facebook : '',
     linkedin : '',
     twitter : '',
     github : '',
 })
+const [loading, setLoading] = useState(false);
 const [contextForIndex, setContextForIndex] = useState({
     data : {},
     index : ''
 })
-const [imageFile, setImageFile] = useState({photo : ''});
 const [openPopupUpload, setOpenPhotoUpload] = useState(false)
 const [isOpenAddExp, setIsOpenAddExp] = useState(false);
 const [isOpenEduc, setOpenEduc] = useState(false);
@@ -57,7 +55,7 @@ useEffect(() => {
                 ...values,
                 email : data.email || '',
                 user_id : data._id || '',
-                photoName : data.photo || '',
+                photo : data.photo || '',
                 firstname : data.firstname || '',
                 lastname : data.lastname || '',
                 job_title : data.job_title || '',
@@ -77,18 +75,31 @@ useEffect(() => {
 
     return () => abortController.abort();
 }, [])
-
-const handleBase64Image = event => {
-    event.preventDefault();
-    const reader = new FileReader();
-    const renamedPhoto = new File([event.target.files[0]], 
-        'photo-' + Date.now() + values.user_id + event.target.files[0].name.replace(/ /g, "-" ),
-        {type : event.target.files[0].type})
-        
-    reader.readAsDataURL(renamedPhoto)
-    reader.onload = e => {
-        setValues({...values, photo : renamedPhoto, photoName : renamedPhoto.name, previewPhoto : reader.result})
-    }
+const SaveProfile = (file) => {
+    setLoading(true);
+    const auth = Auth.isAuthenticated();
+    // Cloudinary API
+    Cloudinary(file).then( data => { 
+        setValues({...values, photo : data.secure_url})
+        // Update Photo in DB
+        addPhoto(auth.user._id,auth.token,  {photo : data.secure_url}).then(res => {
+            if (res && res.error) {
+                setLoading(false);
+                setOpenPhotoUpload(!openPopupUpload);
+                setPopupMessage({...popupMessage, error : true});
+                setTimeout(() => {
+                    setPopupMessage({...popupMessage, error : false})
+                }, 5000);
+            } else {
+                setLoading(false);
+                setOpenPhotoUpload(!openPopupUpload)
+                setPopupMessage({...popupMessage, success : true})
+                setTimeout(() => {
+                    setPopupMessage({...popupMessage, success : false})
+                }, 5000);
+            }
+        })  
+    })
 }
 const handleChange = name => event => {
     event.preventDefault();
@@ -179,19 +190,7 @@ const classOpenOrCloseEduc = () => {
 
 const handleSubmitAll = event => {
     event.preventDefault();
-    if (values.photo !== '') {
-        const dateNow = Date.now();
-        const formData =  new FormData();
-            formData.append('file', values.photo)
-            formData.append('uploaded', dateNow)
-            profilePhoto(formData).then(res => { 
-                        if (res.error) {
-                            setOpenPhotoUpload(false)
-                        }
-                        setOpenPhotoUpload(false)
-                    }
-                )
-    }
+    setLoading(true);
     const auth = Auth.isAuthenticated();
     const allFields = {
         firstname : values.firstname,
@@ -200,7 +199,6 @@ const handleSubmitAll = event => {
         description : values.description,
         hourly_rate : values.hourly_rate,
         city : values.city,
-        photo : values.photoName,
         country : values.country,
         skill : values.skill,
         education : values.education,
@@ -212,11 +210,13 @@ const handleSubmitAll = event => {
     }
     completeUpdate(auth.user._id,auth.token,  allFields).then(res => {
         if (res.error) {
+            setLoading(false);
             setPopupMessage({...popupMessage, error : true})
             setTimeout(() => {
                 setPopupMessage({...popupMessage, error : false})
             }, 15000);
         } else {
+            setLoading(false);
             setPopupMessage({...popupMessage, success : true})
             setTimeout(() => {
                 setPopupMessage({...popupMessage, success : false})
@@ -250,7 +250,7 @@ return (
                                 <div className='profile'>
                                     <div className='profile_image'>
                                         <div className='image-container'>
-                                            <img src={values.previewPhoto || '/uploads/profile/' + values.photoName} alt=''/>
+                                            <img src={values.photo} alt=''/>
                                         </div>
                                     </div>
                                     <div className='profile_upload'>
@@ -464,28 +464,12 @@ return (
             </div>
         </section>
         </form>
-        <form onSubmit={handleSubmitAll} className={`popup popup-form-photo ${openPopupUpload ? '' : 'closex'}`}>
+        <div className={`popup popup-upload-widget ${openPopupUpload ? '' : 'closex'}`}>
             <span className='btn-closex' onClick={openPhotoUploader}>x</span>
             <div className='popup-content'>
-                <div className='form-inner'>
-                    <div className='profile_image'>
-                        <div className='image-container'>
-                            <img src={values.previewPhoto || '/uploads/profile/' + values.photo} alt=''/>
-                        </div>
-                    </div>
-                    <div className='profile_upload'>
-                        <label>{(values.previewPhoto === '' || values.photo === '') ? 'Choose photo' : 'Change photo'}
-                            <input className='input-profile' type='file' accept="image/png, image/jpg,image/jpeg" onChange={handleBase64Image}/>
-                        </label>
-                    </div>
-                        <div className='btn-container-save'>
-                            <button type='submit' className='save-photo' disabled={
-                                (values.previewPhoto === '' || values.photo === '') ? true : false
-                            }>Save photo</button>
-                        </div>
-                </div>
+                <UploadCloudinary save={SaveProfile}/>
             </div>
-        </form>
+        </div>
     </div> 
 </div>
 <div className={`message-popup ${popupMessage.error ? 'message-error' : popupMessage.success ? 'message-success' : 'closex'}`}>
@@ -495,6 +479,9 @@ return (
         <p>{popupMessage.error ? 'Error - Unable to process this action' : 
             popupMessage.success ? 'Change saved successfully!' : ''}</p>
     </div>
+</div>
+<div className={`loading-popup ${loading ? '' : 'closex'}`}>
+        <span className='loading-icon'>Please wait...</span>
 </div>
 </ContextForIndexSign.Provider>
 )

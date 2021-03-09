@@ -9,7 +9,6 @@ import FreelancerRoute from "./user-component/freelancer/FreelancerRoute";
 import Login from "./user-component/login";
 // CCRouter
 import {CCRoute} from './user-component/client-company/CCRoute';
-
 export const CheckNewSignupContext = React.createContext(null)
 
 const SharedRouter = () => {
