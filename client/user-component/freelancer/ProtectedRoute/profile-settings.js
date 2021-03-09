@@ -78,8 +78,10 @@ useEffect(() => {
 const SaveProfile = (file) => {
     setLoading(true);
     const auth = Auth.isAuthenticated();
+    // Cloudinary API
     Cloudinary(file).then( data => { 
         setValues({...values, photo : data.secure_url})
+        // Update Photo in DB
         addPhoto(auth.user._id,auth.token,  {photo : data.secure_url}).then(res => {
             if (res && res.error) {
                 setLoading(false);

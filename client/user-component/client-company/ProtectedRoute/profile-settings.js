@@ -76,8 +76,10 @@ const handleChange = name => event => {
 const SaveProfile = (file) => {
     const auth = Auth.isAuthenticated();
     setLoading(true)
+    // Cloudinary API
     Cloudinary(file).then( data => { 
         setValues({...values, photo : data.secure_url})
+        // Update Photo in DB
         addPhoto(auth.user._id,auth.token,  {photo : data.secure_url}).then(res => {
             if (res && res.error) {
                 setLoading(false)
