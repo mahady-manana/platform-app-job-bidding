@@ -13,7 +13,6 @@ const handleChange = event => {
     reader.onload = e => {
         setFile({...file, preview : reader.result, photo : file})
     }
-    console.log(file)
 }
 const handleUpload = event => {
     event.preventDefault();
