@@ -1,5 +1,6 @@
 import axios from 'axios';
-
+// Cloudinary API
+// Store image in cloudinary. 
 export const Cloudinary = async (file) => {
     const API_BASE_URL = 'https://api.cloudinary.com/v1_1/mahadymanana/image/upload';
     const PRESET = 'upload_profile';
