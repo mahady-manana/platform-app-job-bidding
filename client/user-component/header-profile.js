@@ -11,7 +11,7 @@ const HeaderProfile = () => {
 const [user, setUser] = useState({
     firstname : '',
     lastname : '',
-    profilePhoto : '',
+    photo : '',
     user_id : '',
     type : ''
 })
@@ -26,7 +26,7 @@ useEffect(() => {
             ...user,
             firstname : userInfos.firstname,
             lastname : userInfos.lastname,
-            profilePhoto : userInfos.photo, 
+            photo : userInfos.photo, 
             user_id : userInfos._id,
             type : userInfos.type
         })
@@ -81,7 +81,7 @@ return (
             <div className='col col-4'>
                 <div className='avatar-top'>
                     <img src={
-                        (user.profilePhoto === '' ||user.profilePhoto === undefined ) ? '/images/icon.png' : `/uploads/profile/${user.profilePhoto}`
+                        (user.photo === '' || user.photo === undefined ) ? '/images/icon.png' : user.photo
                     } alt={`${user.firstname} ${user.lastname}`}/>
                 </div>
             </div>

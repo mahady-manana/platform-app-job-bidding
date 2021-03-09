@@ -58,4 +58,4 @@ const Freelancer = new Schema({
     type : {type : String, default : 'freelancer'},
 })
 
-export default mongoose.model("User_type_workers_1b", Freelancer)
+export default mongoose.model("User_type_workers_1ba", Freelancer)

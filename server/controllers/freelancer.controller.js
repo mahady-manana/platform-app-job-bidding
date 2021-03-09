@@ -19,7 +19,6 @@ const completeUpdate = async (req, res, next) => {
         firstname : req.body.firstname,
         lastname : req.body.lastname,
         job_title : req.body.job_title,
-        photo : req.body.photo,
         description : req.body.description,
         hourly_rate : req.body.hourly_rate,
         city : req.body.city,
@@ -38,6 +37,18 @@ const completeUpdate = async (req, res, next) => {
         return res.json({message : "Updated successfully!"})
     })
 }
+const addPhoto = async (req, res, next) => {
+
+    await Freelancer.findByIdAndUpdate(req.params.id, {
+        photo : req.body.photo,
+    }, error => {
+        if (error) {
+            return res.json({error : error + 'this the error'})
+        }
+        return res.json({message : "Updated successfully!"})
+    })
+}
+
 const readOne = async (req, res, next) => {
     try {
         await Freelancer.findById(req.params.id, (error, user) => {
@@ -58,42 +69,6 @@ const List = async (req, res, next) => {
         res.json(user)
     })
 }
-// const addToCart = async (req, res, next) => {
-//     try {
-//         await Freelancer.findByIdAndUpdate({_id : req.params.id}, {
-//             $addToSet : {
-//                 "card" : {
-//                     item : req.body.item
-//                 }
-//             }
-//         }, {new : true}, (error, user) => {
-//             if (error) {
-//                 return res.json({error : "An error is raised. Try again later!"})
-//             }
-//             return res.json({message : "Added to card!"})
-//         })
-//     } catch (error) {
-//         return res.json({error : "Unable to add to card."})
-//     }
-// }
-// const updateCart = (req, res, next) => {
-//     try {
-//         await Freelancer.findByIdAndUpdate({_id : req.params.id}, {
-//             $pull : {
-//                 "card" : {
-//                     item : req.body.item
-//                 }
-//             }
-//         }, {new : true}, (error, user) => {
-//             if (error) {
-//                 return res.json({error : "An error is raised. Try again later!"})
-//             }
-//             return res.json({message : "Card updated!"})
-//         })
-//     } catch (error) {
-//         return res.json({error : "Cannot update card!"})
-//     }
-// }
 const orderMade = async (req, res, next) => {
     try {
         await Freelancer.findByIdAndUpdate({_id : req.params.id}, {
@@ -116,6 +91,7 @@ const orderMade = async (req, res, next) => {
 
 export default {
     add,
+    addPhoto,
     completeUpdate,
     List,
     readOne,

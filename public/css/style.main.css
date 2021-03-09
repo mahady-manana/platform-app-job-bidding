@@ -593,6 +593,7 @@ button.pluseducation {
     top: 0;
     left: 0;
     height: 100%;
+    z-index: 9999999;
     width: 100%;
     background: rgb(0 0 0 / 80%);
     display: -webkit-box;
@@ -973,6 +974,10 @@ button.pluseducation {
 .message-popup.message-success {
     background: #03a55a;
 }
+.message-popup.message-error {
+    background: #ff0000;
+}
+
 .message-popup {
     position: fixed;
     top: 50%;
@@ -1252,4 +1257,25 @@ button.pluseducation {
     margin-right: 3px;
     color: #00177b;
     border: 1px solid #00177b;
+}
+.uploader-widget .upload-file input[type="file"] {
+    display: none;
+}
+.uploader-widget .upload-file .label-file {
+    cursor: pointer;
+    padding: 15px;
+    border: 2px solid;
+    color: #bc1749;
+    max-width: 250px;
+    text-align: center;
+}
+.uploader-widget .upload-file .btn.submit {
+    background: #bc1749;
+    color: #fff;
+    width: 100%;
+    text-align: center;
+}
+.uploader-widget {
+    background: #fff;
+    padding: 30px;
 }

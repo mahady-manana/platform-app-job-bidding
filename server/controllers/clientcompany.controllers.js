@@ -13,6 +13,17 @@ const add = async (req, res, next) => {
         return res.json({error : "Something went wrong, please try again later!", message_error : error})
     }
 }
+const addPhoto = async (req, res, next) => {
+
+    await ClientCompany.findByIdAndUpdate(req.params.id, {
+        photo : req.body.photo,
+    }, error => {
+        if (error) {
+            return res.json({error : error + 'this the error'})
+        }
+        return res.json({message : "Updated successfully!"})
+    })
+}
 const completeUpdate = async (req, res, next) => {
 
     await ClientCompany.findByIdAndUpdate(req.params.id, {$set : {
@@ -22,7 +33,6 @@ const completeUpdate = async (req, res, next) => {
     company_address : req.body.company_address,
     description : req.body.description,
     user_id : req.body.user_id,
-    photo : req.body.photo,
     phone : req.body.phone,
     skill : req.body.skill,
     city : req.body.city,
@@ -118,6 +128,7 @@ const orderMade = async (req, res, next) => {
 
 export default {
     add,
+    addPhoto,
     completeUpdate,
     List,
     readOne,

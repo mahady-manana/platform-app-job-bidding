@@ -24,6 +24,22 @@ const completeUpdate = async (params, credentials, data) => {
         console.log(error)
     }
 }
+const addPhoto = async (params, credentials, data) => {
+       
+    try {
+        const user = axios.put('/user/type-freelancer/tp3/photo/' + params, data ,{
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + credentials
+              }
+            })
+        return (await user).data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const sendEmail = async (data) => {
     try {
         const postemail = axios.post('/user/post/email/verify/', data)
@@ -60,6 +76,7 @@ const read = async (params, credentials, signal) => {
 }
 export {
     create,
+    addPhoto,
     completeUpdate,
     sendEmail,
     profilePhoto,

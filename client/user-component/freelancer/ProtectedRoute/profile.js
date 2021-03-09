@@ -16,7 +16,7 @@ const [user, setUser] = useState({
     skill : [],
     education : [],
     experience : [],
-    photoName : '',
+    photo : '',
     user_id : '',
     facebook : '',
     linkedin : '',
@@ -35,7 +35,7 @@ useEffect(() => {
                 ...user,
                 email : data.email,
                 user_id : data._id,
-                photoName : data.photo,
+                photo : data.photo,
                 description : data.description,
                 firstname : data.firstname,
                 lastname : data.lastname,
@@ -77,7 +77,7 @@ return (
                             <div className='profile-infos'>
                                 <div className='image-container'>
                                     <img src= {
-                                        (user.photoName === '' || user.photoName === undefined) ? '/images/icon.png' : `/uploads/profile/${user.photoName}`
+                                        (user.photo === '' || user.photo === undefined) ? '/images/icon.png' : user.photo
                                     } alt='' className='photo' width='150px' height='150px'/>
                                 </div>
                                 <div className='perso-infos'>
