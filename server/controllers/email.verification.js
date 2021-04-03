@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import config from '../config/config';
+import config from '../configs/config';
 
 const SendMail = async (req, res) => {
 let transporter = nodemailer.createTransport({
@@ -21,10 +21,11 @@ try {
         <br/>Your activation code : <b>${req.body.code}</b><br/>
         Thank you for your registration.`
     })
+
     return res.status(200).json({message : 'ok'})
 } catch (error) {
+    
     return res.json({error : error})
 }
-
 }
 export default SendMail;

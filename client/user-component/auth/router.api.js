@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const signin = async (user) => {
     try {
-      let response = await fetch('/user/worker/auth/signin/', {
+      let response = await fetch('/user/all/auth/v1/signin', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -12,28 +12,22 @@ const signin = async (user) => {
         body: JSON.stringify(user)
       })
       return await response.json()
-    } catch(err) {
-      console.log(err)
+    } catch(error) {
+      console.log(error);
     }
 }
-const read = async (params, credentials, signal) => {
+const CheckerSignup = async (user) => {
     try {
-      let response = await fetch('/user/worker/auth/' + params.userId, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + credentials.t
-        }
-    })
-      return await response.json()
+      let response = await axios.post('/user/all/checker/v1/signup', user)
+      return (await response).data
     } catch(err) {
       console.log(err)
     }
   }  
-  const signout = async () => {
+const signout = async () => {
+
     try {
-      let response = await axios.get('/user/worker/auth/signout')
+      let response = await fetch('/user/all/auth/v1/signout')
         return await response.json()
     } catch(err) {
       console.log(err)
@@ -41,8 +35,8 @@ const read = async (params, credentials, signal) => {
   }
   
   export {
+    CheckerSignup,
     signin,
     signout,
-    read
-  }
+}
   

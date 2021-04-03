@@ -3,6 +3,8 @@ import {hydrate} from "react-dom";
 import Application from "./Application"
 import "../public/css/style.main.css"
 import "../public/css/fonts.css"
+import "../public/css/dazy.css"
+import "../public/css/armel.css"
 import "../public/css/slideshow1.css"
 import 'bootstrap/dist/css/bootstrap.min.css'
 

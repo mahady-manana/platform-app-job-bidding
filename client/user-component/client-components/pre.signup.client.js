@@ -1,6 +1,31 @@
-import React from 'react';
+import React, {useState, useContext} from 'react';
+import {Input} from './utility';
+import {ContextClient} from './ContextClient'
 
 const ClientPreSignup = () => {
+// useContext
+const context = useContext(ContextClient)
+
+const [values, setValues] = useState({
+    firstname : '',
+    lastname : '',
+    email : '',
+    password : ''
+})
+const handleChange = name => event => {
+    event.preventDefault();
+    const val = event.target.value;
+    setValues({...values, [name] : val})
+}
+const handleSubmit = event => {
+    event.preventDefault();
+    context.setContextValues(values);
+    console.log(values)
+}
+const Test = event => {
+    event.preventDefault();
+    console.log(context.contextValues)
+}
 return (
 <>
 <div className='pre-signup'>
@@ -9,16 +34,34 @@ return (
         <div className='inner-section'>
             <div className='container'>
                 <div className="form-container">
-                    <form>
-                        <div className="form-group">
-                            <label htmlFor="email">Email address:</label>
-                            <input type="email" className="form-control" placeholder="Enter email"/>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="password">Password:</label>
-                            <input type="password" className="form-control" placeholder="Enter password"/>
-                        </div>
-                        <button type="submit" className="btn default-1">Login</button>
+                    <button onClick={Test}>Test</button>
+                    <form onSubmit={handleSubmit}>
+                        <Input type='text' 
+                               name="firstname"
+                               labelName="First Name : "
+                               placeholder='Enter firstname'
+                               values = {values.firstname}
+                               onChange={handleChange('firstname')}/>
+                        <Input type='text' 
+                               name="lastname"
+                               labelName="Last Name : "
+                               placeholder='Enter lastname'
+                               values = {values.lastname}
+                               onChange={handleChange('lastname')}/>
+                        <Input type='email' 
+                               name="email"
+                               labelName="Email : "
+                               placeholder='Enter email'
+                               values = {values.email}
+                               onChange={handleChange('email')}/>
+                        <Input type='password' 
+                               name="password"
+                               labelName="Password : "
+                               placeholder='Enter password'
+                               values = {values.password}
+                               onChange={handleChange('password')}/>
+                        
+                        <button type="submit" className="btn default-1">Save & Next</button>
                     </form>
                 </div>
             </div>

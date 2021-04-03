@@ -1,6 +1,6 @@
 import express from "express";
 import favicon from "serve-favicon";
-import config from "./config/config";
+import config from "./configs/config";
 import webpackBundler from "./webpackBundler";
 import mongoose from "mongoose";
 import path from "path";
@@ -14,15 +14,19 @@ import ReactDOMServer from "react-dom/server";
 import { StaticRouter } from "react-router-dom";
 import theme from "../client/theme";
 import SharedRouter from "../client/SharedRouter";
-import AuthRouter from "./routers/user.authentication";
-import UserRouters from "./routers/user.router";
+import AuthFreelancerRouter from "./routers/user.authentication";
+import FreelancerRouters from "./routers/freelancer.router";
 import SinglePhotoRouter from './routers/single.photo';
 import SendMailRouter from './routers/user-email-verify';
+import CCompanyRouter from "./routers/ccompany.router";
+import CheckerSignupRouter  from "./routers/verify_signup";
 const CURRENT_WD = process.cwd();
 const app = express();
 
-webpackBundler.Bundler(app);
-
+// Webpack Development bundle
+if (process.env.NODE_ENV === "development") {
+    webpackBundler.Bundler(app);
+}
 app.use(favicon(path.join(CURRENT_WD, "public", 'images', "icon.png")))
 app.use(express.static(path.join(CURRENT_WD, '/build/')))
 app.use(express.static(path.join(CURRENT_WD, '/public/')))
@@ -31,11 +35,13 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(cookieParser())
+app.use('/', CheckerSignupRouter)
 app.use('/', SendMailRouter)
-app.use("/", AuthRouter);
-app.use("/", UserRouters);
-app.use('/', SinglePhotoRouter)
-app.get("*", (req, res) => {
+app.use("/", AuthFreelancerRouter);
+app.use("/", FreelancerRouters);
+app.use('/', SinglePhotoRouter);
+app.use('/', CCompanyRouter);
+app.get("*", cors(), (req, res) => {
     const sheets = new ServerStyleSheets();
     const context = {};
     const html = ReactDOMServer.renderToString(
@@ -69,7 +75,7 @@ app.get("*", (req, res) => {
         <meta name="keywords" content="Reactjs, Nodejs, Jsx, Express, MongoDB, JavaScript, Mern">
         <meta name="author" content="Mahady Manana">
         <base href="/">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://kit.fontawesome.com/07f325d208.js" crossorigin="anonymous"></script>
         <!-- CSS only -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
         <!-- JavaScript Bundle with Popper -->

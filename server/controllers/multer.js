@@ -6,7 +6,7 @@ const CURRENT_WORKING_DIR = process.cwd()
 const storage = multer.diskStorage({
 	destination : path.join(CURRENT_WORKING_DIR, "/public/uploads/profile/"),
 	filename : (req, file, callback) => {
-		callback(null, 'photo-'+ Date.now() + file.originalname.replace(/ /g, "-"))
+		callback(null, file.originalname)
 	}
 })
 

@@ -1,11 +1,8 @@
 import express from 'express'
-import Auth from '../controllers/authentication'
-import userController from '../controllers/user.controller';
+import Auth from "../controllers/authentication";
+const AuthUserRouter = express.Router()
 
-const AuthRouter = express.Router()
+AuthUserRouter.post('/user/all/auth/v1/signin', Auth.login);
+AuthUserRouter.get("/user/all/auth/v1/signout", Auth.logout);
 
-AuthRouter.post('/user/worker/auth/signin', Auth.login);
-AuthRouter.get("/user/worker/auth/signout", Auth.logout);
-AuthRouter.get("/user/worker/auth/:id", Auth.signinRequire, userController.readOne);
-
-export default AuthRouter;
+export default AuthUserRouter;
