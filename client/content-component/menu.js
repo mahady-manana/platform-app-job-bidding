@@ -58,7 +58,7 @@ return (
                     <Link className="nav-link text-white" to="/use-reducer">UseReducer</Link>
                 </li>
                 <li className="nav-item">
-                    <Link className="nav-link text-white" to="/cloudinary/">cloudinary</Link>
+                    <Link className="nav-link text-white" to="/test-slide/">Slide test</Link>
                 </li>
             </ul>
         </nav>

@@ -2,6 +2,10 @@ import React from "react";
 import SlideFreelancer from "./slide-freelancer";
 
 const Homepage = () => {
+
+
+
+
 return (
 <>
 <div className='homepage'>

@@ -1279,3 +1279,120 @@ button.pluseducation {
     background: #fff;
     padding: 30px;
 }
+.chat-container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background: #fff;
+    min-width: 280px;
+    box-shadow: 0 0 5px 0 #ccc;
+}
+.chat-header {
+    background: #00177b;
+    color: #fff;
+    padding: 5px 25px;
+}
+.chat-body .list-users-available {
+    margin: 0;
+    list-style: none;
+    padding: 0;
+}
+.chat-body .user-available:nth-child(even) {
+    background: #e5e5e5;
+}
+.chat-body .user-available {
+    padding: 10px 25px;
+    cursor: pointer;
+}
+.chat-body .user-available .user-status {
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    position: relative;
+    top: 2px;
+    margin-right: 6px;
+    border-radius: 20px;
+    border: 2px solid #adb5bd;
+}
+.chat-body .user-available .user-status.online {
+    background: #28a745;
+    border-color: #28a745;
+}
+.chat-container-selected .chat-header .chat-title,
+.chat-container .chat-header .chat-title {
+    position: relative;
+}
+.chat-title span.toogle-chat {
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    right: 0;
+    top: 5px;
+    cursor: pointer;
+}
+.chat-title span.toogle-chat.show {
+    border-top: 7px solid #fff;
+    border-bottom: 7px solid transparent;
+    border-left: 13px solid transparent;
+    border-right: 13px solid transparent;
+}
+.chat-title span.toogle-chat.hide {
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid #fff;
+    border-left: 13px solid transparent;
+    border-right: 13px solid transparent;
+}
+.chat-container-selected {
+    position: fixed;
+    right: 280px;
+    bottom: 0;
+    background: #fff;
+    width: 300px;
+    box-shadow: 0 0 18px 0 #ccc;
+}
+
+.chat-title span.toogle-chat-left {
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    right: 0;
+    top: 0px;
+    cursor: pointer;
+}
+.chat-title span.toogle-chat-left.show {
+    border-right: 7px solid #fff;
+    border-left: 7px solid transparent;
+    border-bottom: 13px solid transparent;
+    border-top: 13px solid transparent;
+}
+.chat-title span.toogle-chat-left.hide {
+    border-right: 7px solid transparent;
+    border-left: 7px solid #fff;
+    border-top: 13px solid transparent;
+    border-bottom: 13px solid transparent;
+}
+/*
+Slide
+**/
+.slider-wrapper {
+    width: 100px;
+    margin-left: 200px;
+    position: relative;
+    height: 100px;
+    border: 2px dotted #000;
+}
+.slliders {
+    position: absolute;
+    width: 100%;
+    white-space: nowrap;
+}
+.slliders .slide {
+    width: 100px;
+    position: relative;
+    white-space: normal;
+    display: inline-flex;
+    height: 100px;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+}

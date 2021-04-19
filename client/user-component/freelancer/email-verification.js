@@ -31,6 +31,7 @@ useEffect(() => {
     if (data !== undefined) {
         setUser({...user, firstname : data.firstname, lastname : data.lastname, email : data.email, password : data.password})
     }
+    console.log(data)
     return () => {
         cleanup = true;
     }

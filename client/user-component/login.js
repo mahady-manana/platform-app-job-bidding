@@ -37,7 +37,6 @@ const handleLogin = event => {
                 setLoginAndLogoutContext(!loginAndLogoutContext)
                 setLogger({...logger, type : data.user.type, loading : false ,isValid : true})
                 setTopContext(data.user)
-                console.log(data.type)
             })
         }
     })

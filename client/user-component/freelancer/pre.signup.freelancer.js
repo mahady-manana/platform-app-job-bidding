@@ -47,7 +47,7 @@ const saveAndNext = event => {
                     setTopContext(infos)
                     sendEmail(data_infos).then(res => {
                         if (res.error) {
-                            setInfos({...infos, loading : false, isFilled : true})
+                            setInfos({...infos, loading : false, isFilled : false})
                         }
                         setInfos({...infos, loading : false, isFilled : true})
                     })

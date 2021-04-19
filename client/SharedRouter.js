@@ -9,6 +9,8 @@ import FreelancerRoute from "./user-component/freelancer/FreelancerRoute";
 import Login from "./user-component/login";
 // CCRouter
 import {CCRoute} from './user-component/client-company/CCRoute';
+import { Chat } from "./user-component/chat/chat";
+import { Slide } from "./content-component/slide";
 export const CheckNewSignupContext = React.createContext(null)
 
 const SharedRouter = () => {
@@ -24,8 +26,10 @@ return (
     <Switch>
         <>
         <Menu/>
+
         <Route exact path="/" component={Homepage}/>
         <Route path="/login/" component={Login}/>
+        <Route path="/test-slide/" component={Slide}/>
         <Route path='/freelancer/' component={FreelancerRoute}/>
         <Route path='/ccom/' component={CCRoute}/>
         <Route path='/client/' component={ClientRoute}/>
